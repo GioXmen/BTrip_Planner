@@ -187,6 +187,7 @@
         android:textSize="17sp"
         android:clickable="true"
         android:gravity="center"
-        android:layout_marginTop="650dp"/>
+        android:layout_marginTop="650dp"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
