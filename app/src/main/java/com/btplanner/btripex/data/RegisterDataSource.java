@@ -1,26 +1,38 @@
 package com.btplanner.btripex.data;
 
+import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
+import com.btplanner.btripex.data.network.GetDataService;
+import com.btplanner.btripex.data.network.RetrofitClientInstance;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterDataSource {
 
-    public Result<RegisteredUser> register(String username, String password) {
+    public void register(String username, String password, RegisterRepository registerRepository) {
 
-        try {
-            // TODO: handle registration
-            RegisteredUser fakeUser =
-                    new RegisteredUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
-        } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
-        }
-    }
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<RegisteredUser> call = service.register(username, password);
+        call.enqueue(new Callback<RegisteredUser>() {
+            @Override
+            public void onResponse(Call<RegisteredUser> call, Response<RegisteredUser> response) {
+                RegisteredUser newUser = response.body();
+                Result<RegisteredUser> result = new Result.Success<>(newUser);
+                if (newUser == null){
+                    result = new Result.Error(new IOException("Error during registration"));
+                }
+                registerRepository.register(result);
+            }
 
-    public void logout() {
-        // TODO: revoke authentication
+            @Override
+            public void onFailure(Call<RegisteredUser> call, Throwable t) {
+                Result<RegisteredUser> result = new Result.Error(new IOException("Error during registration", t));
+                registerRepository.register(result);
+            }
+        });
     }
 }

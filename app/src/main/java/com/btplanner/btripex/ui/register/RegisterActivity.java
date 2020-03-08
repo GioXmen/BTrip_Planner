@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,7 +32,6 @@ import com.btplanner.btripex.ui.register.RegisterFormState;
 import com.btplanner.btripex.ui.register.RegisterResult;
 import com.btplanner.btripex.ui.register.RegisterViewModel;
 import com.btplanner.btripex.ui.register.RegisterViewModelFactory;
-import com.jaeger.library.StatusBarUtil;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -68,6 +68,9 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 if (registerFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(registerFormState.getPasswordError()));
+                }
+                if (registerFormState.getPasswordConfirmError() != null) {
+                    passwordConfirmEditText.setError(getString(registerFormState.getPasswordConfirmError()));
                 }
             }
         });
@@ -106,18 +109,19 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 registerViewModel.registerDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), passwordConfirmEditText.getText().toString());
             }
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
+        passwordConfirmEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     registerViewModel.register(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                            passwordEditText.getText().toString(), registerViewModel);
                 }
                 return false;
             }
@@ -128,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 registerViewModel.register(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(),registerViewModel);
             }
         });
 
@@ -144,9 +148,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(RegisteredUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful register experience
+        Resources res = getResources();
+        String welcome = String.format(res.getString(R.string.welcome_register), model.getUsername());
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Intent it = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(it);
     }
 
     private void showRegisterFailed(@StringRes Integer errorString) {

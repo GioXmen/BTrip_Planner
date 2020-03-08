@@ -1,6 +1,5 @@
 package com.btplanner.btripex.ui.login;
 
-import android.app.ActionBar;
 import android.app.Activity;
 
 import androidx.lifecycle.Observer;
@@ -26,8 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.ui.login.LoginViewModel;
-import com.btplanner.btripex.ui.login.LoginViewModelFactory;
 import com.btplanner.btripex.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -112,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                            passwordEditText.getText().toString(), loginViewModel);
                 }
                 return false;
             }
@@ -123,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), loginViewModel);
             }
         });
 
@@ -137,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome) + model.getUsername();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

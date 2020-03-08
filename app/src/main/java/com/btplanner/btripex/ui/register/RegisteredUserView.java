@@ -5,14 +5,20 @@ package com.btplanner.btripex.ui.register;
  */
 
 class RegisteredUserView {
-    private String displayName;
+    private String username;
+    private String password;
     //... other data fields that may be accessible to the UI
 
-    RegisteredUserView(String displayName) {
-        this.displayName = displayName;
+    RegisteredUserView(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    String getDisplayName() {
-        return displayName;
+    String getUsername() {
+        return username;
+    }
+
+    String getPassword() {
+        return password;
     }
 }

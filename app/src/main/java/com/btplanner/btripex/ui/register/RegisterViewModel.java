@@ -10,9 +10,6 @@ import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.RegisterRepository;
 import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.model.RegisteredUser;
-import com.btplanner.btripex.ui.register.RegisteredUserView;
-import com.btplanner.btripex.ui.register.RegisterFormState;
-import com.btplanner.btripex.ui.register.RegisterResult;
 
 public class RegisterViewModel extends ViewModel {
 
@@ -32,39 +29,35 @@ public class RegisterViewModel extends ViewModel {
         return registerResult;
     }
 
-    public void register(String username, String password) {
-        // can be launched in a separate asynchronous job
-        Result<RegisteredUser> result = registerRepository.register(username, password);
+    public void register(String username, String password, RegisterViewModel registerViewModel) {
+        registerRepository.register(username, password, registerViewModel);
+    }
 
+    public void register(Result<RegisteredUser> result) {
         if (result instanceof Result.Success) {
             RegisteredUser data = ((Result.Success<RegisteredUser>) result).getData();
-            registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getDisplayName())));
+            registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getUserName(), data.getPassword())));
         } else {
-            registerResult.setValue(new RegisterResult(R.string.register_failed));
+            registerResult.setValue(new RegisterResult(R.string.login_failed));
         }
     }
 
-    public void registerDataChanged(String username, String password) {
+    public void registerDataChanged(String username, String password, String passwordConfirm) {
 /*        if (!isUserNameValid(username)) {
             registerFormState.setValue(new RegisterFormState(R.string.invalid_username, null));
-        } else*/ if (!isPasswordValid(password)) {
-            registerFormState.setValue(new RegisterFormState(null, R.string.invalid_password));
+        } else*/
+        if (!isPasswordConfirmValid(password, passwordConfirm)) {
+            registerFormState.setValue(new RegisterFormState(null, null, R.string.invalid_password_confirm));
+        } else if (!isPasswordValid(password)) {
+            registerFormState.setValue(new RegisterFormState(null, R.string.invalid_password, null));
         } else {
             registerFormState.setValue(new RegisterFormState(true));
         }
     }
 
     // A placeholder username validation check
-    private boolean isUserNameValid(String username) {
-        //TODO: Check if username is valid via rest call
-        if (username == null) {
-            return false;
-        }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
+    private boolean isPasswordConfirmValid(String password, String passwordConfirm) {
+        return password.equals(passwordConfirm);
     }
 
     // A placeholder password validation check

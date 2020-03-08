@@ -1,6 +1,7 @@
 package com.btplanner.btripex.data;
 
 import com.btplanner.btripex.data.model.LoggedInUser;
+import com.btplanner.btripex.ui.login.LoginViewModel;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -15,6 +16,8 @@ public class LoginRepository {
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
+    private LoggedInUser id = null;
+    private LoginViewModel loginViewModel = null;
 
     // private constructor : singleton access
     private LoginRepository(LoginDataSource dataSource) {
@@ -34,6 +37,7 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
+        id = null;
         dataSource.logout();
     }
 
@@ -43,12 +47,19 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
-        // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
+    private void setLoginViewModel (LoginViewModel loginViewModel){
+        this.loginViewModel = loginViewModel;
+    }
+
+    public void login(String username, String password, LoginViewModel loginViewModel) {
+        setLoginViewModel(loginViewModel);
+        dataSource.login(username, password, instance);
+    }
+
+    public void login( Result<LoggedInUser> result) {
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
         }
-        return result;
+        loginViewModel.login(result);
     }
 }

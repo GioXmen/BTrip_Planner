@@ -1,23 +1,34 @@
 package com.btplanner.btripex.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Data class that captures user information for registered users retrieved from RegisterRepository
  */
 public class RegisteredUser {
 
-    private String userId;
-    private String displayName;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("username")
+    private String username;
+    @SerializedName("password")
+    private String password;
 
-    public RegisteredUser(String userId, String displayName) {
-        this.userId = userId;
-        this.displayName = displayName;
+    public RegisteredUser(String id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getUserName() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

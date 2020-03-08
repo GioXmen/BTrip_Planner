@@ -1,6 +1,9 @@
 package com.btplanner.btripex.data;
 
+import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
+import com.btplanner.btripex.ui.login.LoginViewModel;
+import com.btplanner.btripex.ui.register.RegisterViewModel;
 
 
 /**
@@ -16,6 +19,8 @@ public class RegisterRepository {
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private RegisteredUser user = null;
+    private RegisteredUser id = null;
+    private RegisterViewModel registerViewModel = null;
 
     // private constructor : singleton access
     private RegisterRepository(RegisterDataSource dataSource) {
@@ -33,23 +38,25 @@ public class RegisterRepository {
         return user != null;
     }
 
-    public void logout() {
-        user = null;
-        dataSource.logout();
-    }
-
     private void setRegisteredUser(RegisteredUser user) {
         this.user = user;
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<RegisteredUser> register(String username, String password) {
-        // handle register
-        Result<RegisteredUser> result = dataSource.register(username, password);
+    private void setRegisterViewModel (RegisterViewModel registerViewModel){
+        this.registerViewModel = registerViewModel;
+    }
+
+    public void register(String username, String password, RegisterViewModel registerViewModel) {
+        setRegisterViewModel(registerViewModel);
+        dataSource.register(username, password, instance);
+    }
+
+    public void register( Result<RegisteredUser> result) {
         if (result instanceof Result.Success) {
             setRegisteredUser(((Result.Success<RegisteredUser>) result).getData());
         }
-        return result;
+        registerViewModel.register(result);
     }
 }

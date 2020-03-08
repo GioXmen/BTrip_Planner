@@ -9,10 +9,12 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="welcome_register">"User <b>%1$s</b> has been registered, please proceed to login!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password_confirm">Passwords must match</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="register_failed">"Register failed"</string>
+    <string name="register_failed">"Username already exists"</string>
     <string name="existing_account">"Already Have An Account ? Login"</string>
     <string name="password_logo">"Password logo"</string>
     <string name="username_logo">"Username logo"</string>
