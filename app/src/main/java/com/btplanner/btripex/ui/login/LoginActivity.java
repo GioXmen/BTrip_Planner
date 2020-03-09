@@ -25,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.btplanner.btripex.R;
+import com.btplanner.btripex.ui.main.FirstFragment;
+import com.btplanner.btripex.ui.main.MainActivity;
 import com.btplanner.btripex.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -76,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+                    Intent it = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(it);
                 }
                 setResult(Activity.RESULT_OK);
 

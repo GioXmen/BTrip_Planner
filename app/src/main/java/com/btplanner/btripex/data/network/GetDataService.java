@@ -3,6 +3,8 @@ package com.btplanner.btripex.data.network;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -21,4 +23,7 @@ public interface GetDataService {
 
 /*    @POST("/trip/add")
     Call<AddedTrip> addTrip(@Body Trip trip);*/
+
+    @GET("/trip/get")
+    Call<List<Trip>> getAllTrips();
 }
