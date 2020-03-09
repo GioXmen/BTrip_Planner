@@ -16,7 +16,8 @@ public class RegisterDataSource {
     public void register(String username, String password, RegisterRepository registerRepository) {
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<RegisteredUser> call = service.register(username, password);
+        RegisteredUser registeredUser = new RegisteredUser(username, password);
+        Call<RegisteredUser> call = service.register(registeredUser);
         call.enqueue(new Callback<RegisteredUser>() {
             @Override
             public void onResponse(Call<RegisteredUser> call, Response<RegisteredUser> response) {
