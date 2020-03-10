@@ -2,6 +2,7 @@ package com.btplanner.btripex.data.network;
 
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
+import com.btplanner.btripex.data.model.Trip;
 
 import java.util.List;
 
@@ -25,5 +26,5 @@ public interface GetDataService {
     Call<AddedTrip> addTrip(@Body Trip trip);*/
 
     @GET("/trip/get")
-    Call<List<Trip>> getAllTrips();
+    Call<List<Trip>> getAllTrips(@Query("username") String username, @Query("password") String password);
 }

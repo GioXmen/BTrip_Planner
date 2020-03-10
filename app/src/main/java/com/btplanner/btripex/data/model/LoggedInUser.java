@@ -8,19 +8,19 @@ import com.google.gson.annotations.SerializedName;
 public class LoggedInUser {
 
     @SerializedName("id")
-    private String id;
+    private Long id;
     @SerializedName("username")
     private String username;
     @SerializedName("password")
     private String password;
 
-    public LoggedInUser(String id, String username, String password) {
+    public LoggedInUser(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

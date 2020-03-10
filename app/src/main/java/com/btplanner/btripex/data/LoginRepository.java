@@ -47,6 +47,10 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
+    public LoggedInUser getLoggedInUser() {
+        return user;
+    }
+
     private void setLoginViewModel (LoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
     }

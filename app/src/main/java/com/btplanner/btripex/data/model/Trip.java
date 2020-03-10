@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Trip {
 
-    @SerializedName("trip_id")
+    @SerializedName("id")
     private String tripId;
-    @SerializedName("title")
+    @SerializedName("name")
     private String title;
     @SerializedName("thumbnail")
     private String thumbnail;

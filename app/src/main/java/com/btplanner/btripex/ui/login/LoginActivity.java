@@ -79,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                     Intent it = new Intent(getApplicationContext(), MainActivity.class);
+                    it.putExtra("username", usernameEditText.getText().toString());
+                    it.putExtra("password", passwordEditText.getText().toString());
                     startActivity(it);
                 }
                 setResult(Activity.RESULT_OK);
