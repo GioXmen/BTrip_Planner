@@ -36,7 +36,6 @@ public class FirstFragment extends Fragment {
 
     private CustomAdapter adapter;
     private RecyclerView recyclerView;
-    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(
@@ -58,10 +57,6 @@ public class FirstFragment extends Fragment {
         ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
 
-/*        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading....");
-        progressDialog.show();*/
-
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<List<Trip>> call = service.getAllTrips(username, password);
@@ -69,14 +64,12 @@ public class FirstFragment extends Fragment {
 
             @Override
             public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
-                /*progressDialog.dismiss();*/
                 progressBar.setVisibility(View.INVISIBLE);
                 generateDataList(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Trip>> call, Throwable t) {
-                /*progressDialog.dismiss();*/
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
