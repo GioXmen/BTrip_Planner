@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.ui.main.FirstFragment;
 import com.btplanner.btripex.ui.main.MainActivity;
 import com.btplanner.btripex.ui.register.RegisterActivity;
 
@@ -78,10 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                    Intent it = new Intent(getApplicationContext(), MainActivity.class);
-                    it.putExtra("username", usernameEditText.getText().toString());
-                    it.putExtra("password", passwordEditText.getText().toString());
-                    startActivity(it);
                 }
                 setResult(Activity.RESULT_OK);
 
@@ -140,9 +135,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getUsername();
-        // TODO : initiate successful logged in experience
+        String welcome = getString(R.string.welcome) + " " + model.getUsername();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+        // TODO : initiate successful logged in experience
+        Intent it = new Intent(getApplicationContext(), MainActivity.class);
+        it.putExtra("username", model.getUsername());
+        it.putExtra("password", model.getPassword());
+        startActivity(it);
+/*         Snackbar.make(findViewById(android.R.id.content), getString(R.string.welcome) + model.getUsername(), Snackbar.LENGTH_LONG)
+         .setAction("Action", null).show();*/
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

@@ -1,14 +1,11 @@
 package com.btplanner.btripex.ui.main;
 
-import android.app.ProgressDialog;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.data.LoginRepository;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
@@ -36,6 +32,7 @@ public class FirstFragment extends Fragment {
 
     private CustomAdapter adapter;
     private RecyclerView recyclerView;
+    private TextView emptyView;
 
     @Override
     public View onCreateView(
@@ -98,9 +95,20 @@ public class FirstFragment extends Fragment {
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<Trip> tripList) {
         recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.customRecyclerView);
-        adapter = new CustomAdapter(getContext(),tripList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        emptyView = Objects.requireNonNull(getView()).findViewById(R.id.empty_view);
+
+        if (tripList == null || tripList.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+
+            adapter = new CustomAdapter(getContext(),tripList);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+        }
     }
 }

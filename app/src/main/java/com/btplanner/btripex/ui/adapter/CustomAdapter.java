@@ -63,8 +63,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 .error(R.drawable.ic_launcher_background);
 
 
-        Glide.with(context).load(Base64.decode(dataList.get(position).getThumbnail(), Base64.DEFAULT)).override(1920, 1080).apply(options).into(holder.coverImage);
-
+        byte[] base64 = Base64.decode(dataList.get(position).getThumbnail(), Base64.DEFAULT);
+        if (base64 != null) {
+            Glide.with(context).load(base64).override(1920, 1080).apply(options).into(holder.coverImage);
+        } else Glide.with(context).load("https://source.unsplash.com/150x150/?trip").override(150, 150) .apply(options).into(holder.coverImage);
 /*
         Glide.with(context).load("https://source.unsplash.com/150x150/?trip").override(150, 150) .apply(options).into(holder.coverImage);
 */

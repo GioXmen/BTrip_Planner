@@ -38,6 +38,7 @@
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="add_trip">Add Trip</string>
+    <string name="no_trip_data">Add your first Trip!</string>
 
 
 
