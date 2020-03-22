@@ -101,6 +101,7 @@
         android:padding="16dp"
 
         android:hint="@string/prompt_password"
+        android:windowSoftInputMode="adjustPan"
         android:textColorHint="#fff"
         android:letterSpacing="0.1"
         android:textColor="#fff"

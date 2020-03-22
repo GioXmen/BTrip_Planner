@@ -2,14 +2,16 @@ package com.btplanner.btripex.ui.main.addtrip;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.LoggedInUser;
-import com.btplanner.btripex.ui.adapter.DatePickerFragment;
+import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.AddTripResult;
 import com.btplanner.btripex.ui.main.MainActivity;
@@ -17,17 +19,22 @@ import com.btplanner.btripex.ui.main.TripFormState;
 import com.btplanner.btripex.ui.main.TripViewModel;
 import com.btplanner.btripex.ui.main.TripViewModelFactory;
 import com.btplanner.btripex.ui.main.TripsUserView;
+import com.btplanner.btripex.ui.utils.ImagePicker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -36,22 +43,31 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
-public class AddTrip extends AppCompatActivity {
+public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttachmentListener{
 
     private TripViewModel tripViewModel;
-    private DialogFragment fragment;
     public EditText tripStartEditText;
     public EditText tripEndEditText;
+
+    ImageView iv_attachment;
+    //For Image Attachment
+
+    private Bitmap bitmap;
+    private String file_name;
+    private String image = null;
+
+    ImagePicker imagePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +93,12 @@ public class AddTrip extends AppCompatActivity {
         tripDescriptionEditText.setTypeface(custom_font);
 
         final Button addTripButton = findViewById(R.id.add_trip);
-        final ProgressBar loadingProgressBar = findViewById(R.id.progressbar);
+        final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddTrip);
+        loadingProgressBar.setVisibility(View.GONE);
 
         LoggedInUser user = new LoggedInUser(MainActivity.username, MainActivity.password);
+        imagePicker =new ImagePicker(this);
+        iv_attachment=(ImageView)findViewById(R.id.imageView);
 
         tripViewModel.getTripFormState().observe(this, new Observer<TripFormState>() {
             @Override
@@ -139,7 +158,8 @@ public class AddTrip extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-               tripViewModel.addTripDataChanged(tripNameEditText.getText().toString(), null, tripDestinationEditText.getText().toString(),
+                if(bitmap != null){bitmapToBase64();}
+                tripViewModel.addTripDataChanged(tripNameEditText.getText().toString(), image, tripDestinationEditText.getText().toString(),
                        tripDescriptionEditText.getText().toString(),  tripStartEditText.getText().toString(),  tripEndEditText.getText().toString());
             }
         };
@@ -153,8 +173,9 @@ public class AddTrip extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(bitmap != null){bitmapToBase64();}
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        tripViewModel.addTrip(tripNameEditText.getText().toString(), null,  tripDestinationEditText.getText().toString(),
+                        tripViewModel.addTrip(tripNameEditText.getText().toString(), image,  tripDestinationEditText.getText().toString(),
                                 tripDescriptionEditText.getText().toString(), tripStartEditText.getText().toString(),  tripEndEditText.getText().toString(),
                                 tripViewModel, user);
                 }
@@ -165,12 +186,46 @@ public class AddTrip extends AppCompatActivity {
         addTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(bitmap != null){bitmapToBase64();}
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                    tripViewModel.addTrip(tripNameEditText.getText().toString(), null,
+                    tripViewModel.addTrip(tripNameEditText.getText().toString(), image,
                             tripDestinationEditText.getText().toString(), tripDescriptionEditText.getText().toString(),
                             tripStartEditText.getText().toString(),  tripEndEditText.getText().toString(), tripViewModel, user);
             }
         });
+
+        iv_attachment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onClick(View v) {
+                imagePicker.imagepicker(1);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        imagePicker.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        imagePicker.request_permission_result(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
+        this.bitmap=file;
+        this.file_name=filename;
+        iv_attachment.setImageBitmap(file);
+
+        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imagePicker.createImage(file,filename,path,false);
+
     }
 
     @Override
@@ -237,6 +292,13 @@ public class AddTrip extends AppCompatActivity {
 
     public void showEndDatePickerDialog(View view) {
         showDatePickerDialog(view, "endDate");
+    }
+
+    private void bitmapToBase64(){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        image = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 }
 

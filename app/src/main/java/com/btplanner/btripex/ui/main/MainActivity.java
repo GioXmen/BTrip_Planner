@@ -7,16 +7,13 @@ import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
-import com.btplanner.btripex.ui.adapter.CustomAdapter;
+import com.btplanner.btripex.ui.utils.CustomAdapter;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -31,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     public static String username;

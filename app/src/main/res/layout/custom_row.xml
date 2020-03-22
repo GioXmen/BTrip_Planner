@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         >
 
         <ImageView
             android:id="@+id/coverImage"
             android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_height="140dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
@@ -25,6 +25,8 @@
 
         <TextView
             android:id="@+id/title"
+            android:textStyle = "bold"
+            android:textSize="24sp"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +34,7 @@
             android:layout_marginStart="16dp"
             android:paddingTop="10dp"
             android:lines="1"
-            android:text="title" />
+            android:text="Title" />
 
         <TextView
             android:id="@+id/description"
@@ -43,7 +45,19 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
             android:lines="2"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            android:text="Description"
+            />
+
+        <TextView
+            android:id="@+id/startDate"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/coverImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="110dp"
+            android:lines="1"
+            android:text="Start Date"
             />
 
     </RelativeLayout>

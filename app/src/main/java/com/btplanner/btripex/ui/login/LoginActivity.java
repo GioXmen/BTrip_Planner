@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         usernameEditText.setTypeface(custom_font);
         passwordEditText.setTypeface(custom_font);
+        passwordEditText.setError(null);
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
         registerButton.setEnabled(true);
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
-                if (loginFormState.getPasswordError() != null) {
+                if (loginFormState.getPasswordError() != null && passwordEditText.getText().length() > 0) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
             }

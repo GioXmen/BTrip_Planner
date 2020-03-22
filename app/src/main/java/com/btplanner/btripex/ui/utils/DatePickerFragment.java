@@ -1,14 +1,9 @@
-package com.btplanner.btripex.ui.adapter;
+package com.btplanner.btripex.ui.utils;
 
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.DatePicker;
-import android.widget.EditText;
-
-import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 
 import java.util.Calendar;
 import java.util.Objects;
