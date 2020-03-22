@@ -2,8 +2,6 @@ package com.btplanner.btripex.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class Trip {
 
     @SerializedName("id")
@@ -17,11 +15,13 @@ public class Trip {
     @SerializedName("description")
     private String tripDescription;
     @SerializedName("startDate")
-    private Date startDate;
+    private String startDate;
     @SerializedName("endDate")
-    private Date endDate;
+    private String endDate;
+    @SerializedName("user")
+    private LoggedInUser user;
 
-    public Trip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription, Date startDate, Date endDate) {
+    public Trip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
         this.tripId = tripId;
         this.title = title;
         this.thumbnail = thumbnail;
@@ -29,6 +29,25 @@ public class Trip {
         this.tripDestination = tripDestination;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.tripDescription = tripDescription;
+        this.tripDestination = tripDestination;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate, LoggedInUser user) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.tripDescription = tripDescription;
+        this.tripDestination = tripDestination;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.user = user;
     }
 
     public String getTripId() {
@@ -55,19 +74,19 @@ public class Trip {
         this.thumbnail = thumbnail;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
@@ -85,5 +104,13 @@ public class Trip {
 
     public void setTripDestination(String tripDestination) {
         this.tripDestination = tripDestination;
+    }
+
+    public void setUser(LoggedInUser user) {
+        this.user = user;
+    }
+
+    public LoggedInUser getUser() {
+        return user;
     }
 }

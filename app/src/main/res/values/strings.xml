@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BTrip - Trip Planner and Expense Log</string>
     <string name="app_name_short">BTrip - Business Trip Planner</string>
+    <string name="app_name_label">BTrip - Trip Planner</string>
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
     <string name="prompt_email">Email</string>
@@ -20,6 +21,7 @@
     <string name="username_logo">"Username logo"</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -40,6 +42,18 @@
     <string name="add_trip">Add Trip</string>
     <string name="no_trip_data">Add your first Trip!</string>
 
+
+    <string name="trip_add_failed">"Add Trip failed"</string>
+    <string name="trip_get_failed">"Get Trips failed"</string>
+    <string name="trip_remove_failed">"Remove Trip failed"</string>
+
+    <string name="invalid_title">Not a valid title</string>
+    <string name="invalid_destination">Not a valid destination</string>
+    <string name="invalid_description">Not a valid description</string>
+    <string name="invalid_date">Not a valid date</string>
+
+    <string name="trip_added">"Trip has been added! With name:  "</string>
+    <string name="today">Today</string>
 
 
 </resources>

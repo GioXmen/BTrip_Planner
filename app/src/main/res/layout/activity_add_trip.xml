@@ -5,26 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="ui.main.SecondFragment">
+    tools:context="ui.main.addtrip.AddTrip">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bytes"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/bytes"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:gravity="top|start"
         android:text="@string/add_trip"
         android:textColor="#000"
         android:textSize="30sp"
-        android:gravity="top|start"
         android:textStyle="bold"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/trip_name"
-        app:layout_constraintTop_toTopOf="parent"
         android:windowSoftInputMode="adjustNothing"
-        />
+        app:layout_constraintBottom_toTopOf="@id/trip_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:paddingStart="40dp"
@@ -63,6 +83,8 @@
         android:imeActionLabel="@string/action_sign_in"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
+        android:onClick="showStartDatePickerDialog"
+        android:focusable="false"
 
         android:inputType="date"
         android:letterSpacing="0.1"
@@ -85,10 +107,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:hint="@string/start_date"
+        android:hint="@string/end_date"
         android:imeActionLabel="@string/action_sign_in"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
+        android:onClick="showEndDatePickerDialog"
+        android:focusable="false"
 
         android:inputType="date"
         android:letterSpacing="0.1"
@@ -220,6 +244,7 @@
 
     <Button
         android:id="@+id/add_trip"
+        android:enabled="false"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -229,7 +254,6 @@
         android:layout_marginBottom="64dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:enabled="false"
         android:padding="15dp"
         android:text="@string/add_trip"
         android:textColor="#fff"
@@ -240,6 +264,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description"
         app:layout_constraintVertical_bias="0.1" />
+
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:indeterminate="true"
+        android:indeterminateTint="#1a09d6"
+        android:max="100"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
 
 

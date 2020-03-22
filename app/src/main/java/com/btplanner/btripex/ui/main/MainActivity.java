@@ -1,8 +1,15 @@
 package com.btplanner.btripex.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.btplanner.btripex.R;
+import com.btplanner.btripex.data.model.Trip;
+import com.btplanner.btripex.data.network.GetDataService;
+import com.btplanner.btripex.data.network.RetrofitClientInstance;
+import com.btplanner.btripex.ui.adapter.CustomAdapter;
+import com.btplanner.btripex.ui.login.LoginActivity;
+import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -10,14 +17,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    public String username;
-    public String password;
+    public static String username;
+    public static String password;
+
+    private CustomAdapter adapter;
+    private RecyclerView recyclerView;
+    private TextView emptyView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +52,37 @@ public class MainActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         password = getIntent().getStringExtra("password");
 
-/*        FloatingActionButton fab = findViewById(R.id.fab);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        /*Create handle for the RetrofitInstance interface*/
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<List<Trip>> call = service.getAllTrips(username, password);
+        call.enqueue(new Callback<List<Trip>>() {
+
+            @Override
+            public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
+                progressBar.setVisibility(View.INVISIBLE);
+                generateDataList(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Trip>> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent it = new Intent(getApplicationContext(), AddTrip.class);
+                progressBar.setVisibility(View.GONE);
+                startActivity(it);
             }
-        });*/
+        });
     }
 
     @Override
@@ -54,10 +100,34 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            Intent it = new Intent(getApplicationContext(), LoginActivity.class);
+            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(it);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /*Method to generate List of data using RecyclerView with custom adapter*/
+    private void generateDataList(List<Trip> tripList) {
+        recyclerView = findViewById(R.id.customRecyclerView);
+        emptyView = findViewById(R.id.empty_view);
+
+        if (tripList == null || tripList.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+
+            adapter = new CustomAdapter(this,tripList);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
+        }
     }
 }

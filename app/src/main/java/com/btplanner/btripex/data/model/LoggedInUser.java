@@ -20,6 +20,11 @@ public class LoggedInUser {
         this.password = password;
     }
 
+    public LoggedInUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }

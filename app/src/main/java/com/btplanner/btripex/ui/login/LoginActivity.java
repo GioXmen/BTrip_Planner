@@ -77,11 +77,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+
+                    //Complete and destroy login activity once successful
+                    finish();
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
 
@@ -142,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent it = new Intent(getApplicationContext(), MainActivity.class);
         it.putExtra("username", model.getUsername());
         it.putExtra("password", model.getPassword());
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(it);
 /*         Snackbar.make(findViewById(android.R.id.content), getString(R.string.welcome) + model.getUsername(), Snackbar.LENGTH_LONG)
          .setAction("Action", null).show();*/

@@ -22,8 +22,8 @@ public interface GetDataService {
     @POST("/user/registration")
     Call<RegisteredUser> register(@Body RegisteredUser registeredUser);
 
-/*    @POST("/trip/add")
-    Call<AddedTrip> addTrip(@Body Trip trip);*/
+    @POST("/trip/add")
+    Call<Trip> addTrip(@Body Trip trip);
 
     @GET("/trip/get")
     Call<List<Trip>> getAllTrips(@Query("username") String username, @Query("password") String password);
