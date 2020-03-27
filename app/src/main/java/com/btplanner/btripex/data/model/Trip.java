@@ -74,20 +74,12 @@ public class Trip {
         this.thumbnail = thumbnail;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getTripDestination() {
+        return tripDestination;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setTripDestination(String tripDestination) {
+        this.tripDestination = tripDestination;
     }
 
     public String getTripDescription() {
@@ -98,19 +90,27 @@ public class Trip {
         this.tripDescription = tripDescription;
     }
 
-    public String getTripDestination() {
-        return tripDestination;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setTripDestination(String tripDestination) {
-        this.tripDestination = tripDestination;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public void setUser(LoggedInUser user) {
-        this.user = user;
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public LoggedInUser getUser() {
         return user;
+    }
+
+    public void setUser(LoggedInUser user) {
+        this.user = user;
     }
 }

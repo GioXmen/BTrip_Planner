@@ -7,9 +7,11 @@ import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
+import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.utils.CustomAdapter;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.addtrip.AddTrip;
+import com.btplanner.btripex.ui.utils.ItemClickSupport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,5 +127,22 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
+
+        //Make recyclerView clickable using ItemClickSupport util
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        CustomAdapter.CustomViewHolder childHolder = (CustomAdapter.CustomViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
+                        assert childHolder != null;
+                        Toast.makeText(getApplicationContext(), childHolder.txtTitle.getText(), Toast.LENGTH_SHORT).show();
+
+                        Intent it = new Intent(getApplicationContext(), EventActivity.class);
+                        it.putExtra("id", childHolder.id.getText());
+                        it.putExtra("title", childHolder.txtTitle.getText());
+                        startActivity(it);
+                    }
+                }
+        );
     }
 }

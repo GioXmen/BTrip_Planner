@@ -1,5 +1,6 @@
 package com.btplanner.btripex.data.network;
 
+import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
 import com.btplanner.btripex.data.model.Trip;
@@ -27,4 +28,10 @@ public interface GetDataService {
 
     @GET("/trip/get")
     Call<List<Trip>> getAllTrips(@Query("username") String username, @Query("password") String password);
+
+    @POST("/event/add")
+    Call<Event> addEvent(@Body Event event);
+
+    @GET("/event/get")
+    Call<List<Event>> getAllEvents(@Query("tripId") String id);
 }

@@ -55,5 +55,12 @@
     <string name="trip_added">"Trip has been added! With name:  "</string>
     <string name="today">Today</string>
 
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="event_add_failed">"Add Trip failed"</string>
+    <string name="invalid_type">Invalid event type</string>
+
 
 </resources>

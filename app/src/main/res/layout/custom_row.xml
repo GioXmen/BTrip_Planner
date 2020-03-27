@@ -60,6 +60,19 @@
             android:text="Start Date"
             />
 
+        <TextView
+            android:id="@+id/id"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/startDate"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="110dp"
+            android:lines="1"
+            android:visibility="invisible"
+            android:text="ID"
+            />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -28,19 +28,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.dataList = dataList;
     }
 
-     class CustomViewHolder extends RecyclerView.ViewHolder {
+     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
          public final View mView;
 
-         TextView txtTitle;
-         TextView startDate;
-         TextView description;
-         private ImageView coverImage;
+         public TextView id;
+         public TextView txtTitle;
+         public TextView startDate;
+         public TextView description;
+         public ImageView coverImage;
 
-         CustomViewHolder(View itemView) {
+         public CustomViewHolder(View itemView) {
              super(itemView);
              mView = itemView;
 
+             id = mView.findViewById(R.id.id);
              txtTitle = mView.findViewById(R.id.title);
              startDate = mView.findViewById(R.id.startDate);
              description = mView.findViewById(R.id.description);
@@ -57,15 +59,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        Date tripStartDate = null;
         holder.txtTitle.setText(dataList.get(position).getTitle());
         holder.description.setText(dataList.get(position).getTripDescription());
+        holder.id.setText(dataList.get(position).getTripId());
         String startDate = dataList.get(position).getStartDate();
-/*        try {
-            tripStartDate = new SimpleDateFormat("yyyy-MM-dd", Locale.UK).parse(startDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
 
         holder.startDate.setText("Start Date: " + startDate.substring(0, 10));
 
