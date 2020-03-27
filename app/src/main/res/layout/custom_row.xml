@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_friend"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
             android:layout_marginStart="16dp"
             android:paddingTop="10dp"
             android:lines="1"
-            android:text="Title" />
+            tools:text="Title" />
 
         <TextView
             android:id="@+id/description"
@@ -45,7 +46,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
             android:lines="2"
-            android:text="Description"
+            tools:text="Description"
             />
 
         <TextView
@@ -57,7 +58,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="110dp"
             android:lines="1"
-            android:text="Start Date"
+            tools:text="Start Date"
             />
 
         <TextView
@@ -70,7 +71,7 @@
             android:layout_marginTop="110dp"
             android:lines="1"
             android:visibility="invisible"
-            android:text="ID"
+            tools:text="ID"
             />
 
     </RelativeLayout>

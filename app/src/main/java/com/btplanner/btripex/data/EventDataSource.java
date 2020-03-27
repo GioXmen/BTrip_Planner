@@ -1,6 +1,7 @@
 package com.btplanner.btripex.data;
 
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
@@ -15,7 +16,7 @@ import retrofit2.Response;
 
 public class EventDataSource {
 
-    public void addEvent(String eventName, String eventType, String eventDescription, String eventLocation,
+    public void addEvent(String eventName, EventType eventType, String eventDescription, String eventLocation,
                          String startDate, String endDate, String eventTime, String eventExpense,
                          String expenseReceipt, Trip trip, EventRepository eventRepository) {
 

@@ -62,5 +62,11 @@
     <string name="event_add_failed">"Add Trip failed"</string>
     <string name="invalid_type">Invalid event type</string>
 
+    <string name="hotel">"Hotel"</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="flight">"Flight"</string>
+
+    <string name="location_text">Location: </string>
+    <string name="date_text">Start Date: </string>
 
 </resources>

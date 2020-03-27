@@ -1,6 +1,7 @@
 package com.btplanner.btripex.data;
 
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
 import com.btplanner.btripex.data.model.Trip;
@@ -59,7 +60,7 @@ public class EventRepository {
         this.eventViewModel = eventViewModel;
     }
 
-    public void addEvent(String eventName, String eventType, String eventDescription, String eventLocation, String startDate, String endDate,
+    public void addEvent(String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
                          String eventTime, String eventExpense, String expenseReceipt, EventViewModel eventViewModel, Trip trip) {
         setEventViewModel(eventViewModel);
         dataSource.addEvent(eventName, eventType, eventDescription, eventLocation, startDate, endDate,

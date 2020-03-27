@@ -4,6 +4,7 @@ import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.EventRepository;
 import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 
@@ -29,7 +30,7 @@ public class EventViewModel extends ViewModel {
         return eventResult;
     }
 
-    public void addEvent(String eventName, String eventType, String eventDescription, String eventLocation, String startDate, String endDate,
+    public void addEvent(String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
                          String eventTime, String eventExpense, String expenseReceipt, EventViewModel eventViewModel, Trip trip) {
 
         eventRepository.addEvent(eventName, eventType, eventDescription, eventLocation, startDate, endDate,

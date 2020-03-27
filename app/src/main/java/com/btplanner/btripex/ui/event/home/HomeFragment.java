@@ -14,7 +14,9 @@ import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.EventActivity;
+import com.btplanner.btripex.ui.event.eventimeline.TimeLineAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,18 +25,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private RecyclerView mRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 /*        final TextView textView = root.findViewById(R.id.text_home);
 
@@ -58,7 +61,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        ProgressBar progressBar = (ProgressBar) Objects.requireNonNull(getView()).findViewById(R.id.progressbarHome);
+        ProgressBar progressBar = (ProgressBar) requireView().findViewById(R.id.progressbarHome);
         progressBar.setVisibility(View.VISIBLE);
 
         /*Create handle for the RetrofitInstance interface*/
@@ -69,8 +72,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 progressBar.setVisibility(View.INVISIBLE);
-                assert response.body() != null;
-                Toast.makeText(getActivity(), response.body().get(0).getEventName(), Toast.LENGTH_SHORT).show();
+                generateDataList(response.body());
             }
 
             @Override
@@ -79,5 +81,25 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    private void generateDataList(List<Event> eventList) {
+        mRecyclerView = (RecyclerView) requireView().findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(getLinearLayoutManager());
+        mRecyclerView.setHasFixedSize(true);
+
+        initView(eventList);
+    }
+
+    private LinearLayoutManager getLinearLayoutManager() {
+        //mark
+        return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+    }
+
+    private void initView(List<Event> eventList) {
+        TimeLineAdapter mTimeLineAdapter = new TimeLineAdapter(eventList);
+        mRecyclerView.setAdapter(mTimeLineAdapter);
     }
 }

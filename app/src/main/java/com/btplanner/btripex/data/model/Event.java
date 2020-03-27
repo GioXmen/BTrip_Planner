@@ -1,15 +1,18 @@
 package com.btplanner.btripex.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Event {
+public class Event  implements Parcelable {
 
     @SerializedName("id")
     private String eventId;
     @SerializedName("name")
     private String eventName;
     @SerializedName("type")
-    private String eventType;
+    private EventType eventType;
     @SerializedName("description")
     private String eventDescription;
     @SerializedName("location")
@@ -28,7 +31,7 @@ public class Event {
     private Trip trip;
 
 
-    public Event(String eventId, String eventName, String eventType,
+    public Event(String eventId, String eventName, EventType eventType,
                  String eventDescription, String eventLocation, String startDate, String endDate,
                  String eventTime, String eventExpense, String expenseReceipt, Trip trip) {
         this.eventId = eventId;
@@ -44,7 +47,7 @@ public class Event {
         this.trip = trip;
     }
 
-    public Event(String eventName, String eventType, String eventDescription, String eventLocation,
+    public Event(String eventName, EventType eventType, String eventDescription, String eventLocation,
                  String startDate, String endDate, String eventTime, String eventExpense,
                  String expenseReceipt, Trip trip) {
         this.eventName = eventName;
@@ -59,7 +62,7 @@ public class Event {
         this.trip = trip;
     }
 
-    public Event(String eventName, String eventType, String eventDescription, String eventLocation,
+    public Event(String eventName, EventType eventType, String eventDescription, String eventLocation,
                  String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt) {
         this.eventName = eventName;
         this.eventType = eventType;
@@ -88,11 +91,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
+    public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }
 
@@ -159,4 +162,49 @@ public class Event {
     public void setTrip(Trip trip) {
         this.trip = trip;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.eventId);
+        dest.writeString(this.eventName);
+        dest.writeString(this.eventDescription);
+        dest.writeString(this.eventLocation);
+        dest.writeString(this.startDate);
+        dest.writeString(this.endDate);
+        dest.writeString(this.eventTime);
+        dest.writeString(this.eventExpense);
+        dest.writeString(this.expenseReceipt);
+        dest.writeInt(this.eventType == null ? -1 : this.eventType.ordinal());
+    }
+
+    protected Event(Parcel in) {
+        this.eventId = in.readString();;
+        this.eventName = in.readString();;
+        this.eventDescription = in.readString();;
+        this.eventLocation = in.readString();;
+        this.startDate = in.readString();;
+        this.endDate = in.readString();;
+        this.eventTime = in.readString();;
+        this.eventExpense = in.readString();;
+        this.expenseReceipt = in.readString();;
+        int tmpMStatus = in.readInt();
+        this.eventType = tmpMStatus == -1 ? null : EventType.values()[tmpMStatus];
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }
