@@ -5,6 +5,8 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,8 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.ui.login.LoginViewModel;
-import com.btplanner.btripex.ui.login.LoginViewModelFactory;
+import com.btplanner.btripex.ui.main.MainActivity;
+import com.btplanner.btripex.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,9 +39,15 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
+        usernameEditText.setTypeface(custom_font);
+        passwordEditText.setTypeface(custom_font);
+        passwordEditText.setError(null);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.register);
+        registerButton.setEnabled(true);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -52,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
-                if (loginFormState.getPasswordError() != null) {
+                if (loginFormState.getPasswordError() != null && passwordEditText.getText().length() > 0) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
             }
@@ -70,11 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+
+                    finish();
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
 
@@ -103,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                            passwordEditText.getText().toString(), loginViewModel);
                 }
                 return false;
             }
@@ -114,15 +122,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), loginViewModel);
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(it);
             }
         });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+        String welcome = getString(R.string.welcome) + " " + model.getUsername();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+        Intent it = new Intent(getApplicationContext(), MainActivity.class);
+        it.putExtra("username", model.getUsername());
+        it.putExtra("password", model.getPassword());
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(it);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

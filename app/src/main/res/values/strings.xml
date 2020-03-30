@@ -1,12 +1,98 @@
 <resources>
+    <!-- Generic App detail labels -->
     <string name="app_name">BTrip - Trip Planner and Expense Log</string>
-    <!-- Strings related to login -->
+    <string name="app_name_short">BTrip - Business Trip Planner</string>
+    <string name="app_name_label">BTrip - Trip Planner</string>
+    <string name="image_thumbnail">Image thumbnail</string>
+    <string name="add_update">Add/Update</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="start_time">Start time</string>
+
+    <!-- Strings used for fragment page labels -->
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_events">Event Timeline</string>
+
+    <!-- Strings used for settings action button labels -->
+    <string name="action_settings">Settings</string>
+    <string name="action_edit_trip">Edit Trip</string>
+    <string name="action_logout">Logout</string>
+
+    <!-- Strings related to login and register -->
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
     <string name="prompt_username">Username</string>
+    <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="password_logo">"Password logo"</string>
+    <string name="username_logo">"Username logo"</string>
+    <string name="existing_account">"Already Have An Account ? Login"</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="welcome_register">"User <b>%1$s</b> has been registered, please proceed to login!"</string>
+
+    <!-- Strings used for Login/Register function errors -->
+    <string name="login_failed">"Login failed"</string>
+    <string name="login_call_failed">"Couldn't get a response for login request"</string>
+    <string name="register_failed">"Register failed"</string>
+    <string name="register_call_failed">"Couldn't get a response for register request"</string>
+
+    <!-- Strings used for data validation errors -->
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="invalid_password_confirm">Passwords must match</string>
+    <string name="invalid_title">Not a valid title</string>
+    <string name="invalid_destination">Not a valid destination</string>
+    <string name="invalid_date">Not a valid date</string>
+    <string name="invalid_type">Invalid event type</string>
+
+    <!-- Strings used for Trip functions -->
+    <string name="trip_name">Trip name</string>
+    <string name="trip_destination">Destination of trip</string>
+    <string name="trip_description">Description</string>
+    <string name="trip_label">Trip details</string>
+    <string name="trip_details">BTrip - Add/Update Trip</string>
+    <string name="trip_list">BTrip - Trips list</string>
+    <string name="trip_added">"Trip has been added! With name:  "</string>
+    <string name="no_trip_data">Add your first Trip!</string>
+
+    <!-- Strings used for Trip function errors -->
+    <string name="trip_add_failed">Add/Update Trip failed</string>
+    <string name="trip_call_failed">Failed to get response from call to add/update trip</string>
+    <string name="trip_get_call_failed">Failed to get response from call to add/update trip</string>
+    <string name="trip_remove_failed">"Remove Trip failed"</string>
+
+    <!-- Strings used for Event Timeline fragment page -->
+    <string name="event_label">Event details</string>
+    <string name="event_details">BTrip - Add/Update Event</string>
+    <string name="event_timeline">Event Timeline</string>
+    <string name="event_name">Event name</string>
+    <string name="event_location">Location of event</string>
+    <string name="event_description">Description</string>
+    <string name="event_expense">Event expense</string>
+    <string name="event_expense_receipt">Event expense receipt</string>
+    <string name="event_type">Event type</string>
+    <string name="event_time">Time of Event</string>
+    <string name="event_added">"Event has been added! With name:  "</string>
+    <string name="no_event_data">Add your first Event!</string>
+    <string name="location_text">Location: </string>
+    <string name="date_text">Start Date: </string>
+    <string name="hotel">Hotel</string>
+    <string name="flight">Flight</string>
+    <string name="restaurant">Restaurant</string>
+
+    <!-- Strings used for Event function errors -->
+    <string name="event_add_failed">"Add/Update Event failed"</string>
+    <string name="event_call_failed">No response from Add/Update Event call!</string>
+    <string name="event_get_call_failed">No response from Get Event call!</string>
+
+    <!-- Strings used for Add Event choose type option selector -->
+    <string-array name="event_types">
+        <item>Hotel</item>
+        <item>Restaurant</item>
+        <item>Flight</item>
+    </string-array>
+
 </resources>
