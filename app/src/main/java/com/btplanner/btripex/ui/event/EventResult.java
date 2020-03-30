@@ -11,11 +11,11 @@ public class EventResult {
     @Nullable
     private Integer error;
 
-    public EventResult(@Nullable Integer error) {
+    EventResult(@Nullable Integer error) {
         this.error = error;
     }
 
-    public EventResult(@Nullable EventUserView success) {
+    EventResult(@Nullable EventUserView success) {
         this.success = success;
     }
 

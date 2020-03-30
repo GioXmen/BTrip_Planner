@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),"fonts/Lato-Light.ttf");
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         usernameEditText.setTypeface(custom_font);
@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
 
-                    //Complete and destroy login activity once successful
                     finish();
                 }
                 setResult(Activity.RESULT_OK);
@@ -140,14 +139,11 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + " " + model.getUsername();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
 
-        // TODO : initiate successful logged in experience
         Intent it = new Intent(getApplicationContext(), MainActivity.class);
         it.putExtra("username", model.getUsername());
         it.putExtra("password", model.getPassword());
         it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(it);
-/*         Snackbar.make(findViewById(android.R.id.content), getString(R.string.welcome) + model.getUsername(), Snackbar.LENGTH_LONG)
-         .setAction("Action", null).show();*/
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

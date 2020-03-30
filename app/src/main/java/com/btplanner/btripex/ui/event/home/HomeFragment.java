@@ -6,30 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.btplanner.btripex.BtripApplication;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
-import com.btplanner.btripex.data.model.LoggedInUser;
-import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.event.eventimeline.AddEvent;
 import com.btplanner.btripex.ui.event.eventimeline.TimeLineAdapter;
 import com.btplanner.btripex.ui.event.eventimeline.TimeLineViewHolder;
-import com.btplanner.btripex.ui.main.addtrip.AddTrip;
-import com.btplanner.btripex.ui.utils.CustomAdapter;
 import com.btplanner.btripex.ui.utils.ItemClickSupport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
@@ -45,21 +37,13 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    public static Map<String, Event> eventsMap = new HashMap<String, Event>();
     private RecyclerView mRecyclerView;
-    public static  Map<String, Event> eventsMap = new HashMap<String, Event>();
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-/*        final TextView textView = root.findViewById(R.id.text_home);
-
-        final TextView id = root.findViewById(R.id.trip_id);
-        final TextView title = root.findViewById(R.id.trip_title);
-
-        id.setText(EventActivity.id);
-        title.setText(EventActivity.title);*/
 
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -73,14 +57,14 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        ProgressBar progressBar = (ProgressBar) requireView().findViewById(R.id.progressbarHome);
+        ProgressBar progressBar = requireView().findViewById(R.id.progressbarHome);
         progressBar.setVisibility(View.VISIBLE);
 
         /*Create handle for the RetrofitInstance interface*/
@@ -89,15 +73,16 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<List<Event>>() {
 
             @Override
-            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+            public void onResponse(@NonNull Call<List<Event>> call, @NonNull Response<List<Event>> response) {
                 progressBar.setVisibility(View.INVISIBLE);
+                assert response.body() != null;
                 generateDataList(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Event>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Event>> call, @NonNull Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), String.valueOf(R.string.event_get_call_failed), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -118,18 +103,16 @@ public class HomeFragment extends Fragment {
     private void generateDataList(List<Event> eventList) {
         List<String> ids = eventList.stream().map(Event::getEventId).collect(Collectors.toList());
         int index = 0;
-        for (Event event: eventList) {
+        for (Event event : eventList) {
             eventsMap.put(ids.get(index), event);
-            index+=1;
+            index += 1;
         }
 
-        mRecyclerView = (RecyclerView) requireView().findViewById(R.id.recyclerView);
+        mRecyclerView = requireView().findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(getLinearLayoutManager());
         mRecyclerView.setHasFixedSize(true);
-
         initView(eventList);
 
-        //Make recyclerView clickable using ItemClickSupport util
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -148,9 +131,7 @@ public class HomeFragment extends Fragment {
     }
 
     private LinearLayoutManager getLinearLayoutManager() {
-        //mark
         return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-
     }
 
     private void initView(List<Event> eventList) {

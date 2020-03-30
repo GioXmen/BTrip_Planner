@@ -14,15 +14,15 @@ public class EventFormState {
     private Integer dateError;
     private boolean isDataValid;
 
-    public EventFormState(@Nullable Integer eventNameError, @Nullable Integer eventTypeError,
-                  @Nullable Integer dateError) {
+    EventFormState(@Nullable Integer eventNameError, @Nullable Integer eventTypeError,
+                   @Nullable Integer dateError) {
         this.eventNameError = eventNameError;
         this.eventTypeError = eventTypeError;
         this.dateError = dateError;
         this.isDataValid = false;
     }
 
-    public EventFormState(boolean isDataValid) {
+    EventFormState(boolean isDataValid) {
         this.eventNameError = null;
         this.eventTypeError = null;
         this.dateError = null;

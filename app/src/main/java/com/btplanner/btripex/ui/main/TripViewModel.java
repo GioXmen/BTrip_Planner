@@ -6,11 +6,6 @@ import com.btplanner.btripex.data.TripRepository;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +16,7 @@ public class TripViewModel extends ViewModel {
     private MutableLiveData<AddTripResult> addTripResult = new MutableLiveData<>();
     private TripRepository tripRepository;
 
-    public TripViewModel(TripRepository tripRepository) {
+    TripViewModel(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
     }
 
@@ -35,10 +30,7 @@ public class TripViewModel extends ViewModel {
 
     public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
                         String startDate, String endDate, TripViewModel tripViewModel, LoggedInUser user) {
-/*        String myFormat = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
-        Date tripStartDate = sdf.parse(startDate);
-        Date tripEndDate = sdf.parse(endDate);*/
+
         tripRepository.addTrip(tripId, title, thumbnail, tripDestination, tripDescription, startDate, endDate, tripViewModel, user);
     }
 
@@ -52,11 +44,6 @@ public class TripViewModel extends ViewModel {
     }
 
     public void addTripDataChanged(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
-/*        String myFormat = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
-        Date tripStartDate = sdf.parse(startDate);
-        Date tripEndDate = sdf.parse(endDate);*/
-
         if (!isTitleNameValid(title)) {
             tripFormState.setValue(new TripFormState(R.string.invalid_title, null, null, null));
         } else if (!isDestinationValid(tripDestination)) {
@@ -68,7 +55,6 @@ public class TripViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
     private boolean isTitleNameValid(String title) {
         if (title == null) {
             return false;
@@ -77,7 +63,6 @@ public class TripViewModel extends ViewModel {
         }
     }
 
-    // A placeholder password validation check
     private boolean isDestinationValid(String destination) {
         return destination != null && destination.trim().length() > 5;
     }

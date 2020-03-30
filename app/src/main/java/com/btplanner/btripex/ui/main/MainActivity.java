@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
@@ -15,6 +14,7 @@ import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 import com.btplanner.btripex.ui.utils.ItemClickSupport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,22 +41,12 @@ public class MainActivity extends AppCompatActivity {
     public static Map<String, Trip> tripsMap = new HashMap<String, Trip>();
 
 
-    private CustomAdapter adapter;
-    private RecyclerView recyclerView;
-    private TextView emptyView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-/*        if (savedInstanceState != null) {
-             username = savedInstanceState.getString("username");
-             password = savedInstanceState.getString("password");
-        }*/
 
         username = getIntent().getStringExtra("username");
         password = getIntent().getStringExtra("password");
@@ -66,24 +56,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        ProgressBar progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
 
-        /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<List<Trip>> call = service.getAllTrips(username, password);
         call.enqueue(new Callback<List<Trip>>() {
 
             @Override
-            public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
+            public void onResponse(@NonNull Call<List<Trip>> call, @NonNull Response<List<Trip>> response) {
                 progressBar.setVisibility(View.INVISIBLE);
+                assert response.body() != null;
                 generateDataList(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Trip>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Trip>> call, @NonNull Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(R.string.trip_get_call_failed), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -101,29 +91,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-/*
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("username", username);
-        outState.putString("password", password);
-        super.onSaveInstanceState(outState);
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             Intent it = new Intent(getApplicationContext(), LoginActivity.class);
             it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -134,35 +111,31 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<Trip> tripList) {
         List<String> ids = tripList.stream().map(Trip::getTripId).collect(Collectors.toList());
         int index = 0;
-        for (Trip trip: tripList) {
+        for (Trip trip : tripList) {
             tripsMap.put(ids.get(index), trip);
-            index+=1;
+            index += 1;
         }
 
 
-        recyclerView = findViewById(R.id.customRecyclerView);
-        emptyView = findViewById(R.id.empty_view);
+        RecyclerView recyclerView = findViewById(R.id.customRecyclerView);
+        TextView emptyView = findViewById(R.id.empty_view);
 
-        if (tripList == null || tripList.isEmpty()) {
+        if (tripList.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
 
-            adapter = new CustomAdapter(this,tripList);
+            CustomAdapter adapter = new CustomAdapter(this, tripList);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
 
-        //Make recyclerView clickable using ItemClickSupport util
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(
                 new ItemClickSupport.OnItemClickListener() {
                     @Override

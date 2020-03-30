@@ -11,11 +11,11 @@ public class AddTripResult {
     @Nullable
     private Integer error;
 
-    public AddTripResult(@Nullable Integer error) {
+    AddTripResult(@Nullable Integer error) {
         this.error = error;
     }
 
-    public AddTripResult(@Nullable TripsUserView success) {
+    AddTripResult(@Nullable TripsUserView success) {
         this.success = success;
     }
 

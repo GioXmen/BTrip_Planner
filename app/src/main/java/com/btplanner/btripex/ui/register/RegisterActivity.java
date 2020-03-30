@@ -1,7 +1,6 @@
 package com.btplanner.btripex.ui.register;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -27,11 +26,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.ui.login.LoginActivity;
-import com.btplanner.btripex.ui.register.RegisteredUserView;
-import com.btplanner.btripex.ui.register.RegisterFormState;
-import com.btplanner.btripex.ui.register.RegisterResult;
-import com.btplanner.btripex.ui.register.RegisterViewModel;
-import com.btplanner.btripex.ui.register.RegisterViewModelFactory;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerViewModel = ViewModelProviders.of(this, new RegisterViewModelFactory())
                 .get(RegisterViewModel.class);
 
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),"fonts/Lato-Light.ttf");
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final EditText passwordConfirmEditText = findViewById(R.id.confirmPassword);
@@ -90,7 +84,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                //Complete and destroy register activity once successful
                 finish();
             }
         });
@@ -132,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 registerViewModel.register(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString(),registerViewModel);
+                        passwordEditText.getText().toString(), registerViewModel);
             }
         });
 

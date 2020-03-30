@@ -2,31 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginRight="10dp"
+    android:orientation="horizontal">
 
     <com.github.vipulasri.timelineview.TimelineView
         android:id="@+id/timeline"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:markerSize="50dp"
-        app:lineWidth="3dp"
-        app:startLineColor="@color/material_blue_500"
         app:endLineColor="@color/material_blue_500"
+        app:linePadding="5dp"
         app:lineStyle="dash"
-        app:linePadding="5dp"/>
+        app:lineWidth="3dp"
+        app:markerSize="50dp"
+        app:startLineColor="@color/material_blue_500" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="5dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="15dp"
         app:cardBackgroundColor="#DADADA"
         app:cardCornerRadius="10dp"
         app:contentPadding="15dp">
@@ -39,36 +39,27 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/text_timeline_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
-                tools:text="Hotel - Marriott Vilnius City"/>
+                tools:text="Hotel - Marriott Vilnius City" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:id="@+id/text_timeline_date"
-                android:textColor="@android:color/black"
-                tools:text="Checkin date: 2020-03-17 01:23:09"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:id="@+id/text_timeline_location"
                 android:textColor="@android:color/black"
-                tools:text="Location: Rinktines st 3, Vilnius 09234"/>
+                tools:text="Checkin date: 2020-03-17 01:23:09" />
 
-            <!--            <ImageView
-                android:id="@+id/coverImage"
-                android:layout_width="150dp"
-                android:layout_height="140dp"
-                android:layout_gravity="right"
-                android:contentDescription="@string/image_thumbnail"
-                android:scaleType="centerCrop"
-                tools:ignore="RtlHardcoded" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_timeline_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/black"
+                tools:text="Location: Rinktines st 3, Vilnius 09234" />
 
         </LinearLayout>
 

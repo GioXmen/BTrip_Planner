@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.btplanner.btripex.data.LoginDataSource;
 import com.btplanner.btripex.data.RegisterRepository;
 import com.btplanner.btripex.data.RegisterDataSource;
-import com.btplanner.btripex.ui.login.LoginViewModel;
 
-public class RegisterViewModelFactory implements ViewModelProvider.Factory{
+/**
+ * ViewModel provider factory to instantiate RegisterViewModel.
+ * Required given RegisterViewModel has a non-empty constructor
+ */
+public class RegisterViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     @Override

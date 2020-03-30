@@ -11,10 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
-import com.btplanner.btripex.ui.event.home.HomeFragment;
 import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.AddTripResult;
@@ -38,7 +36,6 @@ import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -58,32 +55,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttachmentListener{
+public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttachmentListener {
 
-    private TripViewModel tripViewModel;
+    public static String tripId;
     public EditText tripStartEditText;
     public EditText tripEndEditText;
     public EditText tripNameEditText;
     public EditText tripDestinationEditText;
     public EditText tripDescriptionEditText;
-
+    ImageView iv_attachment;
+    ImagePicker imagePicker;
+    private TripViewModel tripViewModel;
     private String username;
     private String password;
-
-
-    ImageView iv_attachment;
-    //For Image Attachment
-
     private Bitmap bitmap;
-    private String file_name;
     private String image = null;
-
-    ImagePicker imagePicker;
-
-    private Trip currentTrip;
-
-    public static String tripId;
-    public static String tripTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +81,7 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         tripViewModel = ViewModelProviders.of(this, new TripViewModelFactory())
                 .get(TripViewModel.class);
 
-        Typeface custom_font = Typeface.createFromAsset(getAssets(),"fonts/Lato-Light.ttf");
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         tripNameEditText = findViewById(R.id.trip_name);
         tripDestinationEditText = findViewById(R.id.destination);
         tripDescriptionEditText = findViewById(R.id.description);
@@ -112,10 +98,11 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddTrip);
         loadingProgressBar.setVisibility(View.GONE);
 
-        imagePicker =new ImagePicker(this);
-        iv_attachment=(ImageView)findViewById(R.id.imageView);
+        imagePicker = new ImagePicker(this);
+        iv_attachment = findViewById(R.id.imageView);
 
         if (getIntent().hasExtra("tripId")) {
+            addTripButton.setEnabled(true);
             setFields();
         }
 
@@ -162,7 +149,6 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
                 if (addTripResult.getSuccess() != null) {
                     updateUiWithTrip(addTripResult.getSuccess());
 
-                    //Complete and destroy login activity once successful
                     finish();
                 }
                 setResult(Activity.RESULT_OK);
@@ -184,9 +170,11 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(bitmap != null){bitmapToBase64();}
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
                 tripViewModel.addTripDataChanged(tripNameEditText.getText().toString(), image, tripDestinationEditText.getText().toString(),
-                       tripDescriptionEditText.getText().toString(),  tripStartEditText.getText().toString(),  tripEndEditText.getText().toString());
+                        tripDescriptionEditText.getText().toString(), tripStartEditText.getText().toString(), tripEndEditText.getText().toString());
             }
         };
 
@@ -199,11 +187,13 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(bitmap != null){bitmapToBase64();}
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        tripViewModel.addTrip(tripId, tripNameEditText.getText().toString(), image,  tripDestinationEditText.getText().toString(),
-                                tripDescriptionEditText.getText().toString(), tripStartEditText.getText().toString(),  tripEndEditText.getText().toString(),
-                                tripViewModel, user);
+                    tripViewModel.addTrip(tripId, tripNameEditText.getText().toString(), image, tripDestinationEditText.getText().toString(),
+                            tripDescriptionEditText.getText().toString(), tripStartEditText.getText().toString(), tripEndEditText.getText().toString(),
+                            tripViewModel, user);
                 }
                 return false;
             }
@@ -212,11 +202,13 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         addTripButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bitmap != null){bitmapToBase64();}
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                    tripViewModel.addTrip(tripId, tripNameEditText.getText().toString(), image,
-                            tripDestinationEditText.getText().toString(), tripDescriptionEditText.getText().toString(),
-                            tripStartEditText.getText().toString(),  tripEndEditText.getText().toString(), tripViewModel, user);
+                tripViewModel.addTrip(tripId, tripNameEditText.getText().toString(), image,
+                        tripDestinationEditText.getText().toString(), tripDescriptionEditText.getText().toString(),
+                        tripStartEditText.getText().toString(), tripEndEditText.getText().toString(), tripViewModel, user);
             }
         });
 
@@ -231,8 +223,7 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imagePicker.onActivityResult(requestCode, resultCode, data);
 
@@ -245,30 +236,24 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        this.bitmap=file;
-        this.file_name=filename;
+        this.bitmap = file;
         iv_attachment.setImageBitmap(file);
 
-        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imagePicker.createImage(file,filename,path,false);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imagePicker.createImage(file, filename, path, false);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             Intent it = new Intent(getApplicationContext(), LoginActivity.class);
             it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -282,10 +267,6 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
     private void updateUiWithTrip(TripsUserView model) {
         String addedTrip = getString(R.string.trip_added) + " " + model.getAddedTrip().getTitle();
         Toast.makeText(getApplicationContext(), addedTrip, Toast.LENGTH_LONG).show();
-
-        // TODO : initiate successful logged in experience
-/*        Intent it = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(it);*/
         finish();
     }
 
@@ -305,7 +286,7 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
                 cal.set(year, month, dayOfMonth);
 
                 String formattedTime = sdf.format(cal.getTime());
-                if(date.equals("startDate")) {
+                if (date.equals("startDate")) {
                     tripStartEditText.setText(formattedTime);
                 } else tripEndEditText.setText(formattedTime);
             }
@@ -321,16 +302,16 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         showDatePickerDialog(view, "endDate");
     }
 
-    private void bitmapToBase64(){
+    private void bitmapToBase64() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
         image = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     private void setFields() {
         tripId = getIntent().getStringExtra("tripId");
-        currentTrip = MainActivity.tripsMap.get(tripId);
+        Trip currentTrip = MainActivity.tripsMap.get(tripId);
 
         assert currentTrip != null;
         if (currentTrip.getTitle() != null) {

@@ -2,6 +2,9 @@ package com.btplanner.btripex.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Trip class that stores, retrieves and serializes JSON trip data retrieved from Trip Repository.
+ */
 public class Trip {
 
     @SerializedName("id")
@@ -42,15 +45,6 @@ public class Trip {
         this.user = user;
     }
 
-    public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.tripDescription = tripDescription;
-        this.tripDestination = tripDestination;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
     public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate, LoggedInUser user) {
         this.title = title;
         this.thumbnail = thumbnail;
@@ -61,7 +55,16 @@ public class Trip {
         this.user = user;
     }
 
-    public Trip(String tripId, String title){
+    public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.tripDescription = tripDescription;
+        this.tripDestination = tripDestination;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Trip(String tripId, String title) {
         this.tripId = tripId;
         this.title = title;
     }

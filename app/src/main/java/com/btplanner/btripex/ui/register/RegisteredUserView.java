@@ -7,7 +7,6 @@ package com.btplanner.btripex.ui.register;
 class RegisteredUserView {
     private String username;
     private String password;
-    //... other data fields that may be accessible to the UI
 
     RegisteredUserView(String username, String password) {
         this.username = username;

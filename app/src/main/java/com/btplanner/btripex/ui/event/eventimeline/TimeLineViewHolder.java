@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TimeLineViewHolder extends RecyclerView.ViewHolder{
+public class TimeLineViewHolder extends RecyclerView.ViewHolder {
 
 
     @BindView(R.id.event_id)
@@ -24,7 +24,7 @@ public class TimeLineViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.timeline)
     TimelineView mTimelineView;
 
-    public TimeLineViewHolder(View itemView, int viewType) {
+    TimeLineViewHolder(View itemView, int viewType) {
         super(itemView);
 
         ButterKnife.bind(this, itemView);
@@ -35,32 +35,32 @@ public class TimeLineViewHolder extends RecyclerView.ViewHolder{
         return mDate;
     }
 
-    public TextView getmLocation() {
-        return mLocation;
-    }
-
-    public TextView getmType() {
-        return mType;
-    }
-
-    public TimelineView getmTimelineView() {
-        return mTimelineView;
-    }
-
     public void setmDate(TextView mDate) {
         this.mDate = mDate;
+    }
+
+    public TextView getmLocation() {
+        return mLocation;
     }
 
     public void setmLocation(TextView mLocation) {
         this.mLocation = mLocation;
     }
 
-    public void setmTimelineView(TimelineView mTimelineView) {
-        this.mTimelineView = mTimelineView;
+    public TextView getmType() {
+        return mType;
     }
 
     public void setmType(TextView mType) {
         this.mType = mType;
+    }
+
+    public TimelineView getmTimelineView() {
+        return mTimelineView;
+    }
+
+    public void setmTimelineView(TimelineView mTimelineView) {
+        this.mTimelineView = mTimelineView;
     }
 
     public TextView getId() {

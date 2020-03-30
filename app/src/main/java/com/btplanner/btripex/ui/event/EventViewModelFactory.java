@@ -2,16 +2,14 @@ package com.btplanner.btripex.ui.event;
 
 import com.btplanner.btripex.data.EventDataSource;
 import com.btplanner.btripex.data.EventRepository;
-import com.btplanner.btripex.data.TripDataSource;
-import com.btplanner.btripex.data.TripRepository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 /**
- * ViewModel provider factory to instantiate TripViewModel.
- * Required given TripViewModel has a non-empty constructor
+ * ViewModel provider factory to instantiate EventViewModel.
+ * Required given EventViewModel has a non-empty constructor
  */
 public class EventViewModelFactory implements ViewModelProvider.Factory  {
 

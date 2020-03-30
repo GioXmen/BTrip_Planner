@@ -5,7 +5,22 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Event  implements Parcelable {
+/**
+ * Event class that stores, retrieves and serializes JSON event data retrieved from Event Repository.
+ */
+public class Event implements Parcelable {
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 
     @SerializedName("id")
     private String eventId;
@@ -29,7 +44,6 @@ public class Event  implements Parcelable {
     private String expenseReceipt;
     @SerializedName("trip")
     private Trip trip;
-
 
     public Event(String eventId, String eventName, EventType eventType,
                  String eventDescription, String eventLocation, String startDate, String endDate,
@@ -73,6 +87,20 @@ public class Event  implements Parcelable {
         this.eventTime = eventTime;
         this.eventExpense = eventExpense;
         this.expenseReceipt = expenseReceipt;
+    }
+
+    protected Event(Parcel in) {
+        this.eventId = in.readString();
+        this.eventName = in.readString();
+        this.eventDescription = in.readString();
+        this.eventLocation = in.readString();
+        this.startDate = in.readString();
+        this.endDate = in.readString();
+        this.eventTime = in.readString();
+        this.eventExpense = in.readString();
+        this.expenseReceipt = in.readString();
+        int tmpMStatus = in.readInt();
+        this.eventType = tmpMStatus == -1 ? null : EventType.values()[tmpMStatus];
     }
 
     public String getEventId() {
@@ -181,30 +209,4 @@ public class Event  implements Parcelable {
         dest.writeString(this.expenseReceipt);
         dest.writeInt(this.eventType == null ? -1 : this.eventType.ordinal());
     }
-
-    protected Event(Parcel in) {
-        this.eventId = in.readString();;
-        this.eventName = in.readString();;
-        this.eventDescription = in.readString();;
-        this.eventLocation = in.readString();;
-        this.startDate = in.readString();;
-        this.endDate = in.readString();;
-        this.eventTime = in.readString();;
-        this.eventExpense = in.readString();;
-        this.expenseReceipt = in.readString();;
-        int tmpMStatus = in.readInt();
-        this.eventType = tmpMStatus == -1 ? null : EventType.values()[tmpMStatus];
-    }
-
-    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
-        @Override
-        public Event createFromParcel(Parcel source) {
-            return new Event(source);
-        }
-
-        @Override
-        public Event[] newArray(int size) {
-            return new Event[size];
-        }
-    };
 }

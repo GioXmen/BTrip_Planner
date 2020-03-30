@@ -1,7 +1,5 @@
 package com.btplanner.btripex.ui.register;
 
-import android.util.Patterns;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -38,14 +36,11 @@ public class RegisterViewModel extends ViewModel {
             RegisteredUser data = ((Result.Success<RegisteredUser>) result).getData();
             registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getUserName(), data.getPassword())));
         } else {
-            registerResult.setValue(new RegisterResult(R.string.login_failed));
+            registerResult.setValue(new RegisterResult(R.string.register_failed));
         }
     }
 
-    public void registerDataChanged(String username, String password, String passwordConfirm) {
-/*        if (!isUserNameValid(username)) {
-            registerFormState.setValue(new RegisterFormState(R.string.invalid_username, null));
-        } else*/
+    void registerDataChanged(String username, String password, String passwordConfirm) {
         if (!isPasswordConfirmValid(password, passwordConfirm)) {
             registerFormState.setValue(new RegisterFormState(null, null, R.string.invalid_password_confirm));
         } else if (!isPasswordValid(password)) {
@@ -55,12 +50,10 @@ public class RegisterViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
     private boolean isPasswordConfirmValid(String password, String passwordConfirm) {
         return password.equals(passwordConfirm);
     }
 
-    // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
     }

@@ -52,6 +52,81 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+
+        <EditText
+            android:id="@+id/event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_name"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="142dp"
+            android:contentDescription="@string/event_name"
+            android:src="@drawable/event"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Spinner
+            android:id="@+id/event_type"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_type"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="207dp"
+            android:contentDescription="@string/event_type"
+            android:src="@drawable/type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/event_location"
             android:layout_width="match_parent"
@@ -77,6 +152,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_type" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="270dp"
+            android:contentDescription="@string/event_location"
+            android:src="@drawable/destination"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/start_date"
@@ -106,6 +193,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_location" />
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="335dp"
+            android:contentDescription="@string/start_date"
+            android:src="@drawable/start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/end_date"
             android:layout_width="match_parent"
@@ -133,6 +232,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start_date" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="397dp"
+            android:contentDescription="@string/end_date"
+            android:src="@drawable/end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/event_time"
@@ -167,7 +278,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginTop="462dp"
-            android:contentDescription="@string/event_name"
+            android:contentDescription="@string/start_time"
             android:src="@drawable/time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.102"
@@ -200,6 +311,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_time" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="525dp"
+            android:contentDescription="@string/event_description"
+            android:src="@drawable/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <EditText
@@ -234,159 +357,29 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginTop="591dp"
-            android:contentDescription="@string/event_name"
+            android:contentDescription="@string/event_expense"
             android:src="@drawable/money"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.102"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="270dp"
-            android:contentDescription="@string/password_logo"
-            android:src="@drawable/destination"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="335dp"
-            android:contentDescription="@string/password_logo"
-            android:src="@drawable/start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="397dp"
-            android:contentDescription="@string/password_logo"
-            android:src="@drawable/end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="525dp"
-            android:contentDescription="@string/password_logo"
-            android:src="@drawable/description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/event_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="124dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/event_name"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage"
-            android:letterSpacing="0.1"
-
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
-            android:selectAllOnFocus="true"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/event_type"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/event_type"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage"
-            android:letterSpacing="0.1"
-
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
-            android:selectAllOnFocus="true"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_name"/>
-
-
-
-<!--        <EditText
-            android:id="@+id/event_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/event_type"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage"
-            android:letterSpacing="0.1"
-
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
-            android:selectAllOnFocus="true"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_name" />-->
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="207dp"
-            android:contentDescription="@string/event_name"
-            android:src="@drawable/type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="142dp"
-            android:contentDescription="@string/event_name"
-            android:src="@drawable/event"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.102"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:id="@+id/event_expense_imageView"
+            android:layout_width="154dp"
+            android:layout_height="135dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:contentDescription="@string/image_thumbnail"
+            android:src="@drawable/ph_add_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_expense"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="RtlHardcoded" />
 
         <Button
             android:id="@+id/add_event"
@@ -427,21 +420,5 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1" />
-
-        <ImageView
-            android:id="@+id/event_expense_imageView"
-            android:layout_width="154dp"
-            android:layout_height="135dp"
-            android:layout_gravity="left"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="50dp"
-            android:src="@drawable/ph_add_image"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_expense"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="RtlHardcoded" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

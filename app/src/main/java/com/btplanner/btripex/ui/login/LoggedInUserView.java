@@ -3,11 +3,10 @@ package com.btplanner.btripex.ui.login;
 /**
  * Class exposing authenticated user details to the UI.
  */
-public class LoggedInUserView {
+class LoggedInUserView {
     private Long id;
     private String username;
     private String password;
-    //... other data fields that may be accessible to the UI
 
     LoggedInUserView(String username, String password, Long id) {
         this.username = username;
@@ -23,5 +22,7 @@ public class LoggedInUserView {
         return password;
     }
 
-    Long getId(){return id;}
+    Long getId() {
+        return id;
+    }
 }

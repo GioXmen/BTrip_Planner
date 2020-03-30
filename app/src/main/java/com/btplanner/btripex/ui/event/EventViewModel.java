@@ -5,12 +5,7 @@ import com.btplanner.btripex.data.EventRepository;
 import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
-import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -22,7 +17,7 @@ public class EventViewModel extends ViewModel {
     private MutableLiveData<EventResult> eventResult = new MutableLiveData<>();
     private EventRepository eventRepository;
 
-    public EventViewModel(EventRepository eventRepository) {
+    EventViewModel(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
@@ -34,11 +29,12 @@ public class EventViewModel extends ViewModel {
         return eventResult;
     }
 
-    public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
-                         String eventTime, String eventExpense, String expenseReceipt, EventViewModel eventViewModel, Trip trip) {
+    public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation,
+                         String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt,
+                         EventViewModel eventViewModel, Trip trip) {
 
         String startTimeAndDate = startDate;
-        if(eventTime != null) {
+        if (eventTime != null) {
             startTimeAndDate = startDate.substring(0, 10) + "T" + eventTime.substring(0, 5) + ":00.000+0000";
         }
         eventRepository.addEvent(eventId, eventName, eventType, eventDescription, eventLocation, startTimeAndDate, endDate,
@@ -54,8 +50,8 @@ public class EventViewModel extends ViewModel {
         }
     }
 
-    public void eventDataChanged(String eventName, String eventType, String eventDescription, String eventLocation, String startDate, String endDate,
-                                 String eventTime, String eventExpense, String expenseReceipt) {
+    public void eventDataChanged(String eventName, String eventType, String eventDescription, String eventLocation,
+                                 String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt) {
 
         if (!isNameValid(eventName)) {
             eventFormState.setValue(new EventFormState(R.string.invalid_title, null, null));
@@ -68,7 +64,6 @@ public class EventViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
     private boolean isNameValid(String name) {
         if (name == null) {
             return false;
@@ -77,7 +72,6 @@ public class EventViewModel extends ViewModel {
         }
     }
 
-    // A placeholder password validation check
     private boolean isTypeValid(String type) {
         return type != null;
     }

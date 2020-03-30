@@ -42,6 +42,81 @@
         app:layout_constraintTop_toBottomOf="@+id/logo"
         />
 
+    <EditText
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="324dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+
+        android:hint="@string/prompt_username"
+        android:textColorHint="#fff"
+        android:letterSpacing="0.1"
+        android:textColor="#fff"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="340dp"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/username_logo" />
+
+    <EditText
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+
+        android:hint="@string/prompt_password"
+        android:windowSoftInputMode="adjustPan"
+        android:textColorHint="#fff"
+        android:letterSpacing="0.1"
+        android:textColor="#fff"
+        android:imeActionLabel="@string/action_sign_in"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:importantForAutofill="no" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="405dp"
+        android:src="@drawable/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/password_logo" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="150dp"
@@ -87,82 +162,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.2" />
-
-    <EditText
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:padding="16dp"
-
-        android:hint="@string/prompt_password"
-        android:windowSoftInputMode="adjustPan"
-        android:textColorHint="#fff"
-        android:letterSpacing="0.1"
-        android:textColor="#fff"
-        android:imeActionLabel="@string/action_sign_in"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:importantForAutofill="no" />
-
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="405dp"
-        android:src="@drawable/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/password_logo" />
-
-    <EditText
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="324dp"
-        android:layout_marginEnd="24dp"
-        android:orientation="horizontal"
-        android:padding="16dp"
-
-        android:hint="@string/prompt_username"
-        android:textColorHint="#fff"
-        android:letterSpacing="0.1"
-        android:textColor="#fff"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="340dp"
-        android:src="@drawable/user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/username_logo" />
 
     <ProgressBar
         android:id="@+id/loading"

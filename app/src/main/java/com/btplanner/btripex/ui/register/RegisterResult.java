@@ -2,8 +2,9 @@ package com.btplanner.btripex.ui.register;
 
 import androidx.annotation.Nullable;
 
-import com.btplanner.btripex.ui.register.RegisteredUserView;
-
+/**
+ * Authentication result : success (user details) or error message.
+ */
 class RegisterResult {
     @Nullable
     private RegisteredUserView success;

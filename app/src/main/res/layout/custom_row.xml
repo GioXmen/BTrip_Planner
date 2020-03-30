@@ -10,10 +10,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        >
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="12dp">
 
         <ImageView
             android:id="@+id/coverImage"
@@ -21,20 +20,20 @@
             android:layout_height="140dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/image_thumbnail" />
+            android:contentDescription="@string/image_thumbnail"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/title"
-            android:textStyle = "bold"
-            android:textSize="24sp"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/coverImage"
             android:layout_marginStart="16dp"
-            android:paddingTop="10dp"
+            android:layout_toEndOf="@+id/coverImage"
             android:lines="1"
+            android:paddingTop="10dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             tools:text="Title" />
 
         <TextView
@@ -42,37 +41,34 @@
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/coverImage"
             android:layout_marginStart="16dp"
             android:layout_marginTop="45dp"
+            android:layout_toEndOf="@+id/coverImage"
             android:lines="2"
-            tools:text="Description"
-            />
+            tools:text="Description" />
 
         <TextView
             android:id="@+id/startDate"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/coverImage"
             android:layout_marginStart="16dp"
             android:layout_marginTop="110dp"
+            android:layout_toEndOf="@+id/coverImage"
             android:lines="1"
-            tools:text="Start Date"
-            />
+            tools:text="Start Date" />
 
         <TextView
             android:id="@+id/id"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/startDate"
             android:layout_marginStart="16dp"
             android:layout_marginTop="110dp"
+            android:layout_toEndOf="@+id/startDate"
             android:lines="1"
             android:visibility="invisible"
-            tools:text="ID"
-            />
+            tools:text="ID" />
 
     </RelativeLayout>
 

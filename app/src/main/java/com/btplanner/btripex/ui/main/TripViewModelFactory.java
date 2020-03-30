@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
  * ViewModel provider factory to instantiate TripViewModel.
  * Required given TripViewModel has a non-empty constructor
  */
-public class TripViewModelFactory implements ViewModelProvider.Factory  {
+public class TripViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull
     @Override

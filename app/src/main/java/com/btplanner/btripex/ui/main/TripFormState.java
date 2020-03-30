@@ -16,7 +16,7 @@ public class TripFormState {
     private Integer tripDescriptionError;
     private boolean isDataValid;
 
-    public TripFormState(@Nullable Integer tripNameError, @Nullable Integer tripDestinationError,
+    TripFormState(@Nullable Integer tripNameError, @Nullable Integer tripDestinationError,
                   @Nullable Integer dateError, @Nullable Integer tripDescriptionError) {
         this.tripNameError = tripNameError;
         this.tripDestinationError = tripDestinationError;
@@ -25,7 +25,7 @@ public class TripFormState {
         this.isDataValid = false;
     }
 
-    public TripFormState(boolean isDataValid) {
+    TripFormState(boolean isDataValid) {
         this.tripNameError = null;
         this.tripDestinationError = null;
         this.dateError = null;

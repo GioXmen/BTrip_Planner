@@ -6,8 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +13,7 @@ import android.os.Bundle;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
-import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
-import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.event.EventFormState;
 import com.btplanner.btripex.ui.event.EventResult;
 import com.btplanner.btripex.ui.event.EventUserView;
@@ -26,12 +22,6 @@ import com.btplanner.btripex.ui.event.EventViewModelFactory;
 import com.btplanner.btripex.ui.event.home.HomeFragment;
 import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;
-import com.btplanner.btripex.ui.main.AddTripResult;
-import com.btplanner.btripex.ui.main.MainActivity;
-import com.btplanner.btripex.ui.main.TripFormState;
-import com.btplanner.btripex.ui.main.TripViewModel;
-import com.btplanner.btripex.ui.main.TripViewModelFactory;
-import com.btplanner.btripex.ui.main.TripsUserView;
 import com.btplanner.btripex.ui.utils.ImagePicker;
 import com.btplanner.btripex.ui.utils.TimePickerFragment;
 
@@ -48,13 +38,11 @@ import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -72,9 +60,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAttachmentListener{
+public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAttachmentListener {
 
-    private EventViewModel eventViewModel;
+    public static String tripId;
+    public static String tripTitle;
     public EditText eventStartEditText;
     public EditText eventEndEditText;
     public EditText eventTimeEditText;
@@ -82,23 +71,15 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
     public EditText eventLocationEditText;
     public EditText eventDescriptionEditText;
     public EditText eventExpenseEditText;
-    public Spinner  spinner;
-
+    public Spinner spinner;
     ImageView iv_attachment;
-    //For Image Attachment
-
+    ImagePicker imagePicker;
+    private EventViewModel eventViewModel;
     private Bitmap bitmap;
-    private String file_name;
     private String image = null;
-
     private Event currentEvent;
     private String currentEventId = null;
-    private Trip  newTrip;
-
-    public static String tripId;
-    public static String tripTitle;
-
-    ImagePicker imagePicker;
+    private Trip newTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +99,8 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         eventEndEditText = findViewById(R.id.end_date);
         eventTimeEditText = findViewById(R.id.event_time);
 
-        spinner = (Spinner) findViewById(R.id.event_type);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.event_types, android.R.layout.simple_spinner_item);
+        spinner = findViewById(R.id.event_type);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.event_types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -128,10 +109,11 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddEvent);
         loadingProgressBar.setVisibility(View.GONE);
 
-        imagePicker =new ImagePicker(this);
-        iv_attachment=(ImageView)findViewById(R.id.event_expense_imageView);
+        imagePicker = new ImagePicker(this);
+        iv_attachment = findViewById(R.id.event_expense_imageView);
 
         if (getIntent().hasExtra("eventId")) {
+            addEventButton.setEnabled(true);
             setFields();
         }
 
@@ -152,10 +134,7 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
                     eventNameEditText.setError(getString(eventFormState.getEventNameError()));
                 }
                 if (eventFormState.getEventTypeError() != null) {
-/*                    spinnerError.setTextColor(Color.RED);
-                    spinnerError.setError("");
-                    spinnerError.setText(getString(eventFormState.getEventTypeError()));*/
-                    ((TextView)spinner.getSelectedView()).setError(getString(eventFormState.getEventTypeError()));
+                    ((TextView) spinner.getSelectedView()).setError(getString(eventFormState.getEventTypeError()));
                 }
                 if (eventFormState.getDateError() != null) {
                     eventStartEditText.setError(getString(eventFormState.getDateError()));
@@ -176,12 +155,9 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
                 }
                 if (eventResult.getSuccess() != null) {
                     updateUiWithEvent(eventResult.getSuccess());
-
-                    //Complete and destroy login activity once successful
                     finish();
                 }
                 setResult(Activity.RESULT_OK);
-
             }
         });
 
@@ -199,10 +175,13 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(bitmap != null && image == null){bitmapToBase64();}
-                eventViewModel.eventDataChanged(eventNameEditText.getText().toString(), spinner.getSelectedItem().toString(), eventDescriptionEditText.getText().toString(),
-                        eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(),  eventEndEditText.getText().toString(), eventTimeEditText.getText().toString(),
-                        eventExpenseEditText.getText().toString(), image);
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
+                eventViewModel.eventDataChanged(eventNameEditText.getText().toString(), spinner.getSelectedItem().toString(),
+                        eventDescriptionEditText.getText().toString(), eventLocationEditText.getText().toString(),
+                        eventStartEditText.getText().toString(), eventEndEditText.getText().toString(),
+                        eventTimeEditText.getText().toString(), eventExpenseEditText.getText().toString(), image);
             }
         };
 
@@ -217,12 +196,17 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(bitmap != null && image == null){bitmapToBase64();}
-                if(currentEvent != null){currentEventId = currentEvent.getEventId();}
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
+                if (currentEvent != null) {
+                    currentEventId = currentEvent.getEventId();
+                }
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    eventViewModel.addEvent(currentEventId, eventNameEditText.getText().toString(), EventType.valueOf(spinner.getSelectedItem().toString().toUpperCase()), eventDescriptionEditText.getText().toString(),
-                            eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(),  eventEndEditText.getText().toString(), eventTimeEditText.getText().toString(),
-                            eventExpenseEditText.getText().toString(), image, eventViewModel, newTrip);
+                    eventViewModel.addEvent(currentEventId, eventNameEditText.getText().toString(),
+                            EventType.valueOf(spinner.getSelectedItem().toString().toUpperCase()), eventDescriptionEditText.getText().toString(),
+                            eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(), eventEndEditText.getText().toString(),
+                            eventTimeEditText.getText().toString(), eventExpenseEditText.getText().toString(), image, eventViewModel, newTrip);
                 }
                 return false;
             }
@@ -231,12 +215,17 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bitmap != null && image == null){bitmapToBase64();}
-                if(currentEvent != null){currentEventId = currentEvent.getEventId();}
+                if (bitmap != null) {
+                    bitmapToBase64();
+                }
+                if (currentEvent != null) {
+                    currentEventId = currentEvent.getEventId();
+                }
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                eventViewModel.addEvent(currentEventId, eventNameEditText.getText().toString(), EventType.valueOf(spinner.getSelectedItem().toString().toUpperCase()), eventDescriptionEditText.getText().toString(),
-                        eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(),  eventEndEditText.getText().toString(), eventTimeEditText.getText().toString(),
-                        eventExpenseEditText.getText().toString(), image, eventViewModel, newTrip);
+                eventViewModel.addEvent(currentEventId, eventNameEditText.getText().toString(),
+                        EventType.valueOf(spinner.getSelectedItem().toString().toUpperCase()), eventDescriptionEditText.getText().toString(),
+                        eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(), eventEndEditText.getText().toString(),
+                        eventTimeEditText.getText().toString(), eventExpenseEditText.getText().toString(), image, eventViewModel, newTrip);
             }
         });
 
@@ -251,8 +240,7 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imagePicker.onActivityResult(requestCode, resultCode, data);
 
@@ -265,12 +253,11 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        this.bitmap=file;
-        this.file_name=filename;
+        this.bitmap = file;
         iv_attachment.setImageBitmap(file);
 
-        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imagePicker.createImage(file,filename,path,false);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imagePicker.createImage(file, filename, path, false);
 
     }
 
@@ -283,12 +270,8 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             Intent it = new Intent(getApplicationContext(), LoginActivity.class);
             it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -302,9 +285,6 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
     private void updateUiWithEvent(EventUserView model) {
         String addedEvent = getString(R.string.event_added) + " " + model.getAddedEvent().getEventName();
         Toast.makeText(getApplicationContext(), addedEvent, Toast.LENGTH_LONG).show();
-
-/*        Intent it = new Intent(getApplicationContext(), EventActivity.class);
-        startActivity(it);*/
         finish();
     }
 
@@ -317,14 +297,13 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         newFragment.setOnDateSelectedListener(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // Do something with the date chosen by the user
                 String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
                 Calendar cal = Calendar.getInstance();
                 cal.set(year, month, dayOfMonth);
 
                 String formattedTime = sdf.format(cal.getTime());
-                if(date.equals("startDate")) {
+                if (date.equals("startDate")) {
                     eventStartEditText.setText(formattedTime);
                 } else eventEndEditText.setText(formattedTime);
             }
@@ -333,7 +312,7 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
     }
 
 
-        public void showStartDatePickerDialog(View view) {
+    public void showStartDatePickerDialog(View view) {
         showDatePickerDialog(view, "startDate");
     }
 
@@ -358,10 +337,10 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
-    private void bitmapToBase64(){
+    private void bitmapToBase64() {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
         image = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 

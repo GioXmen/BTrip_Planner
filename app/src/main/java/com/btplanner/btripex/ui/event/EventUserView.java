@@ -1,12 +1,10 @@
 package com.btplanner.btripex.ui.event;
 
 import com.btplanner.btripex.data.model.Event;
-import com.btplanner.btripex.data.model.Trip;
-
 import java.util.List;
 
 /**
- * Class exposing trips to the UI.
+ * Class exposing events to the UI.
  */
 public class EventUserView {
     private List<Event> events;
@@ -16,7 +14,7 @@ public class EventUserView {
         this.events = events;
     }
 
-    public EventUserView(Event event, boolean addOrRemove) {
+    EventUserView(Event event, boolean addOrRemove) {
         if (addOrRemove){
             this.event = event;
     //        this.events.add(event);

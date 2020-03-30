@@ -1,12 +1,13 @@
 package com.btplanner.btripex.data;
 
-import com.btplanner.btripex.data.model.LoggedInUser;
+import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.RegisteredUser;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,18 +21,20 @@ public class RegisterDataSource {
         Call<RegisteredUser> call = service.register(registeredUser);
         call.enqueue(new Callback<RegisteredUser>() {
             @Override
-            public void onResponse(Call<RegisteredUser> call, Response<RegisteredUser> response) {
+            @SuppressWarnings("unchecked")
+            public void onResponse(@NonNull Call<RegisteredUser> call, @NonNull Response<RegisteredUser> response) {
                 RegisteredUser newUser = response.body();
                 Result<RegisteredUser> result = new Result.Success<>(newUser);
-                if (newUser == null){
-                    result = new Result.Error(new IOException("Error during registration"));
+                if (newUser == null) {
+                    result = new Result.Error(new IOException(String.valueOf(R.string.register_failed)));
                 }
                 registerRepository.register(result);
             }
 
             @Override
-            public void onFailure(Call<RegisteredUser> call, Throwable t) {
-                Result<RegisteredUser> result = new Result.Error(new IOException("Error during registration", t));
+            @SuppressWarnings("unchecked")
+            public void onFailure(@NonNull Call<RegisteredUser> call, @NonNull Throwable t) {
+                Result<RegisteredUser> result = new Result.Error(new IOException(String.valueOf(R.string.register_call_failed), t));
                 registerRepository.register(result);
             }
         });

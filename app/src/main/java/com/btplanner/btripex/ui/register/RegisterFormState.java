@@ -2,6 +2,9 @@ package com.btplanner.btripex.ui.register;
 
 import androidx.annotation.Nullable;
 
+/**
+ * Data validation state of the register form.
+ */
 class RegisterFormState {
     @Nullable
     private Integer usernameError;

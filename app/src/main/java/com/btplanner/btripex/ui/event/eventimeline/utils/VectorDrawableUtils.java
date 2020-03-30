@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.content.ContextCompat;
 

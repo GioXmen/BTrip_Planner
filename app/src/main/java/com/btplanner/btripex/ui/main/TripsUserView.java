@@ -15,18 +15,18 @@ public class TripsUserView {
         this.trips = trips;
     }
 
-    public TripsUserView(Trip trip, boolean addOrRemove) {
-        if (addOrRemove){
+    TripsUserView(Trip trip, boolean addOrRemove) {
+        if (addOrRemove) {
             this.trip = trip;
-  //          this.trips.add(trip);
+            // this.trips.add(trip);
         } else this.trips.remove(trip);
     }
 
-    public List<Trip> getTrips(){
+    public List<Trip> getTrips() {
         return trips;
     }
 
-    public Trip getAddedTrip(){
+    public Trip getAddedTrip() {
         return trip;
     }
 }
