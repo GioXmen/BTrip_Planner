@@ -59,12 +59,29 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        holder.txtTitle.setText(dataList.get(position).getTitle());
-        holder.description.setText(dataList.get(position).getTripDescription());
         holder.id.setText(dataList.get(position).getTripId());
-        String startDate = dataList.get(position).getStartDate();
 
-        holder.startDate.setText("Start Date: " + startDate.substring(0, 10));
+        if(dataList.get(position).getTitle() != null) {
+            holder.txtTitle.setVisibility(View.VISIBLE);
+            holder.txtTitle.setText(dataList.get(position).getTitle());
+        } else{
+            holder.txtTitle.setVisibility(View.GONE);
+        }
+
+        if(dataList.get(position).getTripDescription() != null) {
+            holder.description.setVisibility(View.VISIBLE);
+            holder.description.setText(dataList.get(position).getTripDescription());
+        } else{
+            holder.description.setVisibility(View.GONE);
+        }
+
+        if(dataList.get(position).getStartDate() != null) {
+            holder.startDate.setVisibility(View.VISIBLE);
+            String startDate = dataList.get(position).getStartDate();
+            holder.startDate.setText("Start Date: " + startDate.substring(0, 10));
+        } else{
+            holder.startDate.setVisibility(View.GONE);
+        }
 
         RequestOptions options = new RequestOptions()
                 .placeholder((R.drawable.ic_launcher_background))

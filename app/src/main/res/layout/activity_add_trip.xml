@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintBottom_toTopOf="@+id/bytes"
+        app:layout_constraintBottom_toTopOf="@+id/add_trip_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,13 +28,13 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/bytes"
+        android:id="@+id/add_trip_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
         android:gravity="top|start"
-        android:text="@string/add_trip"
+        android:text="@string/trip_label"
         android:textColor="#000"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -256,7 +256,7 @@
         android:layout_weight="1"
         android:background="@color/colorPrimary"
         android:padding="15dp"
-        android:text="@string/add_trip"
+        android:text="@string/add_update"
         android:textColor="#fff"
         android:textStyle="bold"
         android:windowSoftInputMode="adjustResize"

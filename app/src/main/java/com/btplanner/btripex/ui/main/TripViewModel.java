@@ -33,13 +33,13 @@ public class TripViewModel extends ViewModel {
         return addTripResult;
     }
 
-    public void addTrip(String title, String thumbnail, String tripDestination, String tripDescription,
+    public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
                         String startDate, String endDate, TripViewModel tripViewModel, LoggedInUser user) {
 /*        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
         Date tripStartDate = sdf.parse(startDate);
         Date tripEndDate = sdf.parse(endDate);*/
-        tripRepository.addTrip(title, thumbnail, tripDestination, tripDescription, startDate, endDate, tripViewModel, user);
+        tripRepository.addTrip(tripId, title, thumbnail, tripDestination, tripDescription, startDate, endDate, tripViewModel, user);
     }
 
     public void addTrip(Result<Trip> result) {

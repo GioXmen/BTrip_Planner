@@ -31,6 +31,17 @@ public class Trip {
         this.endDate = endDate;
     }
 
+    public Trip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate, LoggedInUser user) {
+        this.tripId = tripId;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.tripDescription = tripDescription;
+        this.tripDestination = tripDestination;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.user = user;
+    }
+
     public Trip(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
         this.title = title;
         this.thumbnail = thumbnail;
@@ -48,6 +59,11 @@ public class Trip {
         this.startDate = startDate;
         this.endDate = endDate;
         this.user = user;
+    }
+
+    public Trip(String tripId, String title){
+        this.tripId = tripId;
+        this.title = title;
     }
 
     public String getTripId() {

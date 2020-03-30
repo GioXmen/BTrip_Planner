@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.event.eventimeline.AddEvent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_constraintBottom_toTopOf="@+id/add_event_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/add_event_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:gravity="top|start"
+            android:text="@string/event_label"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+
+            android:windowSoftInputMode="adjustNothing"
+            app:layout_constraintBottom_toTopOf="@id/event_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/event_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_location"
+            android:imeActionLabel="@string/action_sign_in"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_type" />
+
+        <EditText
+            android:id="@+id/start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:focusable="false"
+            android:hint="@string/start_date"
+            android:imeActionLabel="@string/action_sign_in"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="date"
+
+            android:letterSpacing="0.1"
+            android:onClick="showStartDatePickerDialog"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_location" />
+
+        <EditText
+            android:id="@+id/end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:focusable="false"
+            android:hint="@string/end_date"
+            android:imeActionLabel="@string/action_sign_in"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="date"
+
+            android:letterSpacing="0.1"
+            android:onClick="showEndDatePickerDialog"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_date" />
+
+        <EditText
+            android:id="@+id/event_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:focusable="false"
+            android:hint="@string/event_time"
+            android:imeActionLabel="@string/event_time"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="date"
+
+            android:letterSpacing="0.1"
+            android:onClick="showTimePickerDialog"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/end_date" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="462dp"
+            android:contentDescription="@string/event_name"
+            android:src="@drawable/time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_description"
+            android:imeActionLabel="@string/event_description"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="textMultiLine"
+            android:letterSpacing="0.1"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:windowSoftInputMode="adjustPan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_time" />
+
+
+        <EditText
+            android:id="@+id/event_expense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_expense"
+            android:imeActionLabel="@string/event_expense"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="textMultiLine"
+            android:letterSpacing="0.1"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:windowSoftInputMode="adjustPan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_description" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="591dp"
+            android:contentDescription="@string/event_name"
+            android:src="@drawable/money"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="270dp"
+            android:contentDescription="@string/password_logo"
+            android:src="@drawable/destination"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="335dp"
+            android:contentDescription="@string/password_logo"
+            android:src="@drawable/start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="397dp"
+            android:contentDescription="@string/password_logo"
+            android:src="@drawable/end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="525dp"
+            android:contentDescription="@string/password_logo"
+            android:src="@drawable/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_name"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/event_type"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_type"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_name"/>
+
+
+
+<!--        <EditText
+            android:id="@+id/event_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/event_type"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            android:letterSpacing="0.1"
+
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />-->
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="207dp"
+            android:contentDescription="@string/event_name"
+            android:src="@drawable/type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="142dp"
+            android:contentDescription="@string/event_name"
+            android:src="@drawable/event"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.102"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/add_event"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="64dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:enabled="false"
+            android:padding="15dp"
+            android:text="@string/add_update"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:windowSoftInputMode="adjustResize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_expense_imageView"
+            app:layout_constraintVertical_bias="0.1" />
+
+
+        <ProgressBar
+            android:id="@+id/progressbarAddEvent"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:indeterminate="true"
+            android:indeterminateTint="#1a09d6"
+            android:max="100"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <ImageView
+            android:id="@+id/event_expense_imageView"
+            android:layout_width="154dp"
+            android:layout_height="135dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/ph_add_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_expense"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="RtlHardcoded" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

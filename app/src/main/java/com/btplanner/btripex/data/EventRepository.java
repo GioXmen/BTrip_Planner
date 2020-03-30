@@ -60,16 +60,18 @@ public class EventRepository {
         this.eventViewModel = eventViewModel;
     }
 
-    public void addEvent(String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
+    public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
                          String eventTime, String eventExpense, String expenseReceipt, EventViewModel eventViewModel, Trip trip) {
         setEventViewModel(eventViewModel);
-        dataSource.addEvent(eventName, eventType, eventDescription, eventLocation, startDate, endDate,
+        dataSource.addEvent(eventId, eventName, eventType, eventDescription, eventLocation, startDate, endDate,
                 eventTime, eventExpense, expenseReceipt, trip,  instance);
     }
 
     public void addEvent( Result<Event> result) {
         if (result instanceof Result.Success) {
-            addEvent(((Result.Success<Event>) result).getData());
+            if(events != null) {
+                addEvent(((Result.Success<Event>) result).getData());
+            }
         }
         eventViewModel.addEvent(result);
     }

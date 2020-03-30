@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.btplanner.btripex.R;
+import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
@@ -29,11 +30,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
     public static String username;
     public static String password;
+    public static Map<String, Trip> tripsMap = new HashMap<String, Trip>();
+
 
     private CustomAdapter adapter;
     private RecyclerView recyclerView;
@@ -47,8 +53,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+/*        if (savedInstanceState != null) {
+             username = savedInstanceState.getString("username");
+             password = savedInstanceState.getString("password");
+        }*/
+
         username = getIntent().getStringExtra("username");
         password = getIntent().getStringExtra("password");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setVisibility(View.VISIBLE);
@@ -78,10 +94,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(getApplicationContext(), AddTrip.class);
                 progressBar.setVisibility(View.GONE);
+                it.putExtra("username", username);
+                it.putExtra("password", password);
                 startActivity(it);
             }
         });
     }
+
+/*
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("username", username);
+        outState.putString("password", password);
+        super.onSaveInstanceState(outState);
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,6 +137,14 @@ public class MainActivity extends AppCompatActivity {
 
     /*Method to generate List of data using RecyclerView with custom adapter*/
     private void generateDataList(List<Trip> tripList) {
+        List<String> ids = tripList.stream().map(Trip::getTripId).collect(Collectors.toList());
+        int index = 0;
+        for (Trip trip: tripList) {
+            tripsMap.put(ids.get(index), trip);
+            index+=1;
+        }
+
+
         recyclerView = findViewById(R.id.customRecyclerView);
         emptyView = findViewById(R.id.empty_view);
 
@@ -140,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent it = new Intent(getApplicationContext(), EventActivity.class);
                         it.putExtra("id", childHolder.id.getText());
                         it.putExtra("title", childHolder.txtTitle.getText());
+                        it.putExtra("username", username);
+                        it.putExtra("password", password);
                         startActivity(it);
                     }
                 }

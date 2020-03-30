@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
+import com.btplanner.btripex.ui.event.eventimeline.utils.DateTimeUtils;
 import com.btplanner.btripex.ui.event.eventimeline.utils.VectorDrawableUtils;
 import com.github.vipulasri.timelineview.TimelineView;
 
@@ -55,35 +56,31 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder>{
         Event timeLineModel = mFeedList.get(position);
 
         if(timeLineModel.getEventType() == EventType.HOTEL) {
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_hotel_fill, android.R.color.holo_green_dark));
+            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_hotel_fill));
             holder.mType.setText(R.string.hotel);
         } else if(timeLineModel.getEventType() == EventType.RESTAURANT) {
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_restaurant_fill, R.color.material_grey_500));
+            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_restaurant_fill));
             holder.mType.setText(R.string.restaurant);
         } else if(timeLineModel.getEventType() == EventType.FLIGHT) {
-            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_airport_fill), ContextCompat.getColor(mContext, R.color.colorPrimary));
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_airport_fill));
             holder.mType.setText(R.string.flight);
-
         }
 
-        if(!timeLineModel.getStartDate().isEmpty()) {
+        if(timeLineModel.getStartDate() != null && !timeLineModel.getStartDate().isEmpty()) {
             holder.mDate.setVisibility(View.VISIBLE);
-            //holder.mDate.setText(DateTimeUtils.parseDateTime(timeLineModel.getDate(), "yyyy-MM-dd HH:mm", "hh:mm a, dd-MMM-yyyy"));
-            String myFormat = "yyyy-MM-dd";
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
-            Date tripStartDate = null;
-            try {
-                 tripStartDate = sdf.parse(timeLineModel.getStartDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
+            String eventStartDate = timeLineModel.getStartDate().substring(0, 10);
+            String date = "Start date: " + eventStartDate;
+            if(timeLineModel.getEventTime() != null && timeLineModel.getEventTime().length() > 10) {
+                String eventStartTime = timeLineModel.getEventTime().substring(11, 16);
+                date = date + " Time: " + eventStartTime;
             }
-            String date = "Start date:" + tripStartDate;
             holder.mDate.setText(date);
+            holder.id.setText(timeLineModel.getEventId());
         }
         else
             holder.mDate.setVisibility(View.GONE);
 
-        if(!timeLineModel.getEventLocation().isEmpty()) {
+        if(timeLineModel.getEventLocation() != null && !timeLineModel.getEventLocation().isEmpty()) {
             holder.mLocation.setVisibility(View.VISIBLE);
             String location = "Location: " + timeLineModel.getEventLocation();
             holder.mLocation.setText(location);

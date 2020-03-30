@@ -18,7 +18,7 @@ public class TripsUserView {
     public TripsUserView(Trip trip, boolean addOrRemove) {
         if (addOrRemove){
             this.trip = trip;
-            this.trips.add(trip);
+  //          this.trips.add(trip);
         } else this.trips.remove(trip);
     }
 

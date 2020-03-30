@@ -57,15 +57,17 @@ public class TripRepository {
         this.tripViewModel = tripViewModel;
     }
 
-    public void addTrip(String title, String thumbnail, String tripDestination, String tripDescription,
+    public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
                         String startDate, String endDate, TripViewModel tripViewModel, LoggedInUser user) {
         setTripViewModel(tripViewModel);
-        dataSource.addTrip(title, thumbnail, tripDestination, tripDescription, startDate, endDate, user,  instance);
+        dataSource.addTrip(tripId, title, thumbnail, tripDestination, tripDescription, startDate, endDate, user,  instance);
     }
 
     public void addTrip( Result<Trip> result) {
         if (result instanceof Result.Success) {
-            addTrip(((Result.Success<Trip>) result).getData());
+            if (trips != null) {
+                addTrip(((Result.Success<Trip>) result).getData());
+            }
         }
         tripViewModel.addTrip(result);
     }

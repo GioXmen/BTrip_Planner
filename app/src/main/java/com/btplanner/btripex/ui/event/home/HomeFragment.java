@@ -1,5 +1,6 @@
 package com.btplanner.btripex.ui.event.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +9,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.btplanner.btripex.BtripApplication;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.EventActivity;
+import com.btplanner.btripex.ui.event.eventimeline.AddEvent;
 import com.btplanner.btripex.ui.event.eventimeline.TimeLineAdapter;
+import com.btplanner.btripex.ui.event.eventimeline.TimeLineViewHolder;
+import com.btplanner.btripex.ui.main.addtrip.AddTrip;
+import com.btplanner.btripex.ui.utils.CustomAdapter;
+import com.btplanner.btripex.ui.utils.ItemClickSupport;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +46,8 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+    public static  Map<String, Event> eventsMap = new HashMap<String, Event>();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,13 +74,18 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         ProgressBar progressBar = (ProgressBar) requireView().findViewById(R.id.progressbarHome);
         progressBar.setVisibility(View.VISIBLE);
 
         /*Create handle for the RetrofitInstance interface*/
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<List<Event>> call = service.getAllEvents(EventActivity.id);
+        Call<List<Event>> call = service.getAllEvents(EventActivity.tripId);
         call.enqueue(new Callback<List<Event>>() {
 
             @Override
@@ -82,14 +101,50 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        FloatingActionButton fab = requireView().findViewById(R.id.fab_event);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), AddEvent.class);
+                progressBar.setVisibility(View.GONE);
+                it.putExtra("id", EventActivity.tripId);
+                it.putExtra("title", EventActivity.title);
+                startActivity(it);
+            }
+        });
     }
 
     private void generateDataList(List<Event> eventList) {
+        List<String> ids = eventList.stream().map(Event::getEventId).collect(Collectors.toList());
+        int index = 0;
+        for (Event event: eventList) {
+            eventsMap.put(ids.get(index), event);
+            index+=1;
+        }
+
         mRecyclerView = (RecyclerView) requireView().findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(getLinearLayoutManager());
         mRecyclerView.setHasFixedSize(true);
 
         initView(eventList);
+
+        //Make recyclerView clickable using ItemClickSupport util
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(
+                new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        TimeLineViewHolder childHolder = (TimeLineViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
+
+                        Intent it = new Intent(getActivity(), AddEvent.class);
+                        assert childHolder != null;
+                        it.putExtra("eventId", childHolder.getId().getText());
+                        it.putExtra("id", EventActivity.tripId);
+                        it.putExtra("title", EventActivity.title);
+                        startActivity(it);
+                    }
+                }
+        );
     }
 
     private LinearLayoutManager getLinearLayoutManager() {

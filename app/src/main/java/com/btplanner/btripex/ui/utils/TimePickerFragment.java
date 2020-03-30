@@ -3,24 +3,24 @@ package com.btplanner.btripex.ui.utils;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import java.util.Calendar;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-public class DatePickerFragment extends DialogFragment {
+public class TimePickerFragment extends DialogFragment {
 
-    private int year, month, day;
-    DatePickerDialog.OnDateSetListener mListener;
+    private int hour, minute;
+    TimePickerDialog.OnTimeSetListener mListener;
 
-    public DatePickerFragment() {
+    public TimePickerFragment() {
         // Default constructor. Required
     }
 
-    public void setOnDateSelectedListener(DatePickerDialog.OnDateSetListener listener) {
+    public void setOnTimeSelectedListener(TimePickerDialog.OnTimeSetListener listener) {
         mListener = listener;
     }
 
@@ -29,11 +29,10 @@ public class DatePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(requireContext(), mListener, year, month, day);
+        return new TimePickerDialog(requireContext(), mListener, hour, minute, true);
     }
 }

@@ -19,7 +19,7 @@ public class EventUserView {
     public EventUserView(Event event, boolean addOrRemove) {
         if (addOrRemove){
             this.event = event;
-            this.events.add(event);
+    //        this.events.add(event);
         } else this.events.remove(event);
     }
 

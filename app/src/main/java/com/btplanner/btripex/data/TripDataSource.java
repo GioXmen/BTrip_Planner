@@ -14,27 +14,27 @@ import retrofit2.Response;
 
 public class TripDataSource {
 
-    public void addTrip(String title, String thumbnail, String tripDestination, String tripDescription,
+    public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
                         String startDate, String endDate, LoggedInUser user, TripRepository tripRepository) {
 
-        Trip newTrip = new Trip(title, thumbnail, tripDestination, tripDescription, startDate, endDate, user);
+        Trip newTrip = new Trip(tripId, title, thumbnail, tripDestination, tripDescription, startDate, endDate, user);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Trip> call = service.addTrip(newTrip);
         call.enqueue(new Callback<Trip>() {
             @Override
             public void onResponse(Call<Trip> call, Response<Trip> response) {
-                Trip newUser = response.body();
-                Result<Trip> result = new Result.Success<>(newUser);
-                if (newUser == null){
-                    result = new Result.Error(new IOException("Error logging in"));
+                Trip newTrip = response.body();
+                Result<Trip> result = new Result.Success<>(newTrip);
+                if (newTrip == null){
+                    result = new Result.Error(new IOException("Error adding/updating trip"));
                 }
                 tripRepository.addTrip(result);
             }
 
             @Override
             public void onFailure(Call<Trip> call, Throwable t) {
-                Result<Trip> result = new Result.Error(new IOException("Error logging in", t));
+                Result<Trip> result = new Result.Error(new IOException("Error adding/updating trip", t));
                 tripRepository.addTrip(result);
             }
         });

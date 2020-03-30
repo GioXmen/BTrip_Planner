@@ -40,6 +40,7 @@
         <item>@color/material_orange_500</item>
         <item>@color/material_deep_orange_500</item>
         <item>@color/material_brown_500</item>
+        <item>@color/material_grey_400</item>
         <item>@color/material_grey_500</item>
         <item>@color/material_blue_grey_500</item>
         <item>@color/material_light_white</item>

@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:padding="@dimen/padding"
+        android:layout_marginBottom="?android:attr/actionBarSize"
         android:clipToPadding="false"
         tools:listitem="@layout/item_timeline"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -31,6 +32,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93"
+        app:srcCompat="@drawable/add_white" />
 
 
 

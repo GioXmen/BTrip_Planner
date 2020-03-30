@@ -27,7 +27,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
         android:layout_gravity="center_vertical"
-        app:cardBackgroundColor="@color/colorGrey50"
+        app:cardBackgroundColor="#DADADA"
+        app:cardCornerRadius="10dp"
         app:contentPadding="15dp">
 
         <LinearLayout
@@ -60,7 +61,7 @@
                 android:textColor="@android:color/black"
                 tools:text="Location: Rinktines st 3, Vilnius 09234"/>
 
-<!--            <ImageView
+            <!--            <ImageView
                 android:id="@+id/coverImage"
                 android:layout_width="150dp"
                 android:layout_height="140dp"
@@ -72,5 +73,14 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/event_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:visibility="invisible"
+        tools:text="ID: 1234" />
 
 </LinearLayout>

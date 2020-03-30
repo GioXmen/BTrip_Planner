@@ -8,6 +8,10 @@ import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -30,11 +34,15 @@ public class EventViewModel extends ViewModel {
         return eventResult;
     }
 
-    public void addEvent(String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
+    public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation, String startDate, String endDate,
                          String eventTime, String eventExpense, String expenseReceipt, EventViewModel eventViewModel, Trip trip) {
 
-        eventRepository.addEvent(eventName, eventType, eventDescription, eventLocation, startDate, endDate,
-                eventTime, eventExpense, expenseReceipt, eventViewModel, trip);
+        String startTimeAndDate = startDate;
+        if(eventTime != null) {
+            startTimeAndDate = startDate.substring(0, 10) + "T" + eventTime.substring(0, 5) + ":00.000+0000";
+        }
+        eventRepository.addEvent(eventId, eventName, eventType, eventDescription, eventLocation, startTimeAndDate, endDate,
+                startTimeAndDate, eventExpense, expenseReceipt, eventViewModel, trip);
     }
 
     public void addEvent(Result<Event> result) {
@@ -70,8 +78,8 @@ public class EventViewModel extends ViewModel {
     }
 
     // A placeholder password validation check
-    private boolean isTypeValid(String destination) {
-        return destination != null && destination.trim().length() > 5;
+    private boolean isTypeValid(String type) {
+        return type != null;
     }
 
 }
