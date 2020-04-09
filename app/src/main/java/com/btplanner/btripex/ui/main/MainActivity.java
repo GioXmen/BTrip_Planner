@@ -8,7 +8,6 @@ import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.EventActivity;
-import com.btplanner.btripex.ui.utils.CustomAdapter;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 import com.btplanner.btripex.ui.utils.ItemClickSupport;
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
 
-            CustomAdapter adapter = new CustomAdapter(this, tripList);
+            TripListAdapter adapter = new TripListAdapter(this, tripList);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        CustomAdapter.CustomViewHolder childHolder = (CustomAdapter.CustomViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
+                        TripListAdapter.CustomViewHolder childHolder = (TripListAdapter.CustomViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
                         assert childHolder != null;
                         Toast.makeText(getApplicationContext(), childHolder.txtTitle.getText(), Toast.LENGTH_SHORT).show();
 

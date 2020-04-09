@@ -35,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class  HomeFragment extends Fragment {
 
     public static Map<String, Event> eventsMap = new HashMap<String, Event>();
     private RecyclerView mRecyclerView;

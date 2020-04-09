@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.utils;
+package com.btplanner.btripex.ui.main;
 
 import android.content.Context;
 import android.util.Base64;
@@ -13,32 +13,32 @@ import com.btplanner.btripex.data.model.Trip;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Date;
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
+public class TripListAdapter extends RecyclerView.Adapter<TripListAdapter.CustomViewHolder> {
 
     private List<Trip> dataList;
     private Context context;
 
-    public CustomAdapter(Context context, List<Trip> dataList){
+    TripListAdapter(Context context, List<Trip> dataList){
         this.context = context;
         this.dataList = dataList;
     }
 
-     public class CustomViewHolder extends RecyclerView.ViewHolder {
+     public static class CustomViewHolder extends RecyclerView.ViewHolder {
 
-         public final View mView;
+         final View mView;
 
          public TextView id;
-         public TextView txtTitle;
+         TextView txtTitle;
          public TextView startDate;
-         public TextView description;
-         public ImageView coverImage;
+         TextView description;
+         ImageView coverImage;
 
-         public CustomViewHolder(View itemView) {
+         CustomViewHolder(View itemView) {
              super(itemView);
              mView = itemView;
 
@@ -50,6 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         }
     }
 
+    @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());

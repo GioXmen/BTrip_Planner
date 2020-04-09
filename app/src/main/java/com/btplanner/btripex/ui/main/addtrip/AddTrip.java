@@ -133,6 +133,10 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
                     tripStartEditText.setError(getString(tripFormState.getDateError()));
                     tripEndEditText.setError(getString(tripFormState.getDateError()));
                 }
+                if (tripFormState.getDateError() == null) {
+                    tripStartEditText.setError(null);
+                    tripEndEditText.setError(null);
+                }
             }
         });
 
@@ -239,8 +243,8 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         this.bitmap = file;
         iv_attachment.setImageBitmap(file);
 
-        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imagePicker.createImage(file, filename, path, false);
+       // String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+       // imagePicker.createImage(file, filename, path, false);
 
     }
 

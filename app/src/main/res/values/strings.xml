@@ -4,10 +4,12 @@
     <string name="app_name_short">BTrip - Business Trip Planner</string>
     <string name="app_name_label">BTrip - Trip Planner</string>
     <string name="image_thumbnail">Image thumbnail</string>
+    <string name="delete_button">Image delete button</string>
     <string name="add_update">Add/Update</string>
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="start_time">Start time</string>
+    <string name="date_period_invalid">Date period is invalid</string>
 
     <!-- Strings used for fragment page labels -->
     <string name="title_home">Home</string>
@@ -47,6 +49,9 @@
     <string name="invalid_destination">Not a valid destination</string>
     <string name="invalid_date">Not a valid date</string>
     <string name="invalid_type">Invalid event type</string>
+    <string name="date_time_invalid">Event start date and time is required!</string>
+    <string name="event_name_invalid">Event name is invalid!</string>
+
 
     <!-- Strings used for Trip functions -->
     <string name="trip_name">Trip name</string>
@@ -66,6 +71,7 @@
 
     <!-- Strings used for Event Timeline fragment page -->
     <string name="event_label">Event details</string>
+    <string name="event_receipts">Event Receipts</string>
     <string name="event_details">BTrip - Add/Update Event</string>
     <string name="event_timeline">Event Timeline</string>
     <string name="event_name">Event name</string>
@@ -77,6 +83,7 @@
     <string name="event_time">Time of Event</string>
     <string name="event_added">"Event has been added! With name:  "</string>
     <string name="no_event_data">Add your first Event!</string>
+    <string name="add_expense">Add Receipt</string>
     <string name="location_text">Location: </string>
     <string name="date_text">Start Date: </string>
     <string name="hotel">Hotel</string>

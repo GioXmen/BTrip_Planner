@@ -45,11 +45,11 @@ public class EventRepository {
     }
 
     public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation,
-                         String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt,
-                         EventViewModel eventViewModel, Trip trip) {
+                         String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt1,
+                         String expenseReceipt2, String expenseReceipt3, EventViewModel eventViewModel, Trip trip) {
         setEventViewModel(eventViewModel);
         dataSource.addEvent(eventId, eventName, eventType, eventDescription, eventLocation, startDate, endDate,
-                eventTime, eventExpense, expenseReceipt, trip, instance);
+                eventTime, eventExpense, expenseReceipt1, expenseReceipt2, expenseReceipt3, trip, instance);
     }
 
     void addEvent(Result<Event> result) {

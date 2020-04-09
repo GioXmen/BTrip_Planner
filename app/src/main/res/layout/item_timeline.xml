@@ -15,8 +15,8 @@
         app:endLineColor="@color/material_blue_500"
         app:linePadding="5dp"
         app:lineStyle="dash"
-        app:lineWidth="3dp"
-        app:markerSize="50dp"
+        app:lineWidth="7dp"
+        app:markerSize="51dp"
         app:startLineColor="@color/material_blue_500" />
 
     <androidx.cardview.widget.CardView

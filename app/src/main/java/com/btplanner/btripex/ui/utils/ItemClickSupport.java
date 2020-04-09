@@ -6,17 +6,6 @@ import com.btplanner.btripex.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-/*
-  Source: http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/
-  USAGE:
-
-  ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-      @Override
-      public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-          // do it
-      }
-  });
-*/
 public class ItemClickSupport {
     private final RecyclerView mRecyclerView;
     private OnItemClickListener mOnItemClickListener;
