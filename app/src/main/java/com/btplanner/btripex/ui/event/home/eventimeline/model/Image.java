@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.event.eventimeline.model;
+package com.btplanner.btripex.ui.event.home.eventimeline.model;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.event.eventimeline.utils;
+package com.btplanner.btripex.ui.event.home.eventimeline.utils;
 
 import android.text.format.DateUtils;
 

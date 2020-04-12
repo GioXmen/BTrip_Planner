@@ -13,9 +13,9 @@ import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.EventActivity;
-import com.btplanner.btripex.ui.event.eventimeline.AddEvent;
-import com.btplanner.btripex.ui.event.eventimeline.TimeLineAdapter;
-import com.btplanner.btripex.ui.event.eventimeline.TimeLineViewHolder;
+import com.btplanner.btripex.ui.event.home.eventimeline.AddEvent;
+import com.btplanner.btripex.ui.event.home.eventimeline.TimeLineAdapter;
+import com.btplanner.btripex.ui.event.home.eventimeline.TimeLineViewHolder;
 import com.btplanner.btripex.ui.utils.ItemClickSupport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

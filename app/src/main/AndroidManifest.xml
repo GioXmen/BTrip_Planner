@@ -58,7 +58,7 @@
         </activity>
 
         <activity
-            android:name=".ui.event.eventimeline.AddEvent"
+            android:name=".ui.event.home.eventimeline.AddEvent"
             android:label="@string/event_details"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarCustomAccent"

@@ -1,8 +1,7 @@
-package com.btplanner.btripex.ui.event.eventimeline.utils;
+package com.btplanner.btripex.ui.event.home.eventimeline.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.btplanner.btripex.R;
-import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.ui.utils.ClickListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.BitSet;
 import java.util.List;
 
 import androidx.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.event.eventimeline;
+package com.btplanner.btripex.ui.event.home.eventimeline;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -15,16 +15,13 @@ import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.Trip;
-import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.event.EventFormState;
 import com.btplanner.btripex.ui.event.EventResult;
 import com.btplanner.btripex.ui.event.EventUserView;
 import com.btplanner.btripex.ui.event.EventViewModel;
 import com.btplanner.btripex.ui.event.EventViewModelFactory;
-import com.btplanner.btripex.ui.event.eventimeline.model.Image;
-import com.btplanner.btripex.ui.event.eventimeline.utils.ImageAdapter;
+import com.btplanner.btripex.ui.event.home.eventimeline.utils.ImageAdapter;
 import com.btplanner.btripex.ui.event.home.HomeFragment;
-import com.btplanner.btripex.ui.main.TripListAdapter;
 import com.btplanner.btripex.ui.utils.ClickListener;
 import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;

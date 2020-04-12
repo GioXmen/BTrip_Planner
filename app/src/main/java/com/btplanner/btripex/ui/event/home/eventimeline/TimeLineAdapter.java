@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.event.eventimeline;
+package com.btplanner.btripex.ui.event.home.eventimeline;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
-import com.btplanner.btripex.ui.event.eventimeline.utils.VectorDrawableUtils;
+import com.btplanner.btripex.ui.event.home.eventimeline.utils.VectorDrawableUtils;
 import com.github.vipulasri.timelineview.TimelineView;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
