@@ -30,7 +30,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingTop="?attr/actionBarSize"  />
+        android:paddingTop="?attr/actionBarSize"
+        tools:listitem="@layout/custom_row"/>
 
     <TextView
         android:id="@+id/empty_view"

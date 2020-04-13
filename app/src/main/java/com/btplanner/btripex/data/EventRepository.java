@@ -2,6 +2,7 @@ package com.btplanner.btripex.data;
 
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.ui.event.EventViewModel;
 
@@ -59,5 +60,14 @@ public class EventRepository {
             }
         }
         eventViewModel.addEvent(result);
+    }
+
+    public void generatePDFReport(String tripId, List<String> excludeEventIds, EventViewModel eventViewModel) {
+        setEventViewModel(eventViewModel);
+        dataSource.generatePDFReport(tripId, excludeEventIds, instance);
+    }
+
+    void generatePDFReport(Result<ExpenseReport> result) {
+        eventViewModel.generatePDFReport(result);
     }
 }

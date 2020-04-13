@@ -5,11 +5,15 @@ import com.btplanner.btripex.data.EventRepository;
 import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.Trip;
+import com.btplanner.btripex.ui.event.report.utils.ExpenseReportResult;
+import com.btplanner.btripex.ui.event.report.ExpenseReportUserView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,6 +23,7 @@ public class EventViewModel extends ViewModel {
 
     private MutableLiveData<EventFormState> eventFormState = new MutableLiveData<>();
     private MutableLiveData<EventResult> eventResult = new MutableLiveData<>();
+    private MutableLiveData<ExpenseReportResult> expenseReportResult = new MutableLiveData<>();
     private EventRepository eventRepository;
 
     EventViewModel(EventRepository eventRepository) {
@@ -31,6 +36,10 @@ public class EventViewModel extends ViewModel {
 
     public LiveData<EventResult> getEventResult() {
         return eventResult;
+    }
+
+    public LiveData<ExpenseReportResult> getExpenseReportResult() {
+        return expenseReportResult;
     }
 
     public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation,
@@ -51,6 +60,19 @@ public class EventViewModel extends ViewModel {
             eventResult.setValue(new EventResult(new EventUserView(data, true)));
         } else {
             eventResult.setValue(new EventResult(R.string.event_add_failed));
+        }
+    }
+
+    public void generatePDFReport(String tripId, List<String> excludeEventIds, EventViewModel eventViewModel){
+        eventRepository.generatePDFReport(tripId, excludeEventIds, eventViewModel);
+    }
+
+    public void generatePDFReport(Result<ExpenseReport> result) {
+        if (result instanceof Result.Success) {
+            ExpenseReport data = ((Result.Success<ExpenseReport>) result).getData();
+            expenseReportResult.setValue(new ExpenseReportResult(new ExpenseReportUserView(data)));
+        } else {
+            expenseReportResult.setValue(new ExpenseReportResult(R.string.generate_report_failed));
         }
     }
 

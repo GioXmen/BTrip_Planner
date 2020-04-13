@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
-import com.btplanner.btripex.ui.event.home.eventimeline.utils.VectorDrawableUtils;
+import com.btplanner.btripex.ui.utils.VectorDrawableUtils;
 import com.github.vipulasri.timelineview.TimelineView;
 
 import java.time.LocalDateTime;

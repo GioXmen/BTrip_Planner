@@ -1,6 +1,7 @@
 package com.btplanner.btripex.data.network;
 
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
 import com.btplanner.btripex.data.model.Trip;
@@ -32,4 +33,7 @@ public interface GetDataService {
 
     @GET("/event/get")
     Call<List<Event>> getAllEvents(@Query("tripId") String id);
+
+    @GET("/report/generate")
+    Call<ExpenseReport> generateReport(@Query("tripId") String id, @Query("eventIds") List<String> ids);
 }
