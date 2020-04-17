@@ -13,7 +13,7 @@
 
     <!-- Strings used for fragment page labels -->
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_statistics">Statistics</string>
     <string name="title_report">Report</string>
     <string name="title_events">Event Timeline</string>
 
@@ -104,11 +104,28 @@
 
     <!-- Strings used for Expense Report fragment page -->
     <string name="report_label">Events expenses summary</string>
+    <string name="report_image">Expense report Logo</string>
     <string name="generate_report">Generate PDF report</string>
     <string name="no_report_data">Add your first Event to generate Report!</string>
     <string name="expense_total">Total: </string>
     <string name="generate_report_failed">"Generate PDF report failed!"</string>
     <string name="report_call_failed">No response from Generate PDF report call!</string>
+
+
+    <!-- Strings used for Statistics fragment page -->
+    <string name="statistics_label">COVID-19 Statistics</string>
+    <string name="covid_image">COVID-19 Logo</string>
+    <string name="statistics_get_call_failed">Failed to get response from call to Covid Summary statistics</string>
+    <string name="total_confirmed_label">Total Confirmed: </string>
+    <string name="total_deaths_label">Total Deaths: </string>
+    <string name="total_recovered_label">Total Recovered: </string>
+    <string name="new_confirmed_label">New Confirmed: </string>
+    <string name="new_recovered_label">New Recovered: </string>
+    <string name="new_deaths_label">New Deaths: </string>
+    <string name="last_update_label">Last Updated: </string>
+    <string name="bar_chart_title">Top 10 Countries by Confirmed Cases</string>
+
+
 
 
 </resources>

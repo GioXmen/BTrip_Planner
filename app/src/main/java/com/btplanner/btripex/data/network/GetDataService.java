@@ -1,5 +1,6 @@
 package com.btplanner.btripex.data.network;
 
+import com.btplanner.btripex.data.covidmodel.CovidSummary;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.LoggedInUser;
@@ -36,4 +37,7 @@ public interface GetDataService {
 
     @GET("/report/generate")
     Call<ExpenseReport> generateReport(@Query("tripId") String id, @Query("eventIds") List<String> ids);
+
+    @GET("/covid/summary")
+    Call<CovidSummary> getCovidSummary();
 }

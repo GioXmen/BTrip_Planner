@@ -15,10 +15,9 @@
     <TextView
         android:id="@+id/expense_report_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="45dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="670dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/report_label"
@@ -52,13 +51,16 @@
             android:id="@+id/report_empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="350dp"
+            android:layout_marginBottom="350dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:layout_below="@id/expense_report_text"
             android:text="@string/no_report_data"
             android:textSize="20sp"
             android:layout_alignWithParentIfMissing="true"
-            android:visibility="gone" />
+            android:visibility="gone"
+             />
 
         <Button
             android:id="@+id/generate_report"
