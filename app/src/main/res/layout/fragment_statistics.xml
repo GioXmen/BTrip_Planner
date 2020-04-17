@@ -25,31 +25,24 @@
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/covid_image"
         android:src="@drawable/covid_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+ />
 
     <TextView
         android:id="@+id/statistics_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="670dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="90dp"
         android:gravity="left"
         android:text="@string/statistics_label"
         android:textColor="#000"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textStyle="bold"
 
         android:windowSoftInputMode="adjustNothing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        android:layout_above="@id/total_confirmed"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -64,10 +57,6 @@
         android:textColor="#000"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -82,10 +71,6 @@
         android:textColor="#F44336"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -100,10 +85,6 @@
         android:textColor="#000"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -119,10 +100,6 @@
         android:textColor="#F44336"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -137,10 +114,6 @@
         android:textColor="#000"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -156,10 +129,6 @@
         android:textColor="#4CAF50"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -174,10 +143,6 @@
         android:textColor="#000"
         android:textSize="15sp"
         android:textStyle="bold"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
     <TextView
