@@ -1,16 +1,10 @@
 package com.btplanner.btripex.ui.event.statistics;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -35,16 +29,9 @@ import com.btplanner.btripex.ui.event.statistics.charts.StackedBarChartFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.Objects;
 
-/**
- * Demonstrates how to keep your charts straight forward, simple and beautiful with the MPAndroidChart library.
- *
- * @author Philipp Jahoda
- */
 public class StatisticsFragment extends Fragment {
 
-    private StatisticsViewModel statisticsViewModel;
     public static CovidSummary covidSummary;
     private PageAdapter pagerAdapter;
     private ViewPager pager;
@@ -59,10 +46,9 @@ public class StatisticsFragment extends Fragment {
     private TextView lastUpdate;
 
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        statisticsViewModel = ViewModelProviders.of(this).get(StatisticsViewModel.class);
+        StatisticsViewModel statisticsViewModel = ViewModelProviders.of(this).get(StatisticsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         totalConfirmed = root.findViewById(R.id.total_confirmed_data);
@@ -84,16 +70,15 @@ public class StatisticsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         progressBar.setVisibility(View.INVISIBLE);
-        if(covidSummary == null){
-        retrieveCovidSummary();
-        }
-        else {
+        if (covidSummary == null) {
+            retrieveCovidSummary();
+        } else {
             setupDashboardData();
             setupChartAfterDataRetrieval();
         }
     }
 
-    public void setupChartAfterDataRetrieval(){
+    private void setupChartAfterDataRetrieval() {
         final TextView textView = requireView().findViewById(R.id.statistics_empty_view);
         textView.setVisibility(View.GONE);
 
@@ -101,7 +86,7 @@ public class StatisticsFragment extends Fragment {
         pager.setAdapter(pagerAdapter);
     }
 
-    public void retrieveCovidSummary(){
+    private void retrieveCovidSummary() {
         progressBar.setVisibility(View.VISIBLE);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
@@ -124,7 +109,7 @@ public class StatisticsFragment extends Fragment {
         });
     }
 
-    private void setupDashboardData(){
+    private void setupDashboardData() {
         totalConfirmed.setText(String.valueOf(covidSummary.getGlobal().getTotalConfirmed()));
         totalDeaths.setText(String.valueOf(covidSummary.getGlobal().getTotalDeaths()));
         totalRecovered.setText(String.valueOf(covidSummary.getGlobal().getTotalRecovered()));
@@ -136,7 +121,6 @@ public class StatisticsFragment extends Fragment {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(template, Locale.UK);
         String dateFormatted = simpleDateFormat.format(covidSummary.getDate());
         StringBuilder lastUpdated = new StringBuilder(dateFormatted);
-        //lastUpdated.setCharAt(11, ' ');
         lastUpdate.setText(lastUpdated);
     }
 
@@ -150,22 +134,16 @@ public class StatisticsFragment extends Fragment {
         public Fragment getItem(int pos) {
             Fragment f = null;
 
-            switch(pos) {
+            switch (pos) {
                 case 0:
                     f = HorizontalBarChartFragment.newInstance();
                     break;
                 case 1:
                     f = StackedBarChartFragment.newInstance();
                     break;
-              case 2:
+                case 2:
                     f = SimpleBarChartFragment.newInstance();
                     break;
-/*                  case 3:
-                    f = ScatterChartFrag.newInstance();
-                    break;
-                case 4:
-                    f = PieChartFrag.newInstance();
-                    break;*/
             }
 
             return f;

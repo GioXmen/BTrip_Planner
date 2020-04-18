@@ -33,9 +33,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class BaseChartFragment extends Fragment{
+public class BaseChartFragment extends Fragment {
 
     protected Context context;
+
+    public BaseChartFragment() {
+
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -43,15 +47,11 @@ public class BaseChartFragment extends Fragment{
         this.context = context;
     }
 
-    public BaseChartFragment() {
-
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    BarChart generateHorizontalBarChartData(BarChart chart){
+    BarChart generateHorizontalBarChartData(BarChart chart) {
         Typeface custom_font = Typeface.createFromAsset(requireActivity().getAssets(), "fonts/Lato-Light.ttf");
         CovidSummary covidSummary = StatisticsFragment.covidSummary;
 
@@ -82,11 +82,11 @@ public class BaseChartFragment extends Fragment{
 
         List<LegendEntry> legendEntries = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            int val = covidCountries.get((count -1) - i).getTotalConfirmed();
+            int val = covidCountries.get((count - 1) - i).getTotalConfirmed();
             values.add(new BarEntry(i * spaceForBar, val, getResources().getDrawable(R.drawable.star)));
 
-            String country = covidCountries.get((count -1) - i).getCountry();
-            if(country.contains(",")) {
+            String country = covidCountries.get((count - 1) - i).getCountry();
+            if (country.contains(",")) {
                 country = country.substring(0, country.indexOf(","));
             }
 
@@ -117,7 +117,7 @@ public class BaseChartFragment extends Fragment{
             chart.setData(data);
         }
 
-        Legend customLegend  = chart.getLegend();
+        Legend customLegend = chart.getLegend();
         customLegend.setCustom(legendEntries);
         chart.getLegend().setWordWrapEnabled(true);
         chart.getLegend().setYEntrySpace(10f);
@@ -126,9 +126,9 @@ public class BaseChartFragment extends Fragment{
         return chart;
     }
 
-    BarChart generateSimpleBarChartData(BarChart chart){
+    BarChart generateSimpleBarChartData(BarChart chart) {
         Typeface custom_font = Typeface.createFromAsset(requireActivity().getAssets(), "fonts/Lato-Light.ttf");
-        CovidSummary covidSummary  = StatisticsFragment.covidSummary;
+        CovidSummary covidSummary = StatisticsFragment.covidSummary;
 
         int count = 10;
         float barWidth = 9f;
@@ -157,10 +157,10 @@ public class BaseChartFragment extends Fragment{
 
         List<LegendEntry> legendEntries = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            int val = covidCountries.get((count -1) - i).getNewConfirmed();
+            int val = covidCountries.get((count - 1) - i).getNewConfirmed();
             values.add(new BarEntry(i * spaceForBar, val, getResources().getDrawable(R.drawable.star)));
 
-            LegendEntry legendEntry = new LegendEntry(covidCountries.get((count -1) - i).getCountry(),
+            LegendEntry legendEntry = new LegendEntry(covidCountries.get((count - 1) - i).getCountry(),
                     Legend.LegendForm.SQUARE, 10f, 2f, null, colors.get(i));
             legendEntries.add(legendEntry);
         }
@@ -188,7 +188,7 @@ public class BaseChartFragment extends Fragment{
             chart.setData(data);
         }
 
-        Legend customLegend  = chart.getLegend();
+        Legend customLegend = chart.getLegend();
         customLegend.setCustom(legendEntries);
         chart.getLegend().setWordWrapEnabled(true);
         chart.getLegend().setYEntrySpace(10f);
@@ -198,9 +198,9 @@ public class BaseChartFragment extends Fragment{
     }
 
 
-    BarChart generateStackedBarChartData(BarChart chart){
+    BarChart generateStackedBarChartData(BarChart chart) {
         Typeface custom_font = Typeface.createFromAsset(requireActivity().getAssets(), "fonts/Lato-Light.ttf");
-        CovidSummary covidSummary  = StatisticsFragment.covidSummary;
+        CovidSummary covidSummary = StatisticsFragment.covidSummary;
 
         int count = 10;
 
@@ -211,25 +211,21 @@ public class BaseChartFragment extends Fragment{
 
         List<String> xAxisEntries = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            int val1 = covidCountries.get((count -1) - i).getTotalConfirmed();
-            int val2 = covidCountries.get((count -1) - i).getTotalDeaths();
-            int val3 = covidCountries.get((count -1) - i).getTotalRecovered();
+            int val1 = covidCountries.get((count - 1) - i).getTotalConfirmed();
+            int val2 = covidCountries.get((count - 1) - i).getTotalDeaths();
+            int val3 = covidCountries.get((count - 1) - i).getTotalRecovered();
 
             values.add(new BarEntry(i, new float[]{val1, val2, val3}, getResources().getDrawable(R.drawable.star)));
-            String country = covidCountries.get((count -1) - i).getCountry();
-            if(country.contains(",")) {
+            String country = covidCountries.get((count - 1) - i).getCountry();
+            if (country.contains(",")) {
                 xAxisEntries.add(country.substring(0, country.indexOf(",")));
-            }
-            else if(country.equals("United States of America")) {
+            } else if (country.equals("United States of America")) {
                 xAxisEntries.add("USA");
-            }
-            else if(country.equals("United Kingdom")) {
+            } else if (country.equals("United Kingdom")) {
                 xAxisEntries.add("UK");
-            }
-            else if(country.equals("Germany")) {
+            } else if (country.equals("Germany")) {
                 xAxisEntries.add("Germany    ");
-            }
-            else{
+            } else {
                 xAxisEntries.add(country);
             }
         }
@@ -249,7 +245,6 @@ public class BaseChartFragment extends Fragment{
             set1.setDrawIcons(false);
             set1.setColors(colors[2], colors[1], colors[0]);
             set1.setStackLabels(new String[]{"Total Confirmed", "Total Deaths", "Total Recovered"});
-
 
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -277,7 +272,6 @@ public class BaseChartFragment extends Fragment{
         xAxis.setLabelCount(10);
         xAxis.setLabelRotationAngle(90);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisEntries));
-
 
 
         return chart;

@@ -24,12 +24,12 @@ import androidx.fragment.app.Fragment;
 
 public class SimpleBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
 
+    private BarChart chart;
+
     @NonNull
     public static Fragment newInstance() {
         return new SimpleBarChartFragment();
     }
-
-    private BarChart chart;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

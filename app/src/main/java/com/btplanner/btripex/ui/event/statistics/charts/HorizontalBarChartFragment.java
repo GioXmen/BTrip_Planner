@@ -24,12 +24,12 @@ import androidx.fragment.app.Fragment;
 
 public class HorizontalBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
 
+    private BarChart chart;
+
     @NonNull
     public static Fragment newInstance() {
         return new HorizontalBarChartFragment();
     }
-
-    private BarChart chart;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,9 +83,6 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
         l.setXEntrySpace(4f);
 
         chart = generateHorizontalBarChartData(chart);
-/*        // programmatically add the chart
-        FrameLayout parent = requireView().findViewById(R.id.parentLayout);
-        parent.addView(chart);*/
     }
 
     @Override
