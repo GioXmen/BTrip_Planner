@@ -124,6 +124,8 @@
     <string name="new_deaths_label">New Deaths: </string>
     <string name="last_update_label">Last Updated: </string>
     <string name="bar_chart_title">Top 10 Countries by Confirmed Cases</string>
+    <string name="stacked_chart_title">Detailed Summary of Top 10 Countries</string>
+    <string name="simple_chart_title">Top 10 Countries by New Confirmed Cases</string>
 
 
 

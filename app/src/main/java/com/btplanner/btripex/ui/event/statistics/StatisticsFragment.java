@@ -30,6 +30,8 @@ import com.btplanner.btripex.data.covidmodel.CovidSummary;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 import com.btplanner.btripex.ui.event.statistics.charts.HorizontalBarChartFragment;
+import com.btplanner.btripex.ui.event.statistics.charts.SimpleBarChartFragment;
+import com.btplanner.btripex.ui.event.statistics.charts.StackedBarChartFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -44,7 +46,7 @@ public class StatisticsFragment extends Fragment {
 
     private StatisticsViewModel statisticsViewModel;
     public static CovidSummary covidSummary;
-    private PageAdapter a;
+    private PageAdapter pagerAdapter;
     private ViewPager pager;
     private ProgressBar progressBar;
 
@@ -72,7 +74,7 @@ public class StatisticsFragment extends Fragment {
         lastUpdate = root.findViewById(R.id.last_updated_data);
 
         progressBar = root.findViewById(R.id.progressbarStatistics);
-        a = new PageAdapter(getFragmentManager());
+        pagerAdapter = new PageAdapter(getChildFragmentManager());
         pager = root.findViewById(R.id.pager);
 
         return root;
@@ -96,7 +98,7 @@ public class StatisticsFragment extends Fragment {
         textView.setVisibility(View.GONE);
 
         pager.setOffscreenPageLimit(3);
-        pager.setAdapter(a);
+        pager.setAdapter(pagerAdapter);
     }
 
     public void retrieveCovidSummary(){
@@ -153,12 +155,12 @@ public class StatisticsFragment extends Fragment {
                     f = HorizontalBarChartFragment.newInstance();
                     break;
                 case 1:
-                    f = HorizontalBarChartFragment.newInstance();
+                    f = StackedBarChartFragment.newInstance();
                     break;
-/*                case 2:
-                    f = BarChartFrag.newInstance();
+              case 2:
+                    f = SimpleBarChartFragment.newInstance();
                     break;
-                case 3:
+/*                  case 3:
                     f = ScatterChartFrag.newInstance();
                     break;
                 case 4:
@@ -171,7 +173,7 @@ public class StatisticsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

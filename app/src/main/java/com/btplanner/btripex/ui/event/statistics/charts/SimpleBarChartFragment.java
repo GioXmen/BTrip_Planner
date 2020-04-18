@@ -22,11 +22,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class HorizontalBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
+public class SimpleBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
 
     @NonNull
     public static Fragment newInstance() {
-        return new HorizontalBarChartFragment();
+        return new SimpleBarChartFragment();
     }
 
     private BarChart chart;
@@ -34,7 +34,7 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.frame_horizontal_barchart, container, false);
+        return inflater.inflate(R.layout.frame_simple_barchart, container, false);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
         super.onStart();
         Typeface custom_font = Typeface.createFromAsset(requireActivity().getAssets(), "fonts/Lato-Light.ttf");
 
-        chart = requireView().findViewById(R.id.horizontal_bar_chart);
+        chart = requireView().findViewById(R.id.simple_bar_chart);
         chart.getDescription().setEnabled(false);
         chart.setOnChartGestureListener(this);
 
@@ -82,10 +82,7 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
         l.setFormSize(8f);
         l.setXEntrySpace(4f);
 
-        chart = generateHorizontalBarChartData(chart);
-/*        // programmatically add the chart
-        FrameLayout parent = requireView().findViewById(R.id.parentLayout);
-        parent.addView(chart);*/
+        chart = generateSimpleBarChartData(chart);
     }
 
     @Override

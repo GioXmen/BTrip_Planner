@@ -13,6 +13,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.ChartTouchListener;
@@ -22,11 +23,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class HorizontalBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
+public class StackedBarChartFragment extends BaseChartFragment implements OnChartGestureListener, OnChartValueSelectedListener {
 
     @NonNull
     public static Fragment newInstance() {
-        return new HorizontalBarChartFragment();
+        return new StackedBarChartFragment();
     }
 
     private BarChart chart;
@@ -34,7 +35,7 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.frame_horizontal_barchart, container, false);
+        return inflater.inflate(R.layout.frame_stacked_barchart, container, false);
     }
 
     @Override
@@ -42,50 +43,40 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
         super.onStart();
         Typeface custom_font = Typeface.createFromAsset(requireActivity().getAssets(), "fonts/Lato-Light.ttf");
 
-        chart = requireView().findViewById(R.id.horizontal_bar_chart);
+        chart = requireView().findViewById(R.id.stacked_bar_chart);
         chart.getDescription().setEnabled(false);
         chart.setOnChartGestureListener(this);
+        chart.setOnChartValueSelectedListener(this);
+
 
         chart.setDrawBarShadow(false);
-        chart.setDrawValueAboveBar(true);
-        chart.setMaxVisibleValueCount(60);
+        chart.setDrawValueAboveBar(false);
+        chart.setMaxVisibleValueCount(40);
         chart.setPinchZoom(true);
         chart.setDrawGridBackground(false);
+        chart.setHighlightFullBarEnabled(false);
 
-        XAxis xl = chart.getXAxis();
-        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xl.setTypeface(custom_font);
-        xl.setDrawAxisLine(true);
-        xl.setDrawGridLines(false);
-        xl.setGranularity(1f);
+        XAxis xLabels = chart.getXAxis();
+        xLabels.setPosition(XAxis.XAxisPosition.TOP);
 
-        YAxis yl = chart.getAxisLeft();
-        yl.setTypeface(custom_font);
-        yl.setDrawAxisLine(true);
-        yl.setDrawGridLines(true);
-        yl.setAxisMinimum(0f);
-
-        YAxis yr = chart.getAxisRight();
-        yr.setTypeface(custom_font);
-        yr.setDrawAxisLine(true);
-        yr.setDrawGridLines(false);
-        yr.setAxisMinimum(0f);
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setTypeface(custom_font);
+        leftAxis.setAxisMinimum(0f);
+        chart.getAxisRight().setEnabled(false);
 
         chart.setFitBars(true);
         chart.animateXY(2000, 2000);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
         l.setFormSize(8f);
-        l.setXEntrySpace(4f);
+        l.setFormToTextSpace(4f);
+        l.setXEntrySpace(6f);
 
-        chart = generateHorizontalBarChartData(chart);
-/*        // programmatically add the chart
-        FrameLayout parent = requireView().findViewById(R.id.parentLayout);
-        parent.addView(chart);*/
+        chart = generateStackedBarChartData(chart);
     }
 
     @Override
@@ -129,8 +120,16 @@ public class HorizontalBarChartFragment extends BaseChartFragment implements OnC
         Log.i("Translate / Move", "dX: " + dX + ", dY: " + dY);
     }
 
+
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+
+        BarEntry entry = (BarEntry) e;
+
+        if (entry.getYVals() != null)
+            Log.i("VAL SELECTED", "Value: " + entry.getYVals()[h.getStackIndex()]);
+        else
+            Log.i("VAL SELECTED", "Value: " + entry.getY());
     }
 
     @Override
