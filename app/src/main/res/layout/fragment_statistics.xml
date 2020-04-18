@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.event.statistics.StatisticsFragment">
 
-
-<!--    <com.github.mikephil.charting.charts.HorizontalBarChart
-        android:id="@+id/chart1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="280dp"
-        android:background="@android:color/white"
-        android:paddingBottom="?attr/actionBarSize" />-->
-
     <ImageView
         android:id="@+id/covid_image"
         android:layout_width="75dp"
