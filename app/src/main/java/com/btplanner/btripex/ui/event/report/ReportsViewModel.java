@@ -1,16 +1,16 @@
-package com.btplanner.btripex.ui.event.notifications;
+package com.btplanner.btripex.ui.event.report;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class ReportsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public ReportsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is reports fragment");
     }
 
     public LiveData<String> getText() {

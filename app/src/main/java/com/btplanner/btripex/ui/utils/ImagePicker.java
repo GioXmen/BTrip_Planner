@@ -98,7 +98,7 @@ public class ImagePicker
     public Uri getImageUri(Context context, Bitmap photo)
     {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.PNG, 80, bytes);
+        photo.compress(Bitmap.CompressFormat.PNG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), photo, "Title", null);
         return Uri.parse(path);
     }
@@ -152,7 +152,7 @@ public class ImagePicker
 
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,80, baos);
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
         byte [] b=baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
@@ -630,7 +630,7 @@ public class ImagePicker
                         // Log.i("selected","path"+selected_path);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
                         // Log.i("file","name"+file_name);
-                        bitmap =compressImage(imageUri.toString(),816,612);
+                        bitmap =compressImage(imageUri.toString(),1980,1020);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,imageUri);
                     }
                     catch(Exception e)
@@ -654,7 +654,7 @@ public class ImagePicker
                         selected_path=getPath(selectedImage);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
                         assert selectedImage != null;
-                        bitmap =compressImage(selectedImage.toString(),816,612);
+                        bitmap =compressImage(selectedImage.toString(),1980,1020);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,selectedImage);
                     }
                     catch(Exception e)
@@ -826,7 +826,7 @@ public class ImagePicker
     {
         try {
             FileOutputStream out = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 80, out);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
 

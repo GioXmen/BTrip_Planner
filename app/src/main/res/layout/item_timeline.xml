@@ -15,8 +15,8 @@
         app:endLineColor="@color/material_blue_500"
         app:linePadding="5dp"
         app:lineStyle="dash"
-        app:lineWidth="3dp"
-        app:markerSize="50dp"
+        app:lineWidth="7dp"
+        app:markerSize="51dp"
         app:startLineColor="@color/material_blue_500" />
 
     <androidx.cardview.widget.CardView
@@ -31,7 +31,7 @@
         app:cardCornerRadius="10dp"
         app:contentPadding="15dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -49,6 +49,7 @@
                 android:id="@+id/text_timeline_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/text_timeline_type"
                 android:layout_marginTop="5dp"
                 android:textColor="@android:color/black"
                 tools:text="Checkin date: 2020-03-17 01:23:09" />
@@ -57,11 +58,12 @@
                 android:id="@+id/text_timeline_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/text_timeline_date"
                 android:layout_marginTop="5dp"
                 android:textColor="@android:color/black"
                 tools:text="Location: Rinktines st 3, Vilnius 09234" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

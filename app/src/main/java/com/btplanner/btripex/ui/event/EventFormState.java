@@ -11,21 +11,25 @@ public class EventFormState {
     @Nullable
     private Integer eventTypeError;
     @Nullable
-    private Integer dateError;
+    private Integer datePeriodError;
+    @Nullable
+    private Integer startDateTimeError;
     private boolean isDataValid;
 
     EventFormState(@Nullable Integer eventNameError, @Nullable Integer eventTypeError,
-                   @Nullable Integer dateError) {
+                   @Nullable Integer datePeriodError, @Nullable Integer startDateTimeError) {
         this.eventNameError = eventNameError;
         this.eventTypeError = eventTypeError;
-        this.dateError = dateError;
+        this.datePeriodError = datePeriodError;
+        this.startDateTimeError = startDateTimeError;
         this.isDataValid = false;
     }
 
     EventFormState(boolean isDataValid) {
         this.eventNameError = null;
         this.eventTypeError = null;
-        this.dateError = null;
+        this.datePeriodError = null;
+        this.startDateTimeError = null;
         this.isDataValid = isDataValid;
     }
 
@@ -40,8 +44,13 @@ public class EventFormState {
     }
 
     @Nullable
-    public Integer getDateError() {
-        return dateError;
+    public Integer getDatePeriodError() {
+        return datePeriodError;
+    }
+
+    @Nullable
+    public Integer getStartDateTimeError() {
+        return startDateTimeError;
     }
 
     public boolean isDataValid() {

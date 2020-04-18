@@ -6,6 +6,10 @@ import com.btplanner.btripex.data.TripRepository;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -44,27 +48,37 @@ public class TripViewModel extends ViewModel {
     }
 
     public void addTripDataChanged(String title, String thumbnail, String tripDestination, String tripDescription, String startDate, String endDate) {
-        if (!isTitleNameValid(title)) {
+        if (isTripFieldEmpty(title)) {
             tripFormState.setValue(new TripFormState(R.string.invalid_title, null, null, null));
-        } else if (!isDestinationValid(tripDestination)) {
+        } else if (isTripFieldEmpty(tripDestination)) {
             tripFormState.setValue(new TripFormState(null, R.string.invalid_destination, null, null));
+        } else if (startDate != null && endDate != null  && isDatePeriodInValid(startDate, endDate)) {
+            tripFormState.setValue(new TripFormState(null, null, R.string.date_period_invalid, null));
         }
-        // TODO: ADD DATE VALIDATION
         else {
             tripFormState.setValue(new TripFormState(true));
         }
     }
 
-    private boolean isTitleNameValid(String title) {
+    private boolean isTripFieldEmpty(String title) {
         if (title == null) {
-            return false;
+            return true;
         } else {
-            return !title.trim().isEmpty();
+            return title.trim().isEmpty();
         }
     }
 
-    private boolean isDestinationValid(String destination) {
-        return destination != null && destination.trim().length() > 5;
+    private static boolean isDatePeriodInValid(String start, String end) {
+        try {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(start, dateFormat);
+            LocalDate endDate = LocalDate.parse(end, dateFormat);
+            //LocalDate current = LocalDate.now();
+            return (startDate.isAfter(endDate));
+        }catch(DateTimeParseException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
 }

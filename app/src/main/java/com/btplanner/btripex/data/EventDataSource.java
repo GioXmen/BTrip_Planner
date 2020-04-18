@@ -3,11 +3,13 @@ package com.btplanner.btripex.data;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.data.network.GetDataService;
 import com.btplanner.btripex.data.network.RetrofitClientInstance;
 
 import java.io.IOException;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import retrofit2.Call;
@@ -18,10 +20,10 @@ public class EventDataSource {
 
     void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation,
                   String startDate, String endDate, String eventTime, String eventExpense,
-                  String expenseReceipt, Trip trip, EventRepository eventRepository) {
+                  String expenseReceipt1, String expenseReceipt2, String expenseReceipt3, Trip trip, EventRepository eventRepository) {
 
         Event newEvent = new Event(eventId, eventName, eventType, eventDescription, eventLocation, startDate, endDate,
-                eventTime, eventExpense, expenseReceipt, trip);
+                eventTime, eventExpense, expenseReceipt1, expenseReceipt2, expenseReceipt3, trip);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
         Call<Event> call = service.addEvent(newEvent);
@@ -42,6 +44,31 @@ public class EventDataSource {
             public void onFailure(@NonNull Call<Event> call, @NonNull Throwable t) {
                 Result<Event> result = new Result.Error(new IOException(String.valueOf(R.string.event_call_failed), t));
                 eventRepository.addEvent(result);
+            }
+        });
+    }
+
+     void generatePDFReport(String tripId, List<String> excludeEventIds, EventRepository eventRepository) {
+
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<ExpenseReport> call = service.generateReport(tripId, excludeEventIds);
+        call.enqueue(new Callback<ExpenseReport>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onResponse(@NonNull Call<ExpenseReport> call, @NonNull Response<ExpenseReport> response) {
+                ExpenseReport pdf = response.body();
+                Result<ExpenseReport> result = new Result.Success<>(pdf);
+                if (pdf == null) {
+                    result = new Result.Error(new IOException(String.valueOf(R.string.generate_report_failed)));
+                }
+                eventRepository.generatePDFReport(result);
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onFailure(@NonNull Call<ExpenseReport> call, @NonNull Throwable t) {
+                Result<ExpenseReport> result = new Result.Error(new IOException(String.valueOf(R.string.report_call_failed), t));
+                eventRepository.generatePDFReport(result);
             }
         });
     }

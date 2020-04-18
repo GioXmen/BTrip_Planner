@@ -4,15 +4,17 @@
     <string name="app_name_short">BTrip - Business Trip Planner</string>
     <string name="app_name_label">BTrip - Trip Planner</string>
     <string name="image_thumbnail">Image thumbnail</string>
+    <string name="delete_button">Image delete button</string>
     <string name="add_update">Add/Update</string>
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="start_time">Start time</string>
+    <string name="date_period_invalid">Date period is invalid</string>
 
     <!-- Strings used for fragment page labels -->
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_report">Report</string>
     <string name="title_events">Event Timeline</string>
 
     <!-- Strings used for settings action button labels -->
@@ -47,6 +49,9 @@
     <string name="invalid_destination">Not a valid destination</string>
     <string name="invalid_date">Not a valid date</string>
     <string name="invalid_type">Invalid event type</string>
+    <string name="date_time_invalid">Event start date and time is required!</string>
+    <string name="event_name_invalid">Event name is invalid!</string>
+
 
     <!-- Strings used for Trip functions -->
     <string name="trip_name">Trip name</string>
@@ -66,6 +71,7 @@
 
     <!-- Strings used for Event Timeline fragment page -->
     <string name="event_label">Event details</string>
+    <string name="event_receipts">Event Receipts</string>
     <string name="event_details">BTrip - Add/Update Event</string>
     <string name="event_timeline">Event Timeline</string>
     <string name="event_name">Event name</string>
@@ -77,6 +83,7 @@
     <string name="event_time">Time of Event</string>
     <string name="event_added">"Event has been added! With name:  "</string>
     <string name="no_event_data">Add your first Event!</string>
+    <string name="add_expense">Add Receipt</string>
     <string name="location_text">Location: </string>
     <string name="date_text">Start Date: </string>
     <string name="hotel">Hotel</string>
@@ -94,5 +101,33 @@
         <item>Restaurant</item>
         <item>Flight</item>
     </string-array>
+
+    <!-- Strings used for Expense Report fragment page -->
+    <string name="report_label">Events expenses summary</string>
+    <string name="report_image">Expense report Logo</string>
+    <string name="generate_report">Generate PDF report</string>
+    <string name="no_report_data">Add your first Event to generate Report!</string>
+    <string name="expense_total">Total: </string>
+    <string name="generate_report_failed">"Generate PDF report failed!"</string>
+    <string name="report_call_failed">No response from Generate PDF report call!</string>
+
+
+    <!-- Strings used for Statistics fragment page -->
+    <string name="statistics_label">COVID-19 Statistics</string>
+    <string name="covid_image">COVID-19 Logo</string>
+    <string name="statistics_get_call_failed">Failed to get response from call to Covid Summary statistics</string>
+    <string name="total_confirmed_label">Total Confirmed: </string>
+    <string name="total_deaths_label">Total Deaths: </string>
+    <string name="total_recovered_label">Total Recovered: </string>
+    <string name="new_confirmed_label">New Confirmed: </string>
+    <string name="new_recovered_label">New Recovered: </string>
+    <string name="new_deaths_label">New Deaths: </string>
+    <string name="last_update_label">Last Updated: </string>
+    <string name="bar_chart_title">Top 10 Countries by Confirmed Cases</string>
+    <string name="stacked_chart_title">Detailed Summary of Top 10 Countries</string>
+    <string name="simple_chart_title">Top 10 Countries by New Confirmed Cases</string>
+
+
+
 
 </resources>

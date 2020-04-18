@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/stacked_bar_chart_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:text="@string/stacked_chart_title"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/stacked_bar_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"/>
+
+</FrameLayout>

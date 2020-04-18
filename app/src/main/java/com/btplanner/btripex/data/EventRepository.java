@@ -2,6 +2,7 @@ package com.btplanner.btripex.data;
 
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.Trip;
 import com.btplanner.btripex.ui.event.EventViewModel;
 
@@ -45,11 +46,11 @@ public class EventRepository {
     }
 
     public void addEvent(String eventId, String eventName, EventType eventType, String eventDescription, String eventLocation,
-                         String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt,
-                         EventViewModel eventViewModel, Trip trip) {
+                         String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt1,
+                         String expenseReceipt2, String expenseReceipt3, EventViewModel eventViewModel, Trip trip) {
         setEventViewModel(eventViewModel);
         dataSource.addEvent(eventId, eventName, eventType, eventDescription, eventLocation, startDate, endDate,
-                eventTime, eventExpense, expenseReceipt, trip, instance);
+                eventTime, eventExpense, expenseReceipt1, expenseReceipt2, expenseReceipt3, trip, instance);
     }
 
     void addEvent(Result<Event> result) {
@@ -59,5 +60,14 @@ public class EventRepository {
             }
         }
         eventViewModel.addEvent(result);
+    }
+
+    public void generatePDFReport(String tripId, List<String> excludeEventIds, EventViewModel eventViewModel) {
+        setEventViewModel(eventViewModel);
+        dataSource.generatePDFReport(tripId, excludeEventIds, instance);
+    }
+
+    void generatePDFReport(Result<ExpenseReport> result) {
+        eventViewModel.generatePDFReport(result);
     }
 }

@@ -1,6 +1,7 @@
-package com.btplanner.btripex.ui.event.eventimeline;
+package com.btplanner.btripex.ui.event.home.eventimeline;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.view.ViewGroup;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
-import com.btplanner.btripex.ui.event.eventimeline.utils.VectorDrawableUtils;
+import com.btplanner.btripex.ui.utils.VectorDrawableUtils;
 import com.github.vipulasri.timelineview.TimelineView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
     private List<Event> mFeedList;
     private Context mContext;
+    private String previousMarker = "start";
 
     public TimeLineAdapter(List<Event> feedList) {
         mFeedList = feedList;
@@ -49,13 +53,16 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
 
         if (timeLineModel.getEventType() == EventType.HOTEL) {
             holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_hotel_fill));
-            holder.mType.setText(R.string.hotel);
+            String text = mContext.getResources().getString(R.string.hotel) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
         } else if (timeLineModel.getEventType() == EventType.RESTAURANT) {
             holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_restaurant_fill));
-            holder.mType.setText(R.string.restaurant);
+            String text = mContext.getResources().getString(R.string.restaurant) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
         } else if (timeLineModel.getEventType() == EventType.FLIGHT) {
             holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_airport_fill));
-            holder.mType.setText(R.string.flight);
+            String text = mContext.getResources().getString(R.string.flight) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
         }
 
         if (timeLineModel.getStartDate() != null && !timeLineModel.getStartDate().isEmpty()) {
@@ -77,6 +84,34 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
             holder.mLocation.setText(location);
         } else
             holder.mLocation.setVisibility(View.GONE);
+
+
+        String temp = previousMarker;
+        if (datePeriodDetection(timeLineModel.getEventTime().substring(0, 16)).equals("after")) {
+            holder.mTimelineView.setEndLineColor(Color.GREEN, holder.getItemViewType());
+            holder.mTimelineView.setStartLineColor(Color.GREEN, holder.getItemViewType());
+            previousMarker = "after";
+        } else if (datePeriodDetection(timeLineModel.getEventTime().substring(0, 16)).equals("before")) {
+            holder.mTimelineView.setEndLineColor(Color.RED, holder.getItemViewType());
+            holder.mTimelineView.setStartLineColor(Color.RED, holder.getItemViewType());
+            previousMarker = "before";
+        }
+        if(!temp.equals(previousMarker)){
+            holder.mTimelineView.setStartLineColor(Color.rgb(255,165,0), holder.getItemViewType());
+        }
+    }
+
+    private static String datePeriodDetection(String start) {
+
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startDate = LocalDateTime.parse(start, dateFormat);
+        LocalDateTime currentDate = LocalDateTime.now();
+        if(startDate.isAfter(currentDate)){
+            return "after";
+        } else if (startDate.isBefore(currentDate)){
+            return "before";
+        }
+        return "equal";
     }
 
     @Override

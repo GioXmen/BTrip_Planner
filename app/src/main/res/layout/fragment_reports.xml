@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.event.report.ReportsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    <TextView
+        android:id="@+id/expense_report_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/report_label"
+        android:textColor="#000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+        android:windowSoftInputMode="adjustNothing"
+        app:layout_constraintBottom_toTopOf="@+id/expenseRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/expenseRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+
+        android:scrollbars="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expense_report_text"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_event_total"/>
+
+
+        <TextView
+            android:id="@+id/report_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="350dp"
+            android:layout_marginBottom="350dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_below="@id/expense_report_text"
+            android:text="@string/no_report_data"
+            android:textSize="20sp"
+            android:layout_alignWithParentIfMissing="true"
+            android:visibility="gone"
+             />
+
+        <Button
+            android:id="@+id/generate_report"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="64dp"
+            android:layout_below="@id/expenseRecyclerView"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            android:padding="15dp"
+            android:text="@string/generate_report"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:windowSoftInputMode="adjustResize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expenseRecyclerView"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <ProgressBar
+            android:id="@+id/progressbarReports"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/generate_report"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="-41dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:indeterminate="true"
+            android:indeterminateTint="#1a09d6"
+            android:paddingBottom="?attr/actionBarSize"
+            app:layout_anchorGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/generate_report"
+            app:layout_constraintVertical_bias="0.1" />
+    </RelativeLayout>
+
+</ScrollView>

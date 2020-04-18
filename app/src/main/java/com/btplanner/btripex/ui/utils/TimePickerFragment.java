@@ -1,7 +1,5 @@
 package com.btplanner.btripex.ui.utils;
 
-
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -14,10 +12,9 @@ import androidx.fragment.app.DialogFragment;
 public class TimePickerFragment extends DialogFragment {
 
     private int hour, minute;
-    TimePickerDialog.OnTimeSetListener mListener;
+    private TimePickerDialog.OnTimeSetListener mListener;
 
     public TimePickerFragment() {
-        // Default constructor. Required
     }
 
     public void setOnTimeSelectedListener(TimePickerDialog.OnTimeSetListener listener) {
@@ -27,12 +24,10 @@ public class TimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
-        // Create a new instance of DatePickerDialog and return it
         return new TimePickerDialog(requireContext(), mListener, hour, minute, true);
     }
 }

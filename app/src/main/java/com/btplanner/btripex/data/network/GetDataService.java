@@ -1,6 +1,8 @@
 package com.btplanner.btripex.data.network;
 
+import com.btplanner.btripex.data.covidmodel.CovidSummary;
 import com.btplanner.btripex.data.model.Event;
+import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.RegisteredUser;
 import com.btplanner.btripex.data.model.Trip;
@@ -9,8 +11,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -34,4 +34,10 @@ public interface GetDataService {
 
     @GET("/event/get")
     Call<List<Event>> getAllEvents(@Query("tripId") String id);
+
+    @GET("/report/generate")
+    Call<ExpenseReport> generateReport(@Query("tripId") String id, @Query("eventIds") List<String> ids);
+
+    @GET("/covid/summary")
+    Call<CovidSummary> getCovidSummary();
 }

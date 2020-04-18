@@ -1,16 +1,16 @@
-package com.btplanner.btripex.ui.event.dashboard;
+package com.btplanner.btripex.ui.event.statistics;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class StatisticsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public StatisticsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is statistics fragment");
     }
 
     public LiveData<String> getText() {

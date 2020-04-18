@@ -40,14 +40,19 @@ public class Event implements Parcelable {
     private String eventTime;
     @SerializedName("expense")
     private String eventExpense;
-    @SerializedName("expenseReceipt")
-    private String expenseReceipt;
+    @SerializedName("expenseReceipt1")
+    private String expenseReceipt1;
+    @SerializedName("expenseReceipt2")
+    private String expenseReceipt2;
+    @SerializedName("expenseReceipt3")
+    private String expenseReceipt3;
     @SerializedName("trip")
     private Trip trip;
 
     public Event(String eventId, String eventName, EventType eventType,
                  String eventDescription, String eventLocation, String startDate, String endDate,
-                 String eventTime, String eventExpense, String expenseReceipt, Trip trip) {
+                 String eventTime, String eventExpense, String expenseReceipt1, String expenseReceipt2,
+                 String expenseReceipt3, Trip trip) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventType = eventType;
@@ -57,13 +62,15 @@ public class Event implements Parcelable {
         this.endDate = endDate;
         this.eventTime = eventTime;
         this.eventExpense = eventExpense;
-        this.expenseReceipt = expenseReceipt;
+        this.expenseReceipt1 = expenseReceipt1;
+        this.expenseReceipt2 = expenseReceipt2;
+        this.expenseReceipt3 = expenseReceipt3;
         this.trip = trip;
     }
 
     public Event(String eventName, EventType eventType, String eventDescription, String eventLocation,
                  String startDate, String endDate, String eventTime, String eventExpense,
-                 String expenseReceipt, Trip trip) {
+                 String expenseReceipt1, String expenseReceipt2, String expenseReceipt3, Trip trip) {
         this.eventName = eventName;
         this.eventType = eventType;
         this.eventDescription = eventDescription;
@@ -72,12 +79,15 @@ public class Event implements Parcelable {
         this.endDate = endDate;
         this.eventTime = eventTime;
         this.eventExpense = eventExpense;
-        this.expenseReceipt = expenseReceipt;
+        this.expenseReceipt1 = expenseReceipt1;
+        this.expenseReceipt2 = expenseReceipt2;
+        this.expenseReceipt3 = expenseReceipt3;
         this.trip = trip;
     }
 
     public Event(String eventName, EventType eventType, String eventDescription, String eventLocation,
-                 String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt) {
+                 String startDate, String endDate, String eventTime, String eventExpense, String expenseReceipt1,
+                 String expenseReceipt2, String expenseReceipt3) {
         this.eventName = eventName;
         this.eventType = eventType;
         this.eventDescription = eventDescription;
@@ -86,7 +96,9 @@ public class Event implements Parcelable {
         this.endDate = endDate;
         this.eventTime = eventTime;
         this.eventExpense = eventExpense;
-        this.expenseReceipt = expenseReceipt;
+        this.expenseReceipt1 = expenseReceipt1;
+        this.expenseReceipt2 = expenseReceipt2;
+        this.expenseReceipt3 = expenseReceipt3;
     }
 
     protected Event(Parcel in) {
@@ -98,7 +110,9 @@ public class Event implements Parcelable {
         this.endDate = in.readString();
         this.eventTime = in.readString();
         this.eventExpense = in.readString();
-        this.expenseReceipt = in.readString();
+        this.expenseReceipt1 = in.readString();
+        this.expenseReceipt2 = in.readString();
+        this.expenseReceipt3 = in.readString();
         int tmpMStatus = in.readInt();
         this.eventType = tmpMStatus == -1 ? null : EventType.values()[tmpMStatus];
     }
@@ -175,12 +189,27 @@ public class Event implements Parcelable {
         this.eventExpense = eventExpense;
     }
 
-    public String getExpenseReceipt() {
-        return expenseReceipt;
+    public String getExpenseReceipt1() {
+        return expenseReceipt1;
     }
 
-    public void setExpenseReceipt(String expenseReceipt) {
-        this.expenseReceipt = expenseReceipt;
+    public void setExpenseReceipt1(String expenseReceipt1) {
+        this.expenseReceipt1 = expenseReceipt1;
+    }
+
+    public String getExpenseReceipt2() {
+        return expenseReceipt2;
+    }
+
+    public void setExpenseReceipt2(String expenseReceipt2) {
+        this.expenseReceipt2 = expenseReceipt2;
+    }
+    public String getExpenseReceipt3() {
+        return expenseReceipt3;
+    }
+
+    public void setExpenseReceipt3(String expenseReceipt3) {
+        this.expenseReceipt3 = expenseReceipt3;
     }
 
     public Trip getTrip() {
@@ -206,7 +235,9 @@ public class Event implements Parcelable {
         dest.writeString(this.endDate);
         dest.writeString(this.eventTime);
         dest.writeString(this.eventExpense);
-        dest.writeString(this.expenseReceipt);
+        dest.writeString(this.expenseReceipt1);
+        dest.writeString(this.expenseReceipt2);
+        dest.writeString(this.expenseReceipt3);
         dest.writeInt(this.eventType == null ? -1 : this.eventType.ordinal());
     }
 }

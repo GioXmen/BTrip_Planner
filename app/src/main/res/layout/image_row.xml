@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_friend"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="10dp"
+    app:cardBackgroundColor="#F1F1F1"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+        android:id="@+id/expenseImage"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/image_thumbnail"
+        android:scaleType="centerCrop" />
+
+    <ImageButton
+        android:id="@+id/delete"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/red_trash_can"
+        android:layout_marginStart="285dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/delete_button"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/image_data"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="120dp"
+        android:layout_toEndOf="@+id/startDate"
+        android:lines="1"
+        android:visibility="invisible"
+        tools:text="data" />
+
+
+</androidx.cardview.widget.CardView>
