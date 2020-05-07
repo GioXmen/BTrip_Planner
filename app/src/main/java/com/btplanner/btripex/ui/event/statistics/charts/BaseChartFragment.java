@@ -67,7 +67,7 @@ public class BaseChartFragment extends Fragment {
 
         Collections.sort(covidCountries, new Comparator<CovidCountries>(){
             public int compare(CovidCountries obj1, CovidCountries obj2) {
-                 return Integer.compare(obj1.getTotalConfirmed(), obj2.getTotalConfirmed());
+                 return Integer.compare(obj2.getTotalConfirmed(), obj1.getTotalConfirmed());
             }
         });
 
@@ -148,7 +148,7 @@ public class BaseChartFragment extends Fragment {
 
         Collections.sort(covidCountries, new Comparator<CovidCountries>(){
             public int compare(CovidCountries obj1, CovidCountries obj2) {
-                return Integer.compare(obj1.getNewConfirmed(), obj2.getNewConfirmed());
+                return Integer.compare(obj2.getNewConfirmed(), obj1.getNewConfirmed());
             }
         });
 
@@ -224,7 +224,7 @@ public class BaseChartFragment extends Fragment {
 
         Collections.sort(covidCountries, new Comparator<CovidCountries>(){
             public int compare(CovidCountries obj1, CovidCountries obj2) {
-                return Integer.compare(obj1.getTotalConfirmed(), obj2.getTotalConfirmed());
+                return Integer.compare(obj2.getTotalConfirmed(), obj1.getTotalConfirmed());
             }
         });
 
