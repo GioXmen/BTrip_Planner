@@ -108,7 +108,11 @@ public class  HomeFragment extends Fragment {
     private void generateDataList(List<Event> eventList) {
         if (getActivity() != null && isAdded()) {
             staticEventsList = eventList;
-            List<String> ids = eventList.stream().map(Event::getEventId).collect(Collectors.toList());
+            //List<String> ids = eventList.stream().map(Event::getEventId).collect(Collectors.toList());
+            List<String> ids = new ArrayList<>();
+            for(int i=0; i<eventList.size(); i++){
+                ids.add(eventList.get(i).getEventId());
+            }
             int index = 0;
             for (Event event : eventList) {
                 eventsMap.put(ids.get(index), event);

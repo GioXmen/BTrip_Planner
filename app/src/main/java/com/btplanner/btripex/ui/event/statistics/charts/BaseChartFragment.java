@@ -26,6 +26,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -61,7 +62,14 @@ public class BaseChartFragment extends Fragment {
 
         ArrayList<BarEntry> values = new ArrayList<>();
         List<CovidCountries> covidCountries = covidSummary.getCountries();
-        covidCountries.sort(Comparator.comparing(CovidCountries::getTotalConfirmed).reversed());
+
+        //covidCountries.sort(Comparator.comparing(CovidCountries::getTotalConfirmed).reversed());
+
+        Collections.sort(covidCountries, new Comparator<CovidCountries>(){
+            public int compare(CovidCountries obj1, CovidCountries obj2) {
+                 return Integer.compare(obj1.getTotalConfirmed(), obj2.getTotalConfirmed());
+            }
+        });
 
         int[] colorsArray = new int[]{R.color.material_green_900, R.color.material_green_600, R.color.material_green_300, R.color.material_yellow_200,
                 R.color.material_yellow_300, R.color.material_yellow_600, R.color.material_yellow_800, R.color.material_red_500,
@@ -136,7 +144,13 @@ public class BaseChartFragment extends Fragment {
 
         ArrayList<BarEntry> values = new ArrayList<>();
         List<CovidCountries> covidCountries = covidSummary.getCountries();
-        covidCountries.sort(Comparator.comparing(CovidCountries::getNewConfirmed).reversed());
+        //covidCountries.sort(Comparator.comparing(CovidCountries::getNewConfirmed).reversed());
+
+        Collections.sort(covidCountries, new Comparator<CovidCountries>(){
+            public int compare(CovidCountries obj1, CovidCountries obj2) {
+                return Integer.compare(obj1.getNewConfirmed(), obj2.getNewConfirmed());
+            }
+        });
 
         int[] colorsArray = new int[]{R.color.material_green_900, R.color.material_green_600, R.color.material_green_300, R.color.material_yellow_200,
                 R.color.material_yellow_300, R.color.material_yellow_600, R.color.material_yellow_800, R.color.material_red_500,
@@ -206,8 +220,13 @@ public class BaseChartFragment extends Fragment {
 
         ArrayList<BarEntry> values = new ArrayList<>();
         List<CovidCountries> covidCountries = covidSummary.getCountries();
-        covidCountries.sort(Comparator.comparing(CovidCountries::getTotalConfirmed).reversed());
+        //covidCountries.sort(Comparator.comparing(CovidCountries::getTotalConfirmed).reversed());
 
+        Collections.sort(covidCountries, new Comparator<CovidCountries>(){
+            public int compare(CovidCountries obj1, CovidCountries obj2) {
+                return Integer.compare(obj1.getTotalConfirmed(), obj2.getTotalConfirmed());
+            }
+        });
 
         List<String> xAxisEntries = new ArrayList<>();
         for (int i = 0; i < count; i++) {

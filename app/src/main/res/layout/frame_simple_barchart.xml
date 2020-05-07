@@ -8,12 +8,13 @@
     <TextView
         android:id="@+id/simple_bar_chart_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:text="@string/simple_chart_title"
         android:textColor="#000"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:lines="2"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/simple_bar_chart"
