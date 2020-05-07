@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<Trip> tripList) {
-        List<String> ids = tripList.stream().map(Trip::getTripId).collect(Collectors.toList());
+        //List<String> ids = tripList.stream().map(Trip::getTripId).collect(Collectors.toList());
+        List<String> ids = new ArrayList<>();
+        for(int i=0; i<tripList.size(); i++){
+            ids.add(tripList.get(i).getTripId());
+        }
         int index = 0;
         for (Trip trip : tripList) {
             tripsMap.put(ids.get(index), trip);

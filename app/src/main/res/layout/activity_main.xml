@@ -39,6 +39,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:visibility="gone"
+        android:textSize="20sp"
         android:text="@string/no_trip_data" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

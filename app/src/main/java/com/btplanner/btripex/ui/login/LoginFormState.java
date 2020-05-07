@@ -10,17 +10,21 @@ class LoginFormState {
     private Integer usernameError;
     @Nullable
     private Integer passwordError;
+    @Nullable
+    private Integer devUrlError;
     private boolean isDataValid;
 
-    LoginFormState(@Nullable Integer usernameError, @Nullable Integer passwordError) {
+    LoginFormState(@Nullable Integer usernameError, @Nullable Integer passwordError, @Nullable Integer devUrlError) {
         this.usernameError = usernameError;
         this.passwordError = passwordError;
+        this.devUrlError = devUrlError;
         this.isDataValid = false;
     }
 
     LoginFormState(boolean isDataValid) {
         this.usernameError = null;
         this.passwordError = null;
+        this.devUrlError = null;
         this.isDataValid = isDataValid;
     }
 
@@ -32,6 +36,11 @@ class LoginFormState {
     @Nullable
     Integer getPasswordError() {
         return passwordError;
+    }
+
+    @Nullable
+    Integer getDevUrlError() {
+        return devUrlError;
     }
 
     boolean isDataValid() {

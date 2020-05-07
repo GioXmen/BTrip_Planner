@@ -83,7 +83,7 @@ public class ImagePicker
 
     public String getfilename_from_path(String path)
     {
-        return path.substring( path.lastIndexOf('/')+1, path.length() );
+        return path.substring( path.lastIndexOf('/')+1);
 
     }
 
@@ -559,8 +559,8 @@ public class ImagePicker
     {
         Log.d(TAG, "galley_call: ");
 
-        Intent intent2 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent2.setType("image/*");
+        Intent intent2 = new Intent(Intent.ACTION_PICK);
+        intent2.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
         if(isFragment)
             current_fragment.startActivityForResult(intent2,1);
@@ -770,10 +770,7 @@ public class ImagePicker
 
         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(),options);
 
-        if(bitmap!=null)
-            return bitmap;
-        else
-            return null;
+        return bitmap;
     }
 
     /**
@@ -838,7 +835,7 @@ public class ImagePicker
     // Image Attachment Callback
 
     public interface ImageAttachmentListener {
-        public void image_attachment(int from, String filename, Bitmap file, Uri uri);
+        void image_attachment(int from, String filename, Bitmap file, Uri uri);
     }
 
 

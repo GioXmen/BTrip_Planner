@@ -92,7 +92,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.CustomVi
                 .error(R.drawable.ic_launcher_background);
 
         if (eventModel.getEventType() == EventType.HOTEL) {
-            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_hotel_fill)).apply(options).into(holder.expenseType);
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(this.context, R.drawable.ic_hotel_fill)).apply(options).into(holder.expenseType);
         } else if (eventModel.getEventType() == EventType.RESTAURANT) {
             Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_restaurant_fill)).apply(options).into(holder.expenseType);
         } else if (eventModel.getEventType() == EventType.FLIGHT) {

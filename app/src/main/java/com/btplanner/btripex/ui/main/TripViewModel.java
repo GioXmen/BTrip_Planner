@@ -1,14 +1,19 @@
 package com.btplanner.btripex.ui.main;
 
+import android.annotation.SuppressLint;
+
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.TripRepository;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -68,17 +73,19 @@ public class TripViewModel extends ViewModel {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private static boolean isDatePeriodInValid(String start, String end) {
         try {
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate startDate = LocalDate.parse(start, dateFormat);
-            LocalDate endDate = LocalDate.parse(end, dateFormat);
-            //LocalDate current = LocalDate.now();
-            return (startDate.isAfter(endDate));
-        }catch(DateTimeParseException ex) {
-            ex.printStackTrace();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = sdf.parse(start);
+            Date endDate = sdf.parse(end);
+            return startDate.after(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return false;
     }
+
+
 
 }

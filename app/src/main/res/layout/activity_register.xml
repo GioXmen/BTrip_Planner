@@ -144,27 +144,31 @@
  />
 
     <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_below="@id/register"
+        android:id="@+id/register_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register"
         android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:layout_gravity="center"
+        android:layout_marginTop="-25dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:indeterminate="true"
+        android:indeterminateTint="#FFFFFF" />
 
     <TextView
         android:id="@+id/login"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="80dp"
-        android:layout_marginBottom="40dp"
+        android:layout_below="@+id/register_bar"
+        app:layout_anchorGravity="bottom|center"
+        android:layout_alignParentBottom="true"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
         android:text="@string/existing_account"
         android:textColor="#fff"
         android:textSize="17sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
 </RelativeLayout>

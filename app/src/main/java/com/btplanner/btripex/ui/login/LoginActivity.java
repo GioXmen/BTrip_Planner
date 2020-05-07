@@ -20,10 +20,13 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.btplanner.btripex.BtripApplication;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.ui.main.MainActivity;
 import com.btplanner.btripex.ui.register.RegisterActivity;
@@ -31,6 +34,9 @@ import com.btplanner.btripex.ui.register.RegisterActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private ImageView devLogo;
+    private int devOptionsClickCount;
+    private static BtripApplication btripApplication;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,13 +48,18 @@ public class LoginActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
+        final EditText devUrlEditText = findViewById(R.id.devUrl);
+        final ImageView devUrlIcon = findViewById(R.id.devUrlIcon);
         usernameEditText.setTypeface(custom_font);
         passwordEditText.setTypeface(custom_font);
+        devUrlEditText.setTypeface(custom_font);
         passwordEditText.setError(null);
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
         registerButton.setEnabled(true);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final ProgressBar loadingProgressBar = findViewById(R.id.login_bar);
+        loadingProgressBar.setVisibility(View.INVISIBLE);
+        devLogo = findViewById(R.id.logo);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -62,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginFormState.getPasswordError() != null && passwordEditText.getText().length() > 0) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
+                }
+                if (loginFormState.getDevUrlError() != null && devUrlEditText.getText().length() > 0) {
+                    devUrlEditText.setError(getString(loginFormState.getDevUrlError()));
                 }
             }
         });
@@ -100,11 +114,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), devUrlEditText.getText().toString());
             }
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
+        devUrlEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -120,6 +135,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!devUrlEditText.getText().toString().matches("")){
+                    ((BtripApplication) getApplication()).setServerUrl(devUrlEditText.getText().toString());
+                }
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString(), loginViewModel);
@@ -129,8 +147,26 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!devUrlEditText.getText().toString().matches("")){
+                    ((BtripApplication) getApplication()).setServerUrl(devUrlEditText.getText().toString());
+                }
                 Intent it = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(it);
+            }
+        });
+
+        devLogo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                devOptionsClickCount++;
+                if(devOptionsClickCount > 3) {
+                    devUrlEditText.setVisibility(View.VISIBLE);
+                    devUrlIcon.setVisibility(View.VISIBLE);
+                    ((RelativeLayout.LayoutParams) loginButton.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.devUrl);
+                    ((RelativeLayout.LayoutParams) registerButton.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.devUrl);
+                    v.invalidate();
+                    v.requestLayout();
+                }
             }
         });
     }

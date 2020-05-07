@@ -1,5 +1,6 @@
 package com.btplanner.btripex.ui.event.home.eventimeline;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,9 +13,13 @@ import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.ui.utils.VectorDrawableUtils;
 import com.github.vipulasri.timelineview.TimelineView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -101,17 +106,23 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private static String datePeriodDetection(String start) {
 
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime startDate = LocalDateTime.parse(start, dateFormat);
-        LocalDateTime currentDate = LocalDateTime.now();
-        if(startDate.isAfter(currentDate)){
-            return "after";
-        } else if (startDate.isBefore(currentDate)){
-            return "before";
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+            Date startDate = sdf.parse(start);
+            Date currentDate = new Date();
+            if (startDate.after(currentDate)) {
+                return "after";
+            } else if (startDate.before(currentDate)) {
+                return "before";
+            }
+            return "equal";
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        return "equal";
+        return "before";
     }
 
     @Override

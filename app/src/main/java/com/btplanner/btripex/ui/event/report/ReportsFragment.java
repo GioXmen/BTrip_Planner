@@ -2,14 +2,11 @@ package com.btplanner.btripex.ui.event.report;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,54 +19,41 @@ import android.widget.Toast;
 
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.Event;
-import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.event.EventViewModel;
 import com.btplanner.btripex.ui.event.EventViewModelFactory;
 import com.btplanner.btripex.ui.event.home.HomeFragment;
-import com.btplanner.btripex.ui.event.report.utils.ExpenseReportResult;
-import com.btplanner.btripex.ui.register.RegisterActivity;
 import com.btplanner.btripex.ui.utils.ClickListener;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
-import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-import static android.provider.MediaStore.AUTHORITY;
-
 public class ReportsFragment extends Fragment {
 
-    public Button generateReport;
+    private Button generateReport;
     private TextView emptyView;
     private ProgressBar progressBar;
     private EventViewModel eventViewModel;
 
-    private ReportsViewModel reportsViewModel;
     private List<Event> eventList = new ArrayList<>();
     private List<String> excludeEventIds = new ArrayList<>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        reportsViewModel =
-                ViewModelProviders.of(this).get(ReportsViewModel.class);
+        ReportsViewModel reportsViewModel = ViewModelProviders.of(this).get(ReportsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_reports, container, false);
-        //final TextView textView = root.findViewById(R.id.text_reports);
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
@@ -83,11 +67,11 @@ public class ReportsFragment extends Fragment {
         eventViewModel = ViewModelProviders.of(this, new EventViewModelFactory())
                 .get(EventViewModel.class);
 
-
         emptyView = requireView().findViewById(R.id.report_empty_view);
         generateReport = requireView().findViewById(R.id.generate_report);
         progressBar = requireView().findViewById(R.id.progressbarReports);
         progressBar.setVisibility(View.INVISIBLE);
+        excludeEventIds = new ArrayList<>();
         eventList = new ArrayList<>();
         eventList.addAll(HomeFragment.staticEventsList);
 
@@ -186,8 +170,6 @@ public class ReportsFragment extends Fragment {
             } catch (ActivityNotFoundException e) {
                 Toast.makeText(getContext(), "No PDF reader found or file path incorrect!" , Toast.LENGTH_LONG).show();
             }
-/*            Intent it = new Intent(getContext(), EventActivity.class);
-            startActivity(it);*/
         }
     }
 
@@ -196,7 +178,6 @@ public class ReportsFragment extends Fragment {
     }
 
     private void generateDataList(List<Event> eventList) {
-        excludeEventIds = new ArrayList<>();
         RecyclerView recyclerView = requireView().findViewById(R.id.expenseRecyclerView);
         generateReport = requireView().findViewById(R.id.generate_report);
 
@@ -217,7 +198,6 @@ public class ReportsFragment extends Fragment {
                 }
 
                 @Override public void onLongClicked(int position) {
-                    // callback performed on LongClick
                 }
             });
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext()) {

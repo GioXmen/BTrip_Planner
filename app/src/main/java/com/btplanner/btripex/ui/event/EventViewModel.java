@@ -7,7 +7,7 @@ import com.btplanner.btripex.data.model.Event;
 import com.btplanner.btripex.data.model.EventType;
 import com.btplanner.btripex.data.model.ExpenseReport;
 import com.btplanner.btripex.data.model.Trip;
-import com.btplanner.btripex.ui.event.report.utils.ExpenseReportResult;
+import com.btplanner.btripex.ui.event.report.ExpenseReportResult;
 import com.btplanner.btripex.ui.event.report.ExpenseReportUserView;
 
 import java.time.LocalDate;
