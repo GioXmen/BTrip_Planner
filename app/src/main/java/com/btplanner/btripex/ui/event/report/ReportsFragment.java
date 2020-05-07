@@ -23,7 +23,6 @@ import com.btplanner.btripex.ui.event.EventActivity;
 import com.btplanner.btripex.ui.event.EventViewModel;
 import com.btplanner.btripex.ui.event.EventViewModelFactory;
 import com.btplanner.btripex.ui.event.home.HomeFragment;
-import com.btplanner.btripex.ui.event.report.utils.ExpenseReportResult;
 import com.btplanner.btripex.ui.utils.ClickListener;
 
 import java.io.File;

@@ -48,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText.setTypeface(custom_font);
         passwordConfirmEditText.setTypeface(custom_font);
         final Button registerButton = findViewById(R.id.register);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final ProgressBar loadingProgressBar = findViewById(R.id.register_bar);
+        loadingProgressBar.setVisibility(View.INVISIBLE);
 
         registerViewModel.getRegisterFormState().observe(this, new Observer<RegisterFormState>() {
             @Override

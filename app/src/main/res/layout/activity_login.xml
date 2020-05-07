@@ -103,6 +103,44 @@
         android:layout_below="@id/username"
         android:contentDescription="@string/password_logo" />
 
+    <EditText
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:id="@+id/devUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+
+        android:hint="@string/prompt_url"
+        android:windowSoftInputMode="adjustPan"
+        android:textColorHint="#fff"
+        android:letterSpacing="0.1"
+        android:textColor="#fff"
+        android:imeActionLabel="@string/server_url"
+        android:imeOptions="actionDone"
+        android:selectAllOnFocus="true"
+        android:layout_below="@id/password"
+        android:importantForAutofill="no"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/devUrlIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="35dp"
+        android:src="@drawable/ic_language_black_24dp"
+        android:layout_below="@id/password"
+        android:contentDescription="@string/password_logo"
+        android:visibility="invisible"
+        />
+
     <Button
         android:id="@+id/login"
         android:layout_width="145dp"
@@ -142,12 +180,16 @@
         />
 
     <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_below="@id/login"
+        android:id="@+id/login_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/devUrl"
         android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        />
+        android:layout_marginTop="57dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:indeterminate="true"
+        android:indeterminateTint="#FFFFFF" />
+
+
 </RelativeLayout>

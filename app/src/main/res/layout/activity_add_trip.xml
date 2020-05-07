@@ -251,14 +251,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_above="@+id/progressbarAddTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="161dp"
         android:layout_below="@id/add_trip"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/image_thumbnail"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ph_add_image" />
 
 </RelativeLayout>

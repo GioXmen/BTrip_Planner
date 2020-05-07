@@ -1,5 +1,6 @@
 package com.btplanner.btripex.data.network;
 
+import com.btplanner.btripex.BtripApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,11 +12,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static final String BASE_URL = "http://78.56.50.162:8090";
+    private static String BASE_URL = "http://192.168.1.101:8090";
     private static Retrofit retrofit;
+    private static BtripApplication btripApplication;
 
     public static Retrofit getRetrofitInstance() {
-        if (retrofit == null) {
+        if(BtripApplication.getServerUrl() != null){
+            BASE_URL = "http://" + BtripApplication.getServerUrl() + ":8090";
+        }
+
+        if (retrofit == null || !retrofit.baseUrl().toString().equals(BASE_URL + "/")) {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();

@@ -1,4 +1,4 @@
-package com.btplanner.btripex.ui.event.report.utils;
+package com.btplanner.btripex.ui.event.report;
 
 import com.btplanner.btripex.ui.event.report.ExpenseReportUserView;
 
