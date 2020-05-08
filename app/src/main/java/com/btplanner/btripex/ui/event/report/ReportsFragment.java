@@ -1,8 +1,11 @@
 package com.btplanner.btripex.ui.event.report;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +36,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -67,6 +73,7 @@ public class ReportsFragment extends Fragment {
         eventViewModel = ViewModelProviders.of(this, new EventViewModelFactory())
                 .get(EventViewModel.class);
 
+        permission_check();
         emptyView = requireView().findViewById(R.id.report_empty_view);
         generateReport = requireView().findViewById(R.id.generate_report);
         progressBar = requireView().findViewById(R.id.progressbarReports);
@@ -213,6 +220,44 @@ public class ReportsFragment extends Fragment {
 
     private LinearLayoutManager getLinearLayoutManager() {
         return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+    }
+
+    private void permission_check()
+    {
+        int hasWriteContactsPermission = ContextCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED)
+        {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                showMessageOKCancel(
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                ActivityCompat.requestPermissions(requireActivity(),
+                                        new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        1);
+                            }
+                        });
+                return;
+            }
+
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
+    }
+
+    private void showMessageOKCancel(DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(requireActivity())
+                .setMessage("For saving expense documents , You need to provide write to storage permission")
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 
 }
