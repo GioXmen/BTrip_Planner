@@ -132,6 +132,7 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         if (getIntent().hasExtra("eventId")) {
             addEventButton.setEnabled(true);
             setFields();
+            getIntent().removeExtra("eventId");
         }
 
         if (getIntent().hasExtra("title")) {

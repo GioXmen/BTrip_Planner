@@ -7,6 +7,7 @@ import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.TripRepository;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
+import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ public class TripViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             Trip data = ((Result.Success<Trip>) result).getData();
             addTripResult.setValue(new AddTripResult(new TripsUserView(data, true)));
+            AddTrip.tripId = null;
         } else {
             addTripResult.setValue(new AddTripResult(R.string.trip_add_failed));
         }

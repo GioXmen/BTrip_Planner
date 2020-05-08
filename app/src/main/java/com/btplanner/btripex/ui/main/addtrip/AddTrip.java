@@ -81,18 +81,11 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         tripViewModel = ViewModelProviders.of(this, new TripViewModelFactory())
                 .get(TripViewModel.class);
 
-        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Light.ttf");
         tripNameEditText = findViewById(R.id.trip_name);
         tripDestinationEditText = findViewById(R.id.destination);
         tripDescriptionEditText = findViewById(R.id.description);
         tripStartEditText = findViewById(R.id.start_date);
         tripEndEditText = findViewById(R.id.end_date);
-
-        tripNameEditText.setTypeface(custom_font);
-        tripDestinationEditText.setTypeface(custom_font);
-        tripStartEditText.setTypeface(custom_font);
-        tripEndEditText.setTypeface(custom_font);
-        tripDescriptionEditText.setTypeface(custom_font);
 
         final Button addTripButton = findViewById(R.id.add_trip);
         final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddTrip);
@@ -104,6 +97,7 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         if (getIntent().hasExtra("tripId")) {
             addTripButton.setEnabled(true);
             setFields();
+            getIntent().removeExtra("tripId");
         }
 
         if (getIntent().hasExtra("username")) {
