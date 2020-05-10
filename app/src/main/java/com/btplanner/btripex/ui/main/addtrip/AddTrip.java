@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.btplanner.btripex.R;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
+import com.btplanner.btripex.ui.main.RemoveTripResult;
 import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;
 import com.btplanner.btripex.ui.main.AddTripResult;
@@ -88,14 +89,20 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         tripEndEditText = findViewById(R.id.end_date);
 
         final Button addTripButton = findViewById(R.id.add_trip);
+        final Button removeTripButton = findViewById(R.id.remove_trip);
         final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddTrip);
+        removeTripButton.setEnabled(false);
+        removeTripButton.setVisibility(View.GONE);
         loadingProgressBar.setVisibility(View.GONE);
 
         imagePicker = new ImagePicker(this);
         iv_attachment = findViewById(R.id.imageView);
 
+        tripId = null;
         if (getIntent().hasExtra("tripId")) {
             addTripButton.setEnabled(true);
+            removeTripButton.setEnabled(true);
+            removeTripButton.setVisibility(View.VISIBLE);
             setFields();
             getIntent().removeExtra("tripId");
         }
@@ -142,10 +149,30 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
                 }
                 loadingProgressBar.setVisibility(View.GONE);
                 if (addTripResult.getError() != null) {
-                    showAddTripFailed(addTripResult.getError());
+                    showEditTripFailed(addTripResult.getError());
                 }
                 if (addTripResult.getSuccess() != null) {
                     updateUiWithTrip(addTripResult.getSuccess());
+
+                    finish();
+                }
+                setResult(Activity.RESULT_OK);
+
+            }
+        });
+
+        tripViewModel.getRemoveTripResult().observe(this, new Observer<RemoveTripResult>() {
+            @Override
+            public void onChanged(@Nullable RemoveTripResult removeTripResult) {
+                if (removeTripResult == null) {
+                    return;
+                }
+                loadingProgressBar.setVisibility(View.GONE);
+                if (removeTripResult.getError() != null) {
+                    showEditTripFailed(removeTripResult.getError());
+                }
+                if (removeTripResult.getSuccess() != null) {
+                    finishTripRemoval();
 
                     finish();
                 }
@@ -210,6 +237,14 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
             }
         });
 
+        removeTripButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                tripViewModel.removeTrip(tripId, tripViewModel);
+            }
+        });
+
         iv_attachment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
@@ -268,7 +303,16 @@ public class AddTrip extends AppCompatActivity implements ImagePicker.ImageAttac
         finish();
     }
 
-    private void showAddTripFailed(@StringRes Integer errorString) {
+    private void finishTripRemoval() {
+        String tripRemoved = getString(R.string.trip_removed);
+        Toast.makeText(getApplicationContext(), tripRemoved, Toast.LENGTH_LONG).show();
+        Intent it = new Intent(getApplicationContext(), MainActivity.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(it);
+        finish();
+    }
+
+    private void showEditTripFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 

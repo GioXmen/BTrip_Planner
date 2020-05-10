@@ -24,6 +24,7 @@ public class TripViewModel extends ViewModel {
 
     private MutableLiveData<TripFormState> tripFormState = new MutableLiveData<>();
     private MutableLiveData<AddTripResult> addTripResult = new MutableLiveData<>();
+    private MutableLiveData<RemoveTripResult> removeTripResult = new MutableLiveData<>();
     private TripRepository tripRepository;
 
     TripViewModel(TripRepository tripRepository) {
@@ -36,6 +37,10 @@ public class TripViewModel extends ViewModel {
 
     public LiveData<AddTripResult> getAddTripResult() {
         return addTripResult;
+    }
+
+    public LiveData<RemoveTripResult> getRemoveTripResult() {
+        return removeTripResult;
     }
 
     public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
@@ -51,6 +56,21 @@ public class TripViewModel extends ViewModel {
             AddTrip.tripId = null;
         } else {
             addTripResult.setValue(new AddTripResult(R.string.trip_add_failed));
+        }
+    }
+
+    public void removeTrip(String tripId, TripViewModel tripViewModel) {
+
+        tripRepository.removeTrip(tripId, tripViewModel);
+    }
+
+    public void removeTrip(Result<Void> result) {
+        if (result instanceof Result.Success) {
+            removeTripResult.setValue(new RemoveTripResult(true));
+            AddTrip.tripId = null;
+        } else {
+            removeTripResult.setValue(new RemoveTripResult(false));
+            removeTripResult.setValue(new RemoveTripResult(R.string.trip_remove_failed));
         }
     }
 

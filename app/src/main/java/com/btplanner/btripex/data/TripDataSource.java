@@ -42,4 +42,27 @@ public class TripDataSource {
             }
         });
     }
+
+    void removeTrip(String tripId, TripRepository tripRepository) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<Void> call = service.removeTrip(tripId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                Result<Void> result = new Result.Success<>(response.code());
+                if ((response.code()) != 200) {
+                    result = new Result.Error(new IOException(String.valueOf(R.string.trip_remove_failed)));
+                }
+                tripRepository.removeTrip(result);
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Result<Void> result = new Result.Error(new IOException(String.valueOf(R.string.trip_call_failed), t));
+                tripRepository.removeTrip(result);
+            }
+        });
+    }
 }

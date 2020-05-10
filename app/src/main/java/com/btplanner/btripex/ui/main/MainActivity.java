@@ -48,8 +48,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        username = getIntent().getStringExtra("username");
-        password = getIntent().getStringExtra("password");
+        if(getIntent().hasExtra("username")) {
+            username = getIntent().getStringExtra("username");
+        }
+        if(getIntent().hasExtra("password")) {
+            password = getIntent().getStringExtra("password");
+        }
     }
 
     @Override

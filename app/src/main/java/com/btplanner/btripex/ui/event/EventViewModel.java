@@ -24,6 +24,7 @@ public class EventViewModel extends ViewModel {
     private MutableLiveData<EventFormState> eventFormState = new MutableLiveData<>();
     private MutableLiveData<EventResult> eventResult = new MutableLiveData<>();
     private MutableLiveData<ExpenseReportResult> expenseReportResult = new MutableLiveData<>();
+    private MutableLiveData<RemoveEventResult> removeEventResult = new MutableLiveData<>();
     private EventRepository eventRepository;
 
     EventViewModel(EventRepository eventRepository) {
@@ -36,6 +37,10 @@ public class EventViewModel extends ViewModel {
 
     public LiveData<EventResult> getEventResult() {
         return eventResult;
+    }
+
+    public LiveData<RemoveEventResult> getRemoveEventResult() {
+        return removeEventResult;
     }
 
     public LiveData<ExpenseReportResult> getExpenseReportResult() {
@@ -60,6 +65,21 @@ public class EventViewModel extends ViewModel {
             eventResult.setValue(new EventResult(new EventUserView(data, true)));
         } else {
             eventResult.setValue(new EventResult(R.string.event_add_failed));
+        }
+    }
+
+
+    public void removeEvent(String eventId, EventViewModel eventViewModel) {
+
+        eventRepository.removeEvent(eventId, eventViewModel);
+    }
+
+    public void removeEvent(Result<Void> result) {
+        if (result instanceof Result.Success) {
+            removeEventResult.setValue(new RemoveEventResult(true));
+        } else {
+            removeEventResult.setValue(new RemoveEventResult(false));
+            removeEventResult.setValue(new RemoveEventResult(R.string.event_remove_failed));
         }
     }
 

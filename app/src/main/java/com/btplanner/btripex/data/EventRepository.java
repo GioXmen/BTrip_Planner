@@ -70,4 +70,13 @@ public class EventRepository {
     void generatePDFReport(Result<ExpenseReport> result) {
         eventViewModel.generatePDFReport(result);
     }
+
+    public void removeEvent(String eventId, EventViewModel eventViewModel) {
+        setEventViewModel(eventViewModel);
+        dataSource.removeEvent(eventId, instance);
+    }
+
+    void removeEvent(Result<Void> result) {
+        eventViewModel.removeEvent(result);
+    }
 }
