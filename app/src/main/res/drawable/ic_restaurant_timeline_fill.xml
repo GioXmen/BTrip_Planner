@@ -6,7 +6,7 @@
       />
   <item
       android:gravity="center"
-      android:drawable="@drawable/ic_local_dining_72dp"
+      android:drawable="@drawable/ic_local_dining_24dp"
       android:top="20dp"
       android:bottom="20dp"
       android:left="20dp"

@@ -95,6 +95,13 @@
     <string name="hotel">Hotel</string>
     <string name="flight">Flight</string>
     <string name="restaurant">Restaurant</string>
+    <string name="transportation">Transportation</string>
+    <string name="meeting">Meeting</string>
+    <string name="activity">Activity</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="shopping">Shopping</string>
+    <string name="sightseeing">Sightseeing</string>
+    <string name="other">Other</string>
 
     <!-- Strings used for Event function errors -->
     <string name="event_add_failed">"Add/Update Event failed"</string>
@@ -107,6 +114,13 @@
         <item>Hotel</item>
         <item>Restaurant</item>
         <item>Flight</item>
+        <item>Transportation</item>
+        <item>Meeting</item>
+        <item>Activity</item>
+        <item>Entertainment</item>
+        <item>Shopping</item>
+        <item>Sightseeing</item>
+        <item>Other</item>
     </string-array>
 
     <!-- Strings used for Expense Report fragment page -->

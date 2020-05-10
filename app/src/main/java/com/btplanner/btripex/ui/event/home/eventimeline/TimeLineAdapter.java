@@ -57,16 +57,44 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineViewHolder> {
         Event timeLineModel = mFeedList.get(position);
 
         if (timeLineModel.getEventType() == EventType.HOTEL) {
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_hotel_fill));
+            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_hotel_timeline_fill));
             String text = mContext.getResources().getString(R.string.hotel) + " - " + timeLineModel.getEventName();
             holder.mType.setText(text);
         } else if (timeLineModel.getEventType() == EventType.RESTAURANT) {
-            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_restaurant_fill));
+            holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(mContext, R.drawable.ic_restaurant_timeline_fill));
             String text = mContext.getResources().getString(R.string.restaurant) + " - " + timeLineModel.getEventName();
             holder.mType.setText(text);
         } else if (timeLineModel.getEventType() == EventType.FLIGHT) {
-            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_airport_fill));
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_airport_timeline_fill));
             String text = mContext.getResources().getString(R.string.flight) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.TRANSPORTATION) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_transportation_timeline_fill));
+            String text = mContext.getResources().getString(R.string.transportation) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.MEETING) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_meeting_timeline_fill));
+            String text = mContext.getResources().getString(R.string.meeting) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.ACTIVITY) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_activity_timeline_fill));
+            String text = mContext.getResources().getString(R.string.activity) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.ENTERTAINMENT) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_entertainment_timeline_fill));
+            String text = mContext.getResources().getString(R.string.entertainment) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.SHOPPING) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_shopping_timeline_fill));
+            String text = mContext.getResources().getString(R.string.shopping) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.SIGHTSEEING) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_sightseeing_timeline_fill));
+            String text = mContext.getResources().getString(R.string.sightseeing) + " - " + timeLineModel.getEventName();
+            holder.mType.setText(text);
+        } else if (timeLineModel.getEventType() == EventType.OTHER) {
+            holder.mTimelineView.setMarker(ContextCompat.getDrawable(mContext, R.drawable.ic_other_timeline_fill));
+            String text = mContext.getResources().getString(R.string.other) + " - " + timeLineModel.getEventName();
             holder.mType.setText(text);
         }
 
