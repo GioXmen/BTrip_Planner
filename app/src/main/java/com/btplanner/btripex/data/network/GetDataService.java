@@ -29,11 +29,17 @@ public interface GetDataService {
     @GET("/trip/get")
     Call<List<Trip>> getAllTrips(@Query("username") String username, @Query("password") String password);
 
+    @POST("/trip/remove")
+    Call<Void> removeTrip(@Body String tripId);
+
     @POST("/event/add")
     Call<Event> addEvent(@Body Event event);
 
     @GET("/event/get")
     Call<List<Event>> getAllEvents(@Query("tripId") String id);
+
+    @POST("/event/remove")
+    Call<Void> removeEvent(@Body String eventId);
 
     @GET("/report/generate")
     Call<ExpenseReport> generateReport(@Query("tripId") String id, @Query("eventIds") List<String> ids);

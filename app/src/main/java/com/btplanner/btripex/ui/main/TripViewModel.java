@@ -7,6 +7,7 @@ import com.btplanner.btripex.data.Result;
 import com.btplanner.btripex.data.TripRepository;
 import com.btplanner.btripex.data.model.LoggedInUser;
 import com.btplanner.btripex.data.model.Trip;
+import com.btplanner.btripex.ui.main.addtrip.AddTrip;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class TripViewModel extends ViewModel {
 
     private MutableLiveData<TripFormState> tripFormState = new MutableLiveData<>();
     private MutableLiveData<AddTripResult> addTripResult = new MutableLiveData<>();
+    private MutableLiveData<RemoveTripResult> removeTripResult = new MutableLiveData<>();
     private TripRepository tripRepository;
 
     TripViewModel(TripRepository tripRepository) {
@@ -37,6 +39,10 @@ public class TripViewModel extends ViewModel {
         return addTripResult;
     }
 
+    public LiveData<RemoveTripResult> getRemoveTripResult() {
+        return removeTripResult;
+    }
+
     public void addTrip(String tripId, String title, String thumbnail, String tripDestination, String tripDescription,
                         String startDate, String endDate, TripViewModel tripViewModel, LoggedInUser user) {
 
@@ -47,8 +53,24 @@ public class TripViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             Trip data = ((Result.Success<Trip>) result).getData();
             addTripResult.setValue(new AddTripResult(new TripsUserView(data, true)));
+            AddTrip.tripId = null;
         } else {
             addTripResult.setValue(new AddTripResult(R.string.trip_add_failed));
+        }
+    }
+
+    public void removeTrip(String tripId, TripViewModel tripViewModel) {
+
+        tripRepository.removeTrip(tripId, tripViewModel);
+    }
+
+    public void removeTrip(Result<Void> result) {
+        if (result instanceof Result.Success) {
+            removeTripResult.setValue(new RemoveTripResult(true));
+            AddTrip.tripId = null;
+        } else {
+            removeTripResult.setValue(new RemoveTripResult(false));
+            removeTripResult.setValue(new RemoveTripResult(R.string.trip_remove_failed));
         }
     }
 

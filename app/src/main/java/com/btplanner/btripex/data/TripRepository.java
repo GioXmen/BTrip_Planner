@@ -58,4 +58,13 @@ public class TripRepository {
         }
         tripViewModel.addTrip(result);
     }
+
+    public void removeTrip(String tripId, TripViewModel tripViewModel) {
+        setTripViewModel(tripViewModel);
+        dataSource.removeTrip(tripId, instance);
+    }
+
+    void removeTrip(Result<Void> result) {
+        tripViewModel.removeTrip(result);
+    }
 }

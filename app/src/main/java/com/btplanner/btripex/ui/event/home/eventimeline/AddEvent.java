@@ -20,8 +20,11 @@ import com.btplanner.btripex.ui.event.EventResult;
 import com.btplanner.btripex.ui.event.EventUserView;
 import com.btplanner.btripex.ui.event.EventViewModel;
 import com.btplanner.btripex.ui.event.EventViewModelFactory;
+import com.btplanner.btripex.ui.event.RemoveEventResult;
 import com.btplanner.btripex.ui.event.home.eventimeline.utils.ImageAdapter;
 import com.btplanner.btripex.ui.event.home.HomeFragment;
+import com.btplanner.btripex.ui.main.MainActivity;
+import com.btplanner.btripex.ui.main.TripsUserView;
 import com.btplanner.btripex.ui.utils.ClickListener;
 import com.btplanner.btripex.ui.utils.DatePickerFragment;
 import com.btplanner.btripex.ui.login.LoginActivity;
@@ -123,15 +126,22 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
 
 
         final Button addEventButton = findViewById(R.id.add_event);
+        final Button removeEventButton = findViewById(R.id.remove_event);
         final ProgressBar loadingProgressBar = findViewById(R.id.progressbarAddEvent);
+        removeEventButton.setEnabled(false);
+        removeEventButton.setVisibility(View.GONE);
         loadingProgressBar.setVisibility(View.GONE);
 
         imagePicker = new ImagePicker(this);
         iv_attachment = findViewById(R.id.event_expense_imageView);
 
+        currentEventId = null;
         if (getIntent().hasExtra("eventId")) {
             addEventButton.setEnabled(true);
+            removeEventButton.setEnabled(true);
+            removeEventButton.setVisibility(View.VISIBLE);
             setFields();
+            getIntent().removeExtra("eventId");
         }
 
         if (getIntent().hasExtra("title")) {
@@ -180,13 +190,34 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
                 }
                 loadingProgressBar.setVisibility(View.GONE);
                 if (eventResult.getError() != null) {
-                    showAddEventFailed(eventResult.getError());
+                    showEditEventFailed(eventResult.getError());
                 }
                 if (eventResult.getSuccess() != null) {
                     updateUiWithEvent(eventResult.getSuccess());
                     finish();
                 }
                 setResult(Activity.RESULT_OK);
+            }
+        });
+
+
+        eventViewModel.getRemoveEventResult().observe(this, new Observer<RemoveEventResult>() {
+            @Override
+            public void onChanged(@Nullable RemoveEventResult removeEventResult) {
+                if (removeEventResult == null) {
+                    return;
+                }
+                loadingProgressBar.setVisibility(View.GONE);
+                if (removeEventResult.getError() != null) {
+                    showEditEventFailed(removeEventResult.getError());
+                }
+                if (removeEventResult.getSuccess() != null) {
+                    finishEventRemoval();
+
+                    finish();
+                }
+                setResult(Activity.RESULT_OK);
+
             }
         });
 
@@ -266,6 +297,14 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
                         eventLocationEditText.getText().toString(), eventStartEditText.getText().toString(), eventEndEditText.getText().toString(),
                         eventTimeEditText.getText().toString(), eventExpenseEditText.getText().toString(), expenseReceipt1, expenseReceipt2, expenseReceipt3,
                         eventViewModel, newTrip);
+            }
+        });
+
+        removeEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                eventViewModel.removeEvent(currentEvent.getEventId(), eventViewModel);
             }
         });
 
@@ -406,7 +445,13 @@ public class AddEvent extends AppCompatActivity implements ImagePicker.ImageAtta
         finish();
     }
 
-    private void showAddEventFailed(@StringRes Integer errorString) {
+    private void finishEventRemoval() {
+        String eventRemoved = getString(R.string.event_removed);
+        Toast.makeText(getApplicationContext(), eventRemoved, Toast.LENGTH_LONG).show();
+        finish();
+    }
+
+    private void showEditEventFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 

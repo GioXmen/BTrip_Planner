@@ -6,6 +6,7 @@
     <string name="image_thumbnail">Image thumbnail</string>
     <string name="delete_button">Image delete button</string>
     <string name="add_update">Add/Update</string>
+    <string name="remove">Remove</string>
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="start_time">Start time</string>
@@ -64,13 +65,14 @@
     <string name="trip_details">BTrip - Add/Update Trip</string>
     <string name="trip_list">BTrip - Trips list</string>
     <string name="trip_added">"Trip has been added! With name:  "</string>
+    <string name="trip_removed">"Trip has been removed!</string>
     <string name="no_trip_data">Add your first Trip!</string>
 
     <!-- Strings used for Trip function errors -->
     <string name="trip_add_failed">Add/Update Trip failed</string>
-    <string name="trip_call_failed">Failed to get response from call to add/update trip</string>
-    <string name="trip_get_call_failed">Failed to get response from call to add/update trip</string>
-    <string name="trip_remove_failed">"Remove Trip failed"</string>
+    <string name="trip_remove_failed">Remove Trip failed</string>
+    <string name="trip_call_failed">Failed to get response from call to add/update or remove trip</string>
+    <string name="trip_get_call_failed">Failed to get response from call to get trips</string>
 
     <!-- Strings used for Event Timeline fragment page -->
     <string name="event_label">Event details</string>
@@ -85,6 +87,7 @@
     <string name="event_type">Event type</string>
     <string name="event_time">Time of Event</string>
     <string name="event_added">"Event has been added! With name:  "</string>
+    <string name="event_removed">"Event has been removed!</string>
     <string name="no_event_data">Add your first Event!</string>
     <string name="add_expense">Add Receipt</string>
     <string name="location_text">Location: </string>
@@ -92,10 +95,18 @@
     <string name="hotel">Hotel</string>
     <string name="flight">Flight</string>
     <string name="restaurant">Restaurant</string>
+    <string name="transportation">Transportation</string>
+    <string name="meeting">Meeting</string>
+    <string name="activity">Activity</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="shopping">Shopping</string>
+    <string name="sightseeing">Sightseeing</string>
+    <string name="other">Other</string>
 
     <!-- Strings used for Event function errors -->
     <string name="event_add_failed">"Add/Update Event failed"</string>
-    <string name="event_call_failed">No response from Add/Update Event call!</string>
+    <string name="event_remove_failed">"Remove Event failed"</string>
+    <string name="event_call_failed">No response from Add/Update or Remove Event call!</string>
     <string name="event_get_call_failed">No response from Get Event call!</string>
 
     <!-- Strings used for Add Event choose type option selector -->
@@ -103,6 +114,13 @@
         <item>Hotel</item>
         <item>Restaurant</item>
         <item>Flight</item>
+        <item>Transportation</item>
+        <item>Meeting</item>
+        <item>Activity</item>
+        <item>Entertainment</item>
+        <item>Shopping</item>
+        <item>Sightseeing</item>
+        <item>Other</item>
     </string-array>
 
     <!-- Strings used for Expense Report fragment page -->

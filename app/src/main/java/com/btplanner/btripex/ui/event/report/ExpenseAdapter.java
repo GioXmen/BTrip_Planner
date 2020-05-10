@@ -97,6 +97,20 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.CustomVi
             Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_restaurant_fill)).apply(options).into(holder.expenseType);
         } else if (eventModel.getEventType() == EventType.FLIGHT) {
             Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_airport_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.TRANSPORTATION) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_transportation_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.MEETING) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_meeting_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.ACTIVITY) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_activity_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.ENTERTAINMENT) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_entertainment_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.SHOPPING) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_shopping_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.SIGHTSEEING) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_sightseeing_fill)).apply(options).into(holder.expenseType);
+        } else if (eventModel.getEventType() == EventType.OTHER) {
+            Glide.with(context).load(VectorDrawableUtils.getBitmap(context, R.drawable.ic_other_fill)).apply(options).into(holder.expenseType);
         }
 
 

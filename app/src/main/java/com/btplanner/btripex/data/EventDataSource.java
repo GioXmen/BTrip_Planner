@@ -48,6 +48,30 @@ public class EventDataSource {
         });
     }
 
+
+    void removeEvent(String eventId, EventRepository eventRepository) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<Void> call = service.removeEvent(eventId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                Result<Void> result = new Result.Success<>(response.code());
+                if ((response.code()) != 200) {
+                    result = new Result.Error(new IOException(String.valueOf(R.string.event_remove_failed)));
+                }
+                eventRepository.removeEvent(result);
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Result<Void> result = new Result.Error(new IOException(String.valueOf(R.string.event_call_failed), t));
+                eventRepository.removeEvent(result);
+            }
+        });
+    }
+
      void generatePDFReport(String tripId, List<String> excludeEventIds, EventRepository eventRepository) {
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
