@@ -1,7 +1,7 @@
 ## BTrip - Business trip planner "Android" application
 
 <p align="center">
-  <img width="450" height="200" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/index.png">
+  <img width="450" height="220" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/index.png">
 </p>
 
 ### Related Back-End server github project repository
@@ -18,7 +18,7 @@ https://github.com/GioXmen/BTripExBackend
 ### 1.2 Basic data model for Users, Trips and Events
 - The data model consists of a user, that carries a username and password. The user may have more than one trip and a trip consists of name, description, destination, start date, end date and a thumbnail image. A trip may have more than one event associated to it, and an event consists name, description, location, start date, start time, end date, event type, event total expense and multiple expense images.
 <p align="center">
-  <img width="900" height="450" src="https://raw.githubusercontent.com/GioXmen/BTripExBackend/develop/BackEndReadme/Database_full.jpg">
+  <img width="900" height="550" src="https://raw.githubusercontent.com/GioXmen/BTripExBackend/develop/BackEndReadme/Database_full.jpg">
 </p>
 
 ### 1.3 Top down view of the created system - Component diagram for android application
@@ -47,12 +47,12 @@ The BTrip android application consists of these main components:
 
 ### 2.2 Trip list, add/edit trip, select date and image
 <p align="center">
-  <img width="1000" height="350" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/trip.jpg">
+  <img width="1000" height="370" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/trip.jpg">
 </p>
 
 ### 2.3 Event timeline, add/edit event, select event type, select time, expense list + edit/view
 <p align="center">
-  <img width="1000" height="350" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/event.jpg">
+  <img width="1000" height="370" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/event.jpg">
 </p>
 
 ### 2.4 COVID-19 Statistics visualization
