@@ -1,4 +1,4 @@
-## Backend server for BTrip - Business trip planner "Android" app
+## BTrip - Business trip planner "Android" application
 
 <p align="center">
   <img width="450" height="200" src="https://raw.githubusercontent.com/GioXmen/BTrip_Planner/develop/FrontEndReadme/index.png">
