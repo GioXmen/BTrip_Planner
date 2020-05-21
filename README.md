@@ -7,6 +7,9 @@
 ### Related Back-End server github project repository
 https://github.com/GioXmen/BTripExBackend
 
+#### Installation pack
+[Google drive link - Installation pack](https://drive.google.com/open?id=1-v1Cd9j46grtVd3sMsbdCL-JpVxU5KRj "Installation pack google drive download")
+
 ### 1 Overview of entire project
 ### 1.1 Context diagram for the whole project
 - The project consists of a Android front-end application, which is used for user input, interaction and displaying results. The second part is the back-end server, which handles requests for data storage and retrieval. The server stores and retrieves data from a MySQL database. Secondly, the server is also capable of retrieving statistics data about the "COVID-19" global pandemic, serializing it into a usable data structure and passing it on to the front-end application. Lastly, the server is used for PDF report generation from user input data.
